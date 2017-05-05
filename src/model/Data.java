@@ -9,24 +9,29 @@ import java.util.Random;
  */
 public final class Data {
 
-	private static final int ROW = 4;
-	private static final int COL = 4;
-	public static final int INIT_FIELD_SCORE = 2;
+	private static final int RAND_RATIO_MAX = 50;
+	public static final int ROW = 4;
+	public static final int COL = 4;
+	public static final int INIT_FIELD_AMOUNT = 2;
+	public static final int UPDATE_FIELD_AMOUNT = 1;
 	
-	int[][] board = new int[COL][ROW];
+	private Field[][] board = new Field[ROW][COL];
 	private Random random;
 	
 	public Data() {
 		this.random = new Random();
-		resetBoard();
+		setUpBoard();
 	}
 	
-	public int[][] getBoard() {
-		return board;
-	}
-	
-	public void setBoard(int[][] board) {
-		this.board = board;
+	/**
+	 * TODO
+	 */
+	private void setUpBoard() {
+		for (int i = 0; i < ROW; i++) {
+			for (int j = 0; j < COL; j++) {
+				this.board[i][j] = new Field();
+			}
+		}
 	}
 	
 	/**
@@ -46,12 +51,30 @@ public final class Data {
 		return this.random.nextInt(COL);
 	}
 	
-	
+	/**
+	 * TODO
+	 */
 	public void resetBoard() {
-		for (int i = 0; i < ROW; i++) {
-			for (int j = 0; j < COL; j++) {
-				this.board[i][j] = 0;
+		for (Field[] fields : board) {
+			for (Field field : fields) {
+				field.setValue(0);
 			}
 		}
+	}
+	
+	/**
+	 * TODO
+	 * @return
+	 */
+	public int getRandomValue() {
+		return this.random.nextInt(RAND_RATIO_MAX) <= 10 ? 4 : 2;
+	}
+	
+	public Field[][] getBoard() {
+		return board;
+	}
+	
+	public void setBoard(Field[][] board) {
+		this.board = board;
 	}
 }
