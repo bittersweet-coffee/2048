@@ -281,13 +281,11 @@ public class MainController {
 		int merge = 0;
 		for (int col = 0; col < board.length; col++) {
 			for (int row = board.length-1; row >= 0; row--) {
-				if (board[row][col].isOccupied() && row != 0) {
-					for (int row_merge = row+1; row_merge < board.length; row_merge++) {
-						if (board[row_merge][col].isOccupied() && (board[row][col].getValue() == board[row_merge][col].getValue())) {
-							merge(board, row, col, row_merge, col);
-							merge = performMoveDown(board);
-							merge++;
-						}
+				if (board[row][col].isOccupied() && row+1 != board.length) {
+					if (board[row+1][col].isOccupied() && (board[row][col].getValue() == board[row+1][col].getValue())) {
+						merge(board, row, col, row+1, col);
+						merge = performMoveDown(board);
+						merge++;
 					}
 				}
 			}
