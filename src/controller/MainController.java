@@ -39,7 +39,6 @@ public class MainController {
 		startGame();
 	}
 	
-	
 	@FXML
 	private void startGame() {
 		Field[][] board = MainController.data.getBoard();
@@ -370,8 +369,7 @@ public class MainController {
 		updateBoardView();
 	}
 
-	
-
+  
 	/**
 	 * Starts a new game by launch the JavaFx Board of the game.
 	 * Gets the data class form the model where the game hosts its data.

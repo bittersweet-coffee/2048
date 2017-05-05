@@ -16,7 +16,6 @@ public class NumberBox extends HBox{
 	private static final int FONT_SIZE = 40;
 	private static final String FONT_STYLE = "Arial";
 	
-	
 	public NumberBox() {
 		this.setAlignment(Pos.CENTER);
 		this.lbl = new Label("");
