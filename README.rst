@@ -35,8 +35,7 @@ follow them:
 * `Google Java Style Guide`_
 
 As Oracle does not provide a new style guide we follow the one from Google,
-though with one expection: Indentation are 4 spaces long and consist of spaces,
-not tabs!
+though with one expection: Indentation are 4 spaces long and consist of tabs.
 
 .. _Oracle Java Language Specification:
    http://docs.oracle.com/javase/specs/jls/se8/html/index.html
