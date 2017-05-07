@@ -35,7 +35,9 @@ follow them:
 * `Google Java Style Guide`_
 
 As Oracle does not provide a new style guide we follow the one from Google,
-though with one expection: Indentation are 4 spaces long and consist of tabs.
+though with two expections: Indentation are 4 spaces long and consist of tabs
+and lines should be wrapped after 80 characters. Otherwise it's just painful to
+view the code on smaller screens.
 
 .. _Oracle Java Language Specification:
    http://docs.oracle.com/javase/specs/jls/se8/html/index.html
