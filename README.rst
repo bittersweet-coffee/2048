@@ -28,7 +28,20 @@ only as this is an academical project.
 
 Development Guide
 -----------------
-TODO
+This projects follows the coding guidelines listed below, please make sure to
+follow them:
+
+* `Oracle Java Language Specification`_
+* `Google Java Style Guide`_
+
+As Oracle does not provide a new style guide we follow the one from Google,
+though with one expection: Indentation are 4 spaces long and consist of spaces,
+not tabs!
+
+.. _Oracle Java Language Specification:
+   http://docs.oracle.com/javase/specs/jls/se8/html/index.html
+.. _Google Java Style Guide:
+   https://google.github.io/styleguide/javaguide.html
 
 License
 =======
