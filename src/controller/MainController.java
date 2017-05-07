@@ -5,16 +5,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import model.Data;
-import model.Field;
+import model.BoardModel;
+import model.FieldModel;
 import view.Board;
 
 public class MainController {
+	private static final int WIN_FIELD_VALUE = 2048;
 	
-	private static Data data;
+	private static BoardModel data;
 	
-	@FXML
-	GridPane board;
 	
 	@FXML
 	Button startButton;
@@ -38,16 +37,16 @@ public class MainController {
 	
 	@FXML
 	private void startGame() {
-		Field[][] board = MainController.data.getBoard();
+		FieldModel[][] board = MainController.data.getBoard();
 		initBoardView(this.board, board);
-		addBox(board, Data.INIT_FIELD_AMOUNT);
+		addBox(board, BoardModel.INIT_FIELD_AMOUNT);
 		this.startButton.setDisable(true);
 		updateBoardView();
 	}
 	
 	@FXML
 	public void moveRight() {
-		Field[][] board = MainController.data.getBoard();
+		FieldModel[][] board = MainController.data.getBoard();
 		int move = performMoveRight(board);
 		int merge = performMergeRight(board);
 		performAdd(board, move, merge);
@@ -58,7 +57,7 @@ public class MainController {
 
 	@FXML
 	public void moveLeft() {
-		Field[][] board = MainController.data.getBoard();
+		FieldModel[][] board = MainController.data.getBoard();
 		int move = performMoveLeft(board);
 		int merge = performMergeLeft(board);
 		performAdd(board, move, merge);
@@ -69,7 +68,7 @@ public class MainController {
 	
 	@FXML
 	public void moveTop() {
-		Field[][] board = MainController.data.getBoard();
+		FieldModel[][] board = MainController.data.getBoard();
 		int move = performMoveTop(board);
 		int merge = performMergeTop(board);
 		performAdd(board, move, merge);
@@ -80,7 +79,7 @@ public class MainController {
 	
 	@FXML
 	public void moveDown() {
-		Field[][] board = MainController.data.getBoard();
+		FieldModel[][] board = MainController.data.getBoard();
 		int move = performMoveDown(board);
 		int merge = performMergeDown(board);
 		performAdd(board, move, merge);
@@ -110,7 +109,7 @@ public class MainController {
 	}
 	
 	private void updateBoardView() {
-		Field[][] board = MainController.data.getBoard();
+		FieldModel[][] board = MainController.data.getBoard();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
 				board[i][j].update(this.board, i, j);
@@ -119,7 +118,7 @@ public class MainController {
 	}
 
 
-	private void initBoardView(GridPane gridBoard, Field[][] board) {
+	private void initBoardView(GridPane gridBoard, FieldModel[][] board) {
 		for (int row = 0; row < board.length; row++) {
 			for (int col = 0; col < board.length; col++) {
 				board[row][col].init(this.board, col, row);
@@ -128,7 +127,7 @@ public class MainController {
 		
 	}
 	
-	private void addBox(Field[][] board, int amount) {
+	private void addBox(FieldModel[][] board, int amount) {
 		int counter = 0;
 		while (counter != amount) {
 			int row = MainController.data.getRandomRow();
@@ -146,7 +145,7 @@ public class MainController {
 	}
 
 
-	private int performMergeRight(Field[][] board) {
+	private int performMergeRight(FieldModel[][] board) {
 		int merge = 0;
 		for (int row = board.length-1; row >= 0; row--) {
 			for (int col = board.length-1; col >= 0; col--) {
@@ -162,7 +161,7 @@ public class MainController {
 		return merge;
 	}
 	
-	private int performMoveRight(Field[][] board) {
+	private int performMoveRight(FieldModel[][] board) {
 		int move = 0;
 		for (int row = board.length-1; row >= 0; row--) {
 			for (int col = board.length-1; col >= 0; col--) {
@@ -186,7 +185,7 @@ public class MainController {
 		return move;
 	}
 	
-	private int performMergeLeft(Field[][] board) {
+	private int performMergeLeft(FieldModel[][] board) {
 		int merge = 0;
 		for (int row = 0; row < board.length; row++) {
 			for (int col = 0; col < board.length; col++) {
@@ -203,7 +202,7 @@ public class MainController {
 		return merge;
 	}
 	
-	private int performMoveLeft(Field[][] board) {
+	private int performMoveLeft(FieldModel[][] board) {
 		int move = 0;
 		for (int row = 0; row < board.length; row++) {
 			for (int col = 0; col < board.length; col++) {
@@ -226,7 +225,7 @@ public class MainController {
 		return move;
 	}
 	
-	private int performMergeTop(Field[][] board) {
+	private int performMergeTop(FieldModel[][] board) {
 		int merge = 0;
 		for (int col = board.length-1; col >= 0; col--) {
 			for (int row = 0; row < board.length; row++) {
@@ -242,7 +241,7 @@ public class MainController {
 		return merge;
 	}
 	
-	private int performMoveTop(Field[][] board) {
+	private int performMoveTop(FieldModel[][] board) {
 		int move = 0;
 		for (int col = board.length-1; col >= 0; col--) {
 			for (int row = 0; row < board.length; row++) {
@@ -265,7 +264,7 @@ public class MainController {
 		return move;
 	}
 	
-	private int performMergeDown(Field[][] board) {
+	private int performMergeDown(FieldModel[][] board) {
 		int merge = 0;
 		for (int col = 0; col < board.length; col++) {
 			for (int row = board.length-1; row >= 0; row--) {
@@ -281,7 +280,7 @@ public class MainController {
 		return merge;
 	}
 	
-	private int performMoveDown(Field[][] board) {
+	private int performMoveDown(FieldModel[][] board) {
 		int move = 0;
 		for (int col = 0; col < board.length; col++) {
 			for (int row = board.length-1; row >= 0; row--) {
@@ -305,11 +304,11 @@ public class MainController {
 	}
 	
 	private void displayASCCII() {
-		Field[][] board = MainController.data.getBoard();
+		FieldModel[][] board = MainController.data.getBoard();
 		System.out.println("Board:");
-		for (Field[] fields : board) {
+		for (FieldModel[] fields : board) {
 			System.out.println();
-			for (Field field : fields) {
+			for (FieldModel field : fields) {
 				System.out.print(field.getValue() + " ");
 			}
 		}
@@ -317,31 +316,31 @@ public class MainController {
 		System.out.println();
 	}
 
-	private void merge(Field[][] board, int row_from, int col_from, int row_to, int col_to) {
+	private void merge(FieldModel[][] board, int row_from, int col_from, int row_to, int col_to) {
 		int value = board[row_to][col_to].getValue() + board[row_from][col_from].getValue();
 		board[row_to][col_to].setValue(value);
-		board[row_from][col_from] = new Field();
+		board[row_from][col_from] = new FieldModel();
 		MainController.data.setBoard(board);
 		updateBoardView();
 	}
 	
-	private void move(Field[][] board, int row_from, int col_from, int row_to, int col_to) {
+	private void move(FieldModel[][] board, int row_from, int col_from, int row_to, int col_to) {
 		board[row_to][col_to].setValue(board[row_from][col_from].getValue());
-		board[row_from][col_from] = new Field();
+		board[row_from][col_from] = new FieldModel();
 		MainController.data.setBoard(board);
 		updateBoardView();
 	}
 	
-	private void performAdd(Field[][] board, int move, int merge) {
+	private void performAdd(FieldModel[][] board, int move, int merge) {
 		if (move != 0 || merge != 0) {
-			addBox(board, Data.UPDATE_FIELD_AMOUNT);
+			addBox(board, BoardModel.UPDATE_FIELD_AMOUNT);
 		}		
 	}
 	
-	private boolean checkWin(Field[][] board) {
-		for (Field[] fields : board) {
-			for (Field field : fields) {
-				if (field.getValue() == Field.getWinFieldValue()) {
+	private boolean checkWin(FieldModel[][] board) {
+		for (FieldModel[] fields : board) {
+			for (FieldModel field : fields) {
+				if (field.getValue() == FieldModel.getWinFieldValue()) {
 					return true;
 				}
 			}
@@ -361,15 +360,39 @@ public class MainController {
 	 * Gets the data class form the model where the game hosts its data.
 	 * @param data
 	 */
-	public void startNewGame(Data data) {
+	public void startNewGame(BoardModel data) {
 		setGame(data);
 		Application.launch(Board.class);
 		
 	}
 
 
-	private void setGame(Data data) {
+	private void setGame(BoardModel data) {
 		MainController.data = data;
 		
+	}
+
+	// old field stuff
+	public static int getWinFieldValue() {
+		return WIN_FIELD_VALUE;
+	}
+
+	// old field stuff
+	public void update(GridPane board, int i, int j) {
+		for (Node node : board.getChildren()) {
+			if (node instanceof HBox && GridPane.getRowIndex(node) == i && GridPane.getColumnIndex(node) == j) {
+				if (this.value != 0) {
+					((NumberBox)node).setLabelText(Integer.toString(this.value));
+				} else {
+					((NumberBox)node).setLabelText("");
+				}
+			}
+		}
+	}
+	
+	// old field stuff
+	public void init(GridPane board, int col, int row) {
+		this.box = new NumberBox();
+		board.add(this.box, col, row);
 	}
 }
