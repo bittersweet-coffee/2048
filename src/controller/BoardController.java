@@ -20,18 +20,32 @@ public class BoardController implements ActionListener {
 	public BoardController() {
 	}
 	
+	/**
+	 * TODO
+	 */
 	public void actionPerformed(ActionEvent e) {
 		
 	}
 	
+	/**
+	 * TODO
+	 * @param boardModel
+	 */
 	public void addBoardModel(BoardModel boardModel) {
 		this.boardModel = boardModel;
 	}
 	
+	/**
+	 * TODO
+	 * @param boardView
+	 */
 	public void addBoardView(BoardView boardView) {
 		this.boardView = boardView;
 	}
 	
+	/**
+	 * TODO
+	 */
 	public void initBoardModel() {
 		this.boardModel.initializeBoardModel();
 	}

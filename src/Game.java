@@ -34,6 +34,9 @@ public class Game extends Application {
 				.getResource("/view/BoardView.fxml"));
 	}
 
+	/**
+	 * TODO
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("2048");
@@ -56,6 +59,10 @@ public class Game extends Application {
 		boardController.initBoardModel();
 	}
 
+	/**
+	 * TODO
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

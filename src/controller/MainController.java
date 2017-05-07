@@ -9,6 +9,13 @@ import model.BoardModel;
 import model.FieldModel;
 import view.Board;
 
+
+// THIS STUFF IS NOW SEPARATED INTO DIFFERENT FILES
+// WE STILL NEED TO MOVE THE GAMELOGIC TO GameLogic.java!!
+// ALSO THE BUTTONS ARE NOT YET IMPLEMENTED IN THIS REFACTORED VERSION
+// THE IDEA IS TO MOVE THEM TO ControllerView and ControllerController
+// WE SHOULD PROBABLY CHANGE THE NAME ;)
+
 public class MainController {
 	private static final int WIN_FIELD_VALUE = 2048;
 	
