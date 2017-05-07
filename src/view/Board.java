@@ -1,5 +1,8 @@
 package view;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,10 +34,5 @@ public class Board extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();    
 	}
-	
-	
-	
-	
-	
 
 }

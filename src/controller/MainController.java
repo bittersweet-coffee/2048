@@ -2,15 +2,12 @@ package controller;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import model.Data;
 import model.Field;
 import view.Board;
-import view.NumberBox;
 
 public class MainController {
 	
@@ -116,25 +113,16 @@ public class MainController {
 		Field[][] board = MainController.data.getBoard();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
-				for (Node node : this.board.getChildren()) {
-					if (node instanceof HBox && GridPane.getRowIndex(node) == i && GridPane.getColumnIndex(node) == j) {
-						if (board[i][j].getValue() != 0) {
-							((NumberBox)node).setLabelText(Integer.toString(board[i][j].getValue()));
-						} else {
-							((NumberBox)node).setLabelText("");
-						}
-						
-					}
-				}
+				board[i][j].update(this.board, i, j);
 			}
 		}
 	}
 
 
 	private void initBoardView(GridPane gridBoard, Field[][] board) {
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board.length; j++) {
-				gridBoard.add(new NumberBox(), i, j);
+		for (int row = 0; row < board.length; row++) {
+			for (int col = 0; col < board.length; col++) {
+				board[row][col].init(this.board, col, row);
 			}
 		}
 		
@@ -281,13 +269,11 @@ public class MainController {
 		int merge = 0;
 		for (int col = 0; col < board.length; col++) {
 			for (int row = board.length-1; row >= 0; row--) {
-				if (board[row][col].isOccupied() && row != 0) {
-					for (int row_merge = row+1; row_merge < board.length; row_merge++) {
-						if (board[row_merge][col].isOccupied() && (board[row][col].getValue() == board[row_merge][col].getValue())) {
-							merge(board, row, col, row_merge, col);
-							merge = performMoveDown(board);
-							merge++;
-						}
+				if (board[row][col].isOccupied() && row+1 != board.length) {
+					if (board[row+1][col].isOccupied() && (board[row][col].getValue() == board[row+1][col].getValue())) {
+						merge(board, row, col, row+1, col);
+						merge = performMoveDown(board);
+						merge++;
 					}
 				}
 			}
