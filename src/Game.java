@@ -14,10 +14,7 @@ import view.BoardView;
  * together.
  */
 public class Game extends Application {
-
-	@FXML
-	private GridPane board;
-
+	
 	private FXMLLoader loader;
 
 	private BoardModel boardModel;
@@ -30,6 +27,13 @@ public class Game extends Application {
 	 * together.
 	 */
 	public Game() {
+		System.out.println("Controller");
+		this.boardModel = new BoardModel();
+		this.boardController = new BoardController();
+		this.boardView = new BoardView();
+		boardController.addBoardModel(this.boardModel);
+		boardController.addBoardView(this.boardView);
+		
 		this.loader = new FXMLLoader(getClass()
 				.getResource("/view/BoardView.fxml"));
 	}
@@ -39,6 +43,7 @@ public class Game extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		System.out.println("start");
 		primaryStage.setTitle("2048");
 
 		Scene scene = new Scene((Parent) this.loader.load());
@@ -47,16 +52,10 @@ public class Game extends Application {
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
-
-		this.boardModel = new BoardModel();
-		this.boardView = new BoardView(this.board);
+		
 		
 		boardModel.addObserver(boardView);
-		
-		this.boardController = new BoardController();
-		boardController.addBoardModel(this.boardModel);
-		boardController.addBoardView(this.boardView);
-		boardController.initBoardModel();
+		//boardController.initBoardModel();
 	}
 
 	/**
@@ -64,6 +63,7 @@ public class Game extends Application {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		System.out.println("Main");
 		launch(args);
 	}
 }

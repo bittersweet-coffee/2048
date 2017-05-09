@@ -15,9 +15,7 @@ public class BoardView implements Observer {
 	private static final int FONT_SIZE = 40;
 	private static final String FONT_STYLE = "Arial";
 
-	public BoardView(GridPane board) {
-		this.board = board;
-		initializeBoardView();
+	public BoardView() {
 	}
 	
 	/**
