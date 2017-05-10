@@ -2,56 +2,54 @@ package view;
 
 import java.util.Observable;
 import java.util.Observer;
-
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
+import javafx.scene.layout.HBox;
+import model.IGame;
 
-public class BoardView implements Observer {
+public class BoardView implements Observer, IGame {
 
 	private GridPane board;
 
-	private static final int FONT_SIZE = 40;
-	private static final String FONT_STYLE = "Arial";
+	public BoardView(GridPane board) {
+		this.board = board;
+	}
 
-	public BoardView() {
-	}
-	
-	/**
-	 * TODO
-	 */
-	public void initializeBoardView() {
-		int rows = this.board.getRowConstraints().size();
-		int cols = this.board.getColumnConstraints().size();
-		
-		Label lbl = new Label("");
-		lbl.setFont(new Font(FONT_STYLE, FONT_SIZE));
-		
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; i++) {
-				this.board.add(lbl, j, i);
-			}
-		}
-	}
-	
 	/**
 	 * TODO
 	 */
 	public void update(Observable obs, Object obj) {
 		Integer[][] boardModel = (Integer[][]) obj;
-		for (int i = 0; i < boardModel.length - 1; i++) {
-			for (int j = 0; j < boardModel.length - 1; i++) {
-				if (boardModel[i][j] != 0) {
-					Label lbl = new Label(boardModel[i][j].toString());
-					lbl.setFont(new Font(FONT_STYLE, FONT_SIZE));
-					board.add(lbl, j, i);
-				} else {
-					Label lbl = new Label("");
-					lbl.setFont(new Font(FONT_STYLE, FONT_SIZE));
-					board.add(lbl, j, i);
+		for (int i = 0; i < boardModel.length; i++) {
+			for (int j = 0; j < boardModel.length; j++) {
+				for (Node node : board.getChildren()) {
+					if (node instanceof HBox && GridPane.getRowIndex(node) == i
+							&& GridPane.getColumnIndex(node) == j) {
+						if (boardModel[i][j] != 0) {
+							((NumberBox) node).setLabelText(
+									Integer.toString(boardModel[i][j]));
+						} else {
+							((NumberBox) node).setLabelText("");
+						}
+					}
 				}
 			}
 		}
 	}
+
+	@Override
+	public void init() {
+		System.out.println("init View");
+		int rows = this.board.getRowConstraints().size();
+		int cols = this.board.getColumnConstraints().size();
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				NumberBox nb = new NumberBox();
+				nb.setLabelText("");
+				this.board.add(nb, j, i);
+			}
+		}
+
+	}
+
 }

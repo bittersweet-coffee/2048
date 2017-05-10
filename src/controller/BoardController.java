@@ -1,69 +1,77 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
-import javafx.fxml.FXML;
-import javafx.scene.layout.GridPane;
+import javafx.event.ActionEvent;
+import javafx.scene.input.KeyEvent;
 import model.BoardModel;
-import view.BoardView;
+import model.IGame;
 
 /**
  * TODO
  */
-public class BoardController implements ActionListener {
-	
-	@FXML
-	GridPane board;
+public class BoardController {
 
-	private BoardModel boardModel;
-	private BoardView boardView;
+	private ArrayList<IGame> componentList = new ArrayList<IGame>();
 	
 	/**
 	 * TODO
 	 */
 	public BoardController() {
-	}
-	
-	@FXML
-	public void initialize() {
-		System.out.println("init");
-		System.out.println(this.board);
-	}
-	
-	/**
-	 * TODO
-	 */
-	public void actionPerformed(ActionEvent e) {
 		
 	}
 	
+	public void handleArrowKey(KeyEvent key, BoardModel boardModel) {
+		switch (key.getCode()) {
+		case UP:
+			boardModel.moveTop();
+			break;
+		case DOWN:
+			boardModel.moveDown();
+			break;
+		case LEFT:
+			boardModel.moveLeft();
+			break;
+		case RIGHT:
+			boardModel.moveRight();
+			break;
+		default:
+			break;
+		}
+	}
 	/**
 	 * TODO
-	 * @param boardModel
+	 * @param boardModel 
 	 */
-	public void addBoardModel(BoardModel boardModel) {
-		this.boardModel = boardModel;
+	public void actionPerformed(ActionEvent e, BoardModel boardModel) {
+		System.out.println(e);
 	}
 	
-	/**
-	 * TODO
-	 * @param boardView
-	 */
-	public void addBoardView(BoardView boardView) {
-		this.boardView = boardView;
+	
+	public void add(IGame igame) {
+		this.componentList.add(igame);
+	}
+
+	public void initStart() {
+		for (IGame iGame : componentList) {
+			iGame.init();
+		}
+	}
+
+	public void actionTop(ActionEvent event, BoardModel boardModel) {
+		boardModel.moveTop();
+	}
+
+	public void actionLeft(ActionEvent event, BoardModel boardModel) {
+		boardModel.moveLeft();
+	}
+
+	public void actionDown(ActionEvent event, BoardModel boardModel) {
+		boardModel.moveDown();
+	}
+
+	public void actionRight(ActionEvent event, BoardModel boardModel) {
+		boardModel.moveRight();
 	}
 	
-	/**
-	 * TODO
-	 */
-	public void initBoardModel() {
-		this.boardModel.initializeBoardModel();
-	}
-	
-	public GridPane getBoard() {
-		return board;
-	}
 }
