@@ -1,5 +1,6 @@
 
 import controller.BoardController;
+import controller.StatisticController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.BoardModel;
+import model.Statistic;
 import view.BoardView;
 import view.ScoreView;
 
@@ -24,6 +26,8 @@ public class Game extends Application {
 	private BoardModel boardModel;
 	private BoardView boardView;
 	private ScoreView scoreView;
+	private Statistic statistic;
+	private StatisticController statController;
 
 	/**
 	 * Initialize the Game object and glue the model, controller and view
@@ -34,6 +38,8 @@ public class Game extends Application {
 				getClass().getResource("/view/view_Board.fxml"));
 		this.boardController = new BoardController();
 		this.loader.setController(this.boardController);
+		this.statistic = new Statistic();
+		this.statController = new StatisticController();
 
 	}
 

@@ -26,6 +26,12 @@ public class BoardView implements Observer, IGame {
 					if (node instanceof HBox && GridPane.getRowIndex(node) == i
 							&& GridPane.getColumnIndex(node) == j) {
 						if (boardModel[i][j] != 0) {
+							if (boardModel[i][j] > 1000) {
+								((NumberBox) node)
+										.setLabelFontSize(FONT_SIZE_SMALL);
+								((NumberBox) node).setLabelText(
+										Integer.toString(boardModel[i][j]));
+							}
 							((NumberBox) node).setLabelText(
 									Integer.toString(boardModel[i][j]));
 						} else {

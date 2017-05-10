@@ -5,7 +5,6 @@ import java.util.Random;
 
 import view.ScoreView;
 
-
 /**
  * Provides a Data object, which stores all necessary game data and states. This
  * class does not keep track of the game score.
@@ -33,7 +32,7 @@ public final class BoardModel extends Observable implements IGame {
 				this.boardModel[i][j] = INIT_FIELD_VALUE;
 			}
 		}
-
+		ScoreView.RESET = true;
 		setChanged();
 		notifyObservers(this.boardModel);
 	}
@@ -83,7 +82,7 @@ public final class BoardModel extends Observable implements IGame {
 	 * TODO
 	 */
 	public boolean isOccupied(int row, int col) {
-		if (this.boardModel[row][col] == INIT_FIELD_VALUE) {
+		if (this.boardModel[row][col].equals(INIT_FIELD_VALUE)) {
 			return false;
 		} else {
 			return true;
@@ -111,9 +110,8 @@ public final class BoardModel extends Observable implements IGame {
 		for (int row = this.boardModel.length - 1; row >= 0; row--) {
 			for (int col = this.boardModel.length - 1; col >= 0; col--) {
 				if (isOccupied(row, col) && col != 0) {
-					if (isOccupied(row, col - 1)
-							&& (boardModel[row][col] == boardModel[row][col
-									- 1])) {
+					if (isOccupied(row, col - 1) && (boardModel[row][col]
+							.equals(boardModel[row][col - 1]))) {
 						merge(boardModel, row, col - 1, row, col);
 						merge = performMoveRight();
 						merge++;
@@ -157,9 +155,8 @@ public final class BoardModel extends Observable implements IGame {
 		for (int row = 0; row < this.boardModel.length; row++) {
 			for (int col = 0; col < this.boardModel.length; col++) {
 				if (isOccupied(row, col) && col + 1 != this.boardModel.length) {
-					if (isOccupied(row, col + 1)
-							&& (this.boardModel[row][col] == this.boardModel[row][col
-									+ 1])) {
+					if (isOccupied(row, col + 1) && (this.boardModel[row][col]
+							.equals(this.boardModel[row][col + 1]))) {
 						merge(this.boardModel, row, col + 1, row, col);
 						merge = performMoveLeft();
 						merge++;
@@ -200,9 +197,8 @@ public final class BoardModel extends Observable implements IGame {
 		for (int col = this.boardModel.length - 1; col >= 0; col--) {
 			for (int row = 0; row < this.boardModel.length; row++) {
 				if (isOccupied(row, col) && row + 1 != this.boardModel.length) {
-					if (isOccupied(row + 1, col)
-							&& (this.boardModel[row][col] == this.boardModel[row
-									+ 1][col])) {
+					if (isOccupied(row + 1, col) && (this.boardModel[row][col]
+							.equals(this.boardModel[row + 1][col]))) {
 						merge(this.boardModel, row, col, row + 1, col);
 						merge = performMoveTop();
 						merge++;
@@ -242,9 +238,8 @@ public final class BoardModel extends Observable implements IGame {
 		for (int col = 0; col < boardModel.length; col++) {
 			for (int row = boardModel.length - 1; row >= 0; row--) {
 				if (isOccupied(row, col) && row + 1 != boardModel.length) {
-					if (isOccupied(row + 1, col)
-							&& (boardModel[row][col] == boardModel[row
-									+ 1][col])) {
+					if (isOccupied(row + 1, col) && (boardModel[row][col]
+							.equals(boardModel[row + 1][col]))) {
 						merge(boardModel, row, col, row + 1, col);
 						merge = performMoveDown();
 						merge++;
@@ -290,8 +285,16 @@ public final class BoardModel extends Observable implements IGame {
 		board[row_from][col_from] = INIT_FIELD_VALUE;
 		ScoreView.SCORE = value;
 		ScoreView.SCORE_SET = true;
+		if (value == WIN_VALUE) {
+			win();
+		}
 		setChanged();
 		notifyObservers(this.boardModel);
+
+	}
+
+	private void win() {
+		resetBoardModel();
 		
 	}
 
@@ -299,7 +302,6 @@ public final class BoardModel extends Observable implements IGame {
 			int col_to) {
 		board[row_to][col_to] = board[row_from][col_from];
 		board[row_from][col_from] = INIT_FIELD_VALUE;
-		setChanged();
 		setChanged();
 		notifyObservers(this.boardModel);
 	}
@@ -342,8 +344,11 @@ public final class BoardModel extends Observable implements IGame {
 	}
 
 	private void performAdd(int move, int merge) {
-		if (move != 0 || merge != 0) {
+		if ((move != 0 || merge != 0) && !ScoreView.RESET) {
 			addValue(BoardModel.UPDATE_FIELD_AMOUNT);
+		} else if ((move != 0 || merge != 0) && ScoreView.RESET) {
+			addValue(BoardModel.INIT_FIELD_AMOUNT);
+			ScoreView.RESET = false;
 		}
 	}
 

@@ -19,11 +19,15 @@ public class NumberBox extends HBox{
 	public NumberBox() {
 		this.setAlignment(Pos.CENTER);
 		this.lbl = new Label("");
+		this.lbl.setFont(new Font(FONT_STYLE, FONT_SIZE));
 		this.getChildren().add(this.lbl);
 	}
 	
 	public void setLabelText(String str) {
 		this.lbl.setText(str);
-		this.lbl.setFont(new Font(FONT_STYLE, FONT_SIZE));
+	}
+
+	public void setLabelFontSize(int fontSizeSmall) {
+		this.lbl.setFont(new Font(FONT_STYLE, fontSizeSmall));
 	}
 }
