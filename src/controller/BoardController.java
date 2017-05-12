@@ -1,18 +1,22 @@
 package controller;
 
-import java.util.ArrayList;
-
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import model.BoardModel;
-import model.IGame;
+import view.BoardView;
 
 /**
  * TODO
  */
-public class BoardController {
+public class BoardController implements EventHandler<Event> {
 
-	private ArrayList<IGame> componentList = new ArrayList<IGame>();
+	/**
+	 * 
+	 */
+	private BoardModel boardModel;
+	private BoardView boardView;
 	
 	/**
 	 * TODO
@@ -20,58 +24,59 @@ public class BoardController {
 	public BoardController() {
 		
 	}
-	
-	public void handleArrowKey(KeyEvent key, BoardModel boardModel) {
+
+	public void actionPerformed(KeyEvent key) {
 		switch (key.getCode()) {
 		case UP:
-			boardModel.moveTop();
+			this.boardModel.moveTop();
 			break;
 		case DOWN:
-			boardModel.moveDown();
+			this.boardModel.moveDown();
 			break;
 		case LEFT:
-			boardModel.moveLeft();
+			this.boardModel.moveLeft();
 			break;
 		case RIGHT:
-			boardModel.moveRight();
+			this.boardModel.moveRight();
 			break;
 		default:
 			break;
 		}
 	}
-	/**
-	 * TODO
-	 * @param boardModel 
-	 */
-	public void actionPerformed(ActionEvent e, BoardModel boardModel) {
-		System.out.println(e);
-	}
 	
 	
-	public void add(IGame igame) {
-		this.componentList.add(igame);
+	public void actionTop(ActionEvent event) {
+		this.boardModel.moveTop();
 	}
 
-	public void initStart() {
-		for (IGame iGame : componentList) {
-			iGame.init();
-		}
+	public void actionLeft(ActionEvent event) {
+		this.boardModel.moveLeft();
 	}
 
-	public void actionTop(ActionEvent event, BoardModel boardModel) {
-		boardModel.moveTop();
+	public void actionDown(ActionEvent event) {
+		this.boardModel.moveDown();
 	}
 
-	public void actionLeft(ActionEvent event, BoardModel boardModel) {
-		boardModel.moveLeft();
+	public void actionRight(ActionEvent event) {
+		this.boardModel.moveRight();
+	}
+	
+	public void addBoardModel(BoardModel boardModel) {
+		this.boardModel = boardModel;
+	}
+	
+	public void addBoardView(BoardView boardView) {
+		this.boardView = boardView;
 	}
 
-	public void actionDown(ActionEvent event, BoardModel boardModel) {
-		boardModel.moveDown();
+	public void initModel() {
+		this.boardModel.initModel();
+		
 	}
 
-	public void actionRight(ActionEvent event, BoardModel boardModel) {
-		boardModel.moveRight();
+	@Override
+	public void handle(Event event) {
+		System.out.println(event.getEventType().equals(KeyEvent.KEY_PRESSED));
 	}
 	
 }

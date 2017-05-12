@@ -9,7 +9,14 @@ import view.ScoreView;
  * Provides a Data object, which stores all necessary game data and states. This
  * class does not keep track of the game score.
  */
-public final class BoardModel extends Observable implements IGame {
+public final class BoardModel extends Observable {
+	
+	public static final int ROW = 4;
+	public static final int COL = 4;
+	public static final int INIT_FIELD_AMOUNT = 2;
+	public static final int UPDATE_FIELD_AMOUNT = 1;
+	public static final int INIT_FIELD_VALUE = 0;
+	public static final int WIN_VALUE=2048;
 
 	private static final int RAND_RATIO_MAX = 50;
 
@@ -355,9 +362,7 @@ public final class BoardModel extends Observable implements IGame {
 
 	}
 
-	@Override
-	public void init() {
-		System.out.println("init Model");
+	public void initModel() {
 		for (int i = 0; i < ROW; i++) {
 			for (int j = 0; j < COL; j++) {
 				this.boardModel[i][j] = INIT_FIELD_VALUE;

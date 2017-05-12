@@ -4,9 +4,11 @@ import java.util.Observable;
 import java.util.Observer;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
-import model.IGame;
 
-public class ScoreView implements Observer, IGame {
+public class ScoreView implements Observer {
+	
+	public static final int FONT_SIZE_NORMAL = 40;
+	public static final String FONT_STYLE = "Arial";
 
 	private Label lbl_score;
 	private Label lbl_score_value;
@@ -17,10 +19,10 @@ public class ScoreView implements Observer, IGame {
 	public ScoreView(Label lbl_score, Label lbl_score_value) {
 		this.lbl_score = lbl_score;
 		this.lbl_score_value = lbl_score_value;
+		init();
 	}
 
-	@Override
-	public void init() {
+	private void init() {
 		this.lbl_score.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
 		this.lbl_score_value.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
 
