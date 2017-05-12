@@ -32,7 +32,6 @@ public class ScoreView implements Observer, IGame {
 			int current_score = Integer
 					.parseInt(this.lbl_score_value.getText());
 			int new_score = current_score + SCORE;
-			System.out.println(new_score);
 			if (new_score < 10) {
 				this.lbl_score_value
 						.setText("000" + Integer.toString(new_score));

@@ -27,6 +27,13 @@ public final class BoardModel extends Observable implements IGame {
 	 * TODO
 	 */
 	public void resetBoardModel() {
+		System.out.println("Game Over");
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for (int i = 0; i < ROW; i++) {
 			for (int j = 0; j < COL; j++) {
 				this.boardModel[i][j] = INIT_FIELD_VALUE;
@@ -123,6 +130,9 @@ public final class BoardModel extends Observable implements IGame {
 	}
 
 	public int performMoveRight() {
+		if (!checkMovePossibility()) {
+			resetBoardModel();
+		}
 		int move = 0;
 		for (int row = this.boardModel.length - 1; row >= 0; row--) {
 			for (int col = this.boardModel.length - 1; col >= 0; col--) {
@@ -168,8 +178,10 @@ public final class BoardModel extends Observable implements IGame {
 	}
 
 	public int performMoveLeft() {
+		if (!checkMovePossibility()) {
+			resetBoardModel();
+		}
 		int move = 0;
-
 		for (int row = 0; row < this.boardModel.length; row++) {
 			for (int col = 0; col < this.boardModel.length; col++) {
 				if (isOccupied(row, col)) {
@@ -210,6 +222,9 @@ public final class BoardModel extends Observable implements IGame {
 	}
 
 	public int performMoveTop() {
+		if (!checkMovePossibility()) {
+			resetBoardModel();
+		}
 		int move = 0;
 		for (int col = this.boardModel.length - 1; col >= 0; col--) {
 			for (int row = 0; row < this.boardModel.length; row++) {
@@ -251,6 +266,9 @@ public final class BoardModel extends Observable implements IGame {
 	}
 
 	public int performMoveDown() {
+		if (!checkMovePossibility()) {
+			resetBoardModel();
+		}
 		int move = 0;
 		for (int col = 0; col < this.boardModel.length; col++) {
 			for (int row = this.boardModel.length - 1; row >= 0; row--) {
@@ -295,7 +313,7 @@ public final class BoardModel extends Observable implements IGame {
 
 	private void win() {
 		resetBoardModel();
-		
+
 	}
 
 	private void move(Integer[][] board, int row_from, int col_from, int row_to,
@@ -304,6 +322,37 @@ public final class BoardModel extends Observable implements IGame {
 		board[row_from][col_from] = INIT_FIELD_VALUE;
 		setChanged();
 		notifyObservers(this.boardModel);
+	}
+
+	private boolean checkMovePossibility() {
+		for (int row = 0; row < boardModel.length; row++) {
+			for (int col = 0; col < boardModel.length; col++) {
+				if (row == boardModel.length - 1
+						&& col != boardModel.length - 1) {
+					if (boardModel[row][col] == boardModel[row][col + 1]) {
+						return true;
+					}
+				}
+				if (row != boardModel.length - 1
+						&& col == boardModel.length - 1) {
+					if (boardModel[row][col] == boardModel[row + 1][col]) {
+						return true;
+					}
+				}
+				if (row < boardModel.length-1 && col < boardModel.length-1) {
+					if (boardModel[row][col] == boardModel[row + 1][col]
+							|| boardModel[row][col] == boardModel[row][col
+									+ 1]) {
+						return true;
+					}
+				}
+				if (!isOccupied(row, col)) {
+					return true;
+				}
+			}
+		}
+		return false;
+
 	}
 
 	@Override
