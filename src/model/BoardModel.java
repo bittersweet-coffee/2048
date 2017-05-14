@@ -37,11 +37,13 @@ public final class BoardModel extends Observable {
 	 */
 	public void resetBoardModel() {
 		System.out.println("Game Over");
+
 		for (int i = 0; i < ROW; i++) {
 			for (int j = 0; j < COL; j++) {
 				this.boardModel[i][j] = INIT_FIELD_VALUE;
 			}
 		}
+
 		setResetFlag(true);
 		setChanged();
 		notifyObservers(this.boardModel);
@@ -429,5 +431,4 @@ public final class BoardModel extends Observable {
 	public void setResetFlag(Boolean reset_Flag) {
 		this.reset_Flag = reset_Flag;
 	}
-
 }

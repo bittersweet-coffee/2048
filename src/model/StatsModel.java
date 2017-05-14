@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Statistic {
+public class StatsModel {
 	
 	@XmlElement(name = "highScore")
 	private int highScore;
@@ -14,8 +14,6 @@ public class Statistic {
 	}
 
 	public int getHighScore() {
-		return highScore;
+		return this.highScore;
 	}
-
-	
 }

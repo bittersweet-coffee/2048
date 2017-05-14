@@ -7,8 +7,6 @@ import javafx.scene.text.Font;
 
 /**
  * This class is used to display the values on the View.
- * @author Henzi
- *
  */
 public class NumberBox extends HBox{
 

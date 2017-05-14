@@ -11,10 +11,6 @@ import view.BoardView;
  * TODO
  */
 public class BoardController implements EventHandler<Event> {
-
-	/**
-	 * 
-	 */
 	private BoardModel boardModel;
 	private BoardView boardView;
 
@@ -22,30 +18,74 @@ public class BoardController implements EventHandler<Event> {
 	 * TODO
 	 */
 	public BoardController() {
-
 	}
-			
-	private void actionPerformed(String event) {
-		switch (event) {
-		case "Top":
-			this.boardModel.moveTop();
-			break;
-		case "Down":
-			this.boardModel.moveDown();
-			break;
-		case "Left":
-			this.boardModel.moveLeft();
-			break;
-		case "Right":
-			this.boardModel.moveRight();
-			break;
-		default:
-			break;
+
+	/**
+	 * TODO
+	 */
+	public void initModel() {
+		this.boardModel.initModel();
+	}
+
+	/**
+	 * TODO
+	 * @param boardModel
+	 */
+	public void addBoardModel(BoardModel boardModel) {
+		this.boardModel = boardModel;
+	}
+	
+	/**
+	 * TODO
+	 * @param boardView
+	 */
+	public void addBoardView(BoardView boardView) {
+		this.boardView = boardView;
+	}
+
+	/**
+	 * TODO
+	 */
+	@Override
+	public void handle(Event event) {
+		if (event.getEventType() == KeyEvent.KEY_PRESSED) {
+			switch (((KeyEvent) event).getCode()) {
+			case UP:
+				this.boardModel.moveTop();
+				break;
+			case DOWN:
+				this.boardModel.moveDown();
+				break;
+			case LEFT:
+				this.boardModel.moveLeft();
+				break;
+			case RIGHT:
+				this.boardModel.moveRight();
+				break;
+			default:
+				break;
+			}
 		}
-		performScoreUpdate();
+		
+		if (event.getEventType() == ActionEvent.ACTION) {
+			String target = event.getTarget().toString();
+			if (target.contains("UP")) {
+				this.boardModel.moveTop();
+			} else if (target.contains("DOWN")) {
+				this.boardModel.moveDown();
+			} else if (target.contains("LEFT")) {
+				this.boardModel.moveLeft();
+			} else if (target.contains("RIGHT")) {
+				this.boardModel.moveRight();
+			}
+		}
 
+		performScoreUpdate();
 	}
 
+	/**
+	 * TODO
+	 */
 	private void performScoreUpdate() {
 		if (this.boardModel.getScoreFlag()) {
 			Integer score = this.boardModel.getScore();
@@ -57,51 +97,4 @@ public class BoardController implements EventHandler<Event> {
 		}
 		this.boardModel.setScoreFlag(false);
 	}
-
-	public void addBoardModel(BoardModel boardModel) {
-		this.boardModel = boardModel;
-	}
-
-	public void addBoardView(BoardView boardView) {
-		this.boardView = boardView;
-	}
-
-	public void initModel() {
-		this.boardModel.initModel();
-	}
-
-	@Override
-	public void handle(Event event) {
-		if (event.getEventType().equals(KeyEvent.KEY_PRESSED)) {
-			actionPerformed(parseKeyEvent((KeyEvent) event));
-		}
-		if (event.getEventType().equals(ActionEvent.ACTION)) {
-			String str = event.getSource().toString();
-			actionPerformed(
-					str.substring(str.indexOf("\'") + 1, str.length() - 1));
-		
-		}
-	}
-
-	private String parseKeyEvent(KeyEvent key) {
-		String str_parsed = "";
-		switch (key.getCode()) {
-		case UP:
-			str_parsed = "Top";
-			break;
-		case DOWN:
-			str_parsed = "Down";
-			break;
-		case LEFT:
-			str_parsed = "Left";
-			break;
-		case RIGHT:
-			str_parsed = "Right";
-			break;
-		default:
-			break;
-		}
-		return str_parsed;
-	}
-
 }
