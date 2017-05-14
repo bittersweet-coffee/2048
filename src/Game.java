@@ -5,13 +5,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import model.BoardModel;
 import model.Statistic;
 import view.BoardView;
-import view.ScoreView;
-
 /**
  * Provides the Game, initializing all required objects and binding them
  * together.
@@ -22,7 +19,6 @@ public class Game extends Application {
 	private BoardController boardController;
 	private BoardModel boardModel;
 	private BoardView boardView;
-	private ScoreView scoreView;
 	private Statistic statistic;
 	private StatisticController statController;
 
@@ -47,14 +43,11 @@ public class Game extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("2048");
 		Parent root = this.loader.load();
-		Label lbl_score = (Label) root.lookup("#score");
-		Label lbl_score_value = (Label) root.lookup("#score_value");
 		this.boardView = new BoardView(root);
 		this.boardModel = new BoardModel();
-		this.scoreView = new ScoreView(lbl_score, lbl_score_value);
 		this.boardModel.addObserver(boardView);
-		this.boardModel.addObserver(scoreView);
 		this.boardController.addBoardModel(boardModel);
+		this.boardController.addBoardView(boardView);
 		this.boardView.addCotroller(boardController);
 		this.boardController.initModel();
 		Scene scene = new Scene(root);

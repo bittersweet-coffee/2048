@@ -3,23 +3,25 @@ package model;
 import java.util.Observable;
 import java.util.Random;
 
-import view.ScoreView;
-
 /**
  * Provides a Data object, which stores all necessary game data and states. This
  * class does not keep track of the game score.
  */
 public final class BoardModel extends Observable {
-	
+
 	public static final int ROW = 4;
 	public static final int COL = 4;
 	public static final int INIT_FIELD_AMOUNT = 2;
 	public static final int UPDATE_FIELD_AMOUNT = 1;
 	public static final int INIT_FIELD_VALUE = 0;
-	public static final int WIN_VALUE=2048;
+	public static final int INIT_SCORE_VALUE = 0;
+	public static final int WIN_VALUE = 2048;
 
 	private static final int RAND_RATIO_MAX = 50;
-
+	private Boolean score_Flag = false;
+	private Boolean reset_Flag = false;
+	private Integer score;
+	
 	private Integer[][] boardModel = new Integer[ROW][COL];
 	private Random random;
 
@@ -46,7 +48,7 @@ public final class BoardModel extends Observable {
 				this.boardModel[i][j] = INIT_FIELD_VALUE;
 			}
 		}
-		ScoreView.RESET = true;
+		setResetFlag(true);
 		setChanged();
 		notifyObservers(this.boardModel);
 	}
@@ -308,14 +310,24 @@ public final class BoardModel extends Observable {
 		int value = board[row_to][col_to] + board[row_from][col_from];
 		board[row_to][col_to] = value;
 		board[row_from][col_from] = INIT_FIELD_VALUE;
-		ScoreView.SCORE = value;
-		ScoreView.SCORE_SET = true;
+		this.setScoreFlag(true);
+		this.setScore(value);
 		if (value == WIN_VALUE) {
 			win();
 		}
 		setChanged();
 		notifyObservers(this.boardModel);
 
+	}
+
+	private void setScore(int value) {
+		Integer current_score = this.getScore();
+		Integer new_score = current_score + value;
+		this.score = new_score;
+	}
+
+	public int getScore() {
+		return this.score;
 	}
 
 	private void win() {
@@ -346,7 +358,8 @@ public final class BoardModel extends Observable {
 						return true;
 					}
 				}
-				if (row < boardModel.length-1 && col < boardModel.length-1) {
+				if (row < boardModel.length - 1
+						&& col < boardModel.length - 1) {
 					if (boardModel[row][col] == boardModel[row + 1][col]
 							|| boardModel[row][col] == boardModel[row][col
 									+ 1]) {
@@ -368,6 +381,7 @@ public final class BoardModel extends Observable {
 				this.boardModel[i][j] = INIT_FIELD_VALUE;
 			}
 		}
+		this.score = INIT_SCORE_VALUE;
 		addValue(INIT_FIELD_AMOUNT);
 		setChanged();
 		notifyObservers(this.boardModel);
@@ -398,12 +412,28 @@ public final class BoardModel extends Observable {
 	}
 
 	private void performAdd(int move, int merge) {
-		if ((move != 0 || merge != 0) && !ScoreView.RESET) {
+		if ((move != 0 || merge != 0) && !getResetFlag()) {
 			addValue(BoardModel.UPDATE_FIELD_AMOUNT);
-		} else if ((move != 0 || merge != 0) && ScoreView.RESET) {
+		} else if ((move != 0 || merge != 0) && getResetFlag()) {
 			addValue(BoardModel.INIT_FIELD_AMOUNT);
-			ScoreView.RESET = false;
+			setResetFlag(false);
 		}
+	}
+
+	public Boolean getScoreFlag() {
+		return score_Flag;
+	}
+
+	public void setScoreFlag(Boolean score_Flag) {
+		this.score_Flag = score_Flag;
+	}
+
+	public Boolean getResetFlag() {
+		return reset_Flag;
+	}
+
+	public void setResetFlag(Boolean reset_Flag) {
+		this.reset_Flag = reset_Flag;
 	}
 
 }
