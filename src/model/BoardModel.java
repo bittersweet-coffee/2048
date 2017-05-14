@@ -37,12 +37,6 @@ public final class BoardModel extends Observable {
 	 */
 	public void resetBoardModel() {
 		System.out.println("Game Over");
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		for (int i = 0; i < ROW; i++) {
 			for (int j = 0; j < COL; j++) {
 				this.boardModel[i][j] = INIT_FIELD_VALUE;
@@ -342,6 +336,15 @@ public final class BoardModel extends Observable {
 		setChanged();
 		notifyObservers(this.boardModel);
 	}
+	
+	private void performAdd(int move, int merge) {
+		if ((move != 0 || merge != 0) && !getResetFlag()) {
+			addValue(BoardModel.UPDATE_FIELD_AMOUNT);
+		} else if ((move != 0 || merge != 0) && getResetFlag()) {
+			addValue(BoardModel.INIT_FIELD_AMOUNT);
+			setResetFlag(false);
+		}
+	}
 
 	private boolean checkMovePossibility() {
 		for (int row = 0; row < boardModel.length; row++) {
@@ -409,15 +412,6 @@ public final class BoardModel extends Observable {
 		int move = performMoveDown();
 		int merge = performMergeDown();
 		performAdd(move, merge);
-	}
-
-	private void performAdd(int move, int merge) {
-		if ((move != 0 || merge != 0) && !getResetFlag()) {
-			addValue(BoardModel.UPDATE_FIELD_AMOUNT);
-		} else if ((move != 0 || merge != 0) && getResetFlag()) {
-			addValue(BoardModel.INIT_FIELD_AMOUNT);
-			setResetFlag(false);
-		}
 	}
 
 	public Boolean getScoreFlag() {

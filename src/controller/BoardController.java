@@ -51,6 +51,10 @@ public class BoardController implements EventHandler<Event> {
 			Integer score = this.boardModel.getScore();
 			this.boardView.updateScore(score);
 		}
+		if (this.boardModel.getResetFlag()) {
+			this.boardView.updateScore(0);
+			this.boardModel.setResetFlag(false);
+		}
 		this.boardModel.setScoreFlag(false);
 	}
 
