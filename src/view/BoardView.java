@@ -6,17 +6,20 @@ import java.util.Observer;
 import controller.BoardController;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import model.BoardModel;
 
 /**
  * TODO
  */
-public class BoardView implements Observer {
+public class BoardView extends Stage implements Observer {
 
 	private static final int FONT_SIZE_SMALL = 33;
 	private static final int FONT_SIZE_NORMAL = 40;
@@ -28,15 +31,24 @@ public class BoardView implements Observer {
 	private VBox container;
 	private Label lbl_score;
 	private Label lbl_score_value;
+	private BoardModel boardModel;
 
 	/**
 	 * TODO
 	 * @param root
 	 */
-	public BoardView(Parent root) {
+	public BoardView(Parent root, BoardModel boardModel) {
 		this.root = root;
+		this.boardModel = boardModel;
 		loadComponents(this.root);
 		initBoard(this.board);
+		Scene scene = new Scene(this.root);
+		scene.getStylesheets().add(getClass()
+				.getResource("/view/stylesheet.css").toExternalForm());
+		this.setTitle("2048");
+		this.setScene(scene);
+		this.show();	
+		
 	}
 
 	/**
@@ -80,7 +92,6 @@ public class BoardView implements Observer {
 	 */
 	public void addCotroller(BoardController controller) {
 		this.container.setOnKeyPressed(event -> controller.handle(event));
-
 		this.up.setOnAction(event -> controller.handle(event));
 		this.left.setOnAction(event -> controller.handle(event));
 		this.down.setOnAction(event -> controller.handle(event));
@@ -92,7 +103,6 @@ public class BoardView implements Observer {
 	 */
 	public void update(Observable obs, Object obj) {
 		Integer[][] boardModel = (Integer[][]) obj;
-
 		for (int i = 0; i < boardModel.length; i++) {
 			for (int j = 0; j < boardModel.length; j++) {
 				for (Node node : board.getChildren()) {
@@ -114,9 +124,11 @@ public class BoardView implements Observer {
 				}
 			}
 		}
+		updateScore();
 	}
 
-	public void updateScore(Integer score) {
+	private void updateScore() {
+		Integer score = this.boardModel.getScore();
 		if (score < 10) {
 			this.lbl_score_value
 					.setText("000" + Integer.toString(score));
@@ -129,4 +141,5 @@ public class BoardView implements Observer {
 			this.lbl_score_value.setText(Integer.toString(score));
 		}
 	}
+
 }

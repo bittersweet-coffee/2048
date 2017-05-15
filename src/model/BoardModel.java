@@ -18,7 +18,6 @@ public final class BoardModel extends Observable {
 	public static final int WIN_VALUE = 2048;
 
 	private static final int RAND_RATIO_MAX = 50;
-	private Boolean score_Flag = false;
 	private Boolean reset_Flag = false;
 	private Integer score;
 	
@@ -306,7 +305,6 @@ public final class BoardModel extends Observable {
 		int value = board[row_to][col_to] + board[row_from][col_from];
 		board[row_to][col_to] = value;
 		board[row_from][col_from] = INIT_FIELD_VALUE;
-		this.setScoreFlag(true);
 		this.setScore(value);
 		if (value == WIN_VALUE) {
 			win();
@@ -415,15 +413,7 @@ public final class BoardModel extends Observable {
 		int merge = performMergeDown();
 		performAdd(move, merge);
 	}
-
-	public Boolean getScoreFlag() {
-		return score_Flag;
-	}
-
-	public void setScoreFlag(Boolean score_Flag) {
-		this.score_Flag = score_Flag;
-	}
-
+	
 	public Boolean getResetFlag() {
 		return reset_Flag;
 	}
