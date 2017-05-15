@@ -78,9 +78,10 @@ public final class BoardModel extends Observable {
 	}
 
 	/**
-	 * TODO
+	 * Returns a random int (dafault 2 || 4). Used to set the values on the
+	 * Board when game starts and move is performed.
 	 */
-	public int getRandomValue() {
+	private int getRandomValue() {
 		if (this.random.nextInt(RAND_RATIO_MAX) <= 10) {
 			return BIG_FIELD_VALUE;
 		} else {
@@ -89,9 +90,14 @@ public final class BoardModel extends Observable {
 	}
 
 	/**
-	 * TODO
+	 * Determines if a certain field on the board is occupied (returns true is
+	 * it's occupied and false otherwise.
+	 * 
+	 * @param row
+	 * @param col
+	 * @return true if row - col is occupied
 	 */
-	public boolean isOccupied(int row, int col) {
+	private boolean isOccupied(int row, int col) {
 		if (this.boardModel[row][col].equals(INIT_FIELD_VALUE)) {
 			return false;
 		} else {
@@ -99,7 +105,12 @@ public final class BoardModel extends Observable {
 		}
 	}
 
-	public void addValue(int amount) {
+	/**
+	 * Adds a certain amount of new fields to a possible place on the board.
+	 * 
+	 * @param amount
+	 */
+	private void addValue(int amount) {
 		int counter = 0;
 		while (counter != amount) {
 			int row = getRandomRow();
@@ -115,6 +126,12 @@ public final class BoardModel extends Observable {
 		notifyObservers(this);
 	}
 
+	/**
+	 * Checks if there are possible fields on the board which can be merged. If
+	 * a merge is possible a further move has to be done.
+	 * 
+	 * @return int > 0 if merge was performed
+	 */
 	public int performMergeRight() {
 		int merge = 0;
 		for (int row = this.boardModel.length - 1; row >= 0; row--) {
@@ -132,6 +149,11 @@ public final class BoardModel extends Observable {
 		return merge;
 	}
 
+	/**
+	 * Checks if there are possible fields on the board which can be moved.
+	 * 
+	 * @return int > 0 if move was performed
+	 */
 	public int performMoveRight() {
 		if (!checkMovePossibility()) {
 			lose();
@@ -304,6 +326,16 @@ public final class BoardModel extends Observable {
 		return move;
 	}
 
+	/**
+	 * merges certain field on the board and checks whether the player has won
+	 * the game.
+	 * 
+	 * @param board
+	 * @param row_from
+	 * @param col_from
+	 * @param row_to
+	 * @param col_to
+	 */
 	private void merge(Integer[][] board, int row_from, int col_from,
 			int row_to, int col_to) {
 		int value = board[row_to][col_to] + board[row_from][col_from];
@@ -334,6 +366,14 @@ public final class BoardModel extends Observable {
 
 	}
 
+	/**
+	 * moves certain field on the board.
+	 * @param board
+	 * @param row_from
+	 * @param col_from
+	 * @param row_to
+	 * @param col_to
+	 */
 	private void move(Integer[][] board, int row_from, int col_from, int row_to,
 			int col_to) {
 		board[row_to][col_to] = board[row_from][col_from];
@@ -380,6 +420,9 @@ public final class BoardModel extends Observable {
 
 	}
 
+	/**
+	 * Initializes the board and sets game to not won nor lose.
+	 */
 	public void initModel() {
 		for (int i = 0; i < ROW; i++) {
 			for (int j = 0; j < COL; j++) {

@@ -8,7 +8,8 @@ import model.BoardModel;
 import view.BoardView;
 
 /**
- * TODO
+ * 
+ * @author Henzi & Hofer This controller handels all stuff from the 2048 Game
  */
 public class BoardController implements EventHandler<Event> {
 	private BoardModel boardModel;
@@ -21,22 +22,22 @@ public class BoardController implements EventHandler<Event> {
 	}
 
 	/**
-	 * TODO
+	 * Initializes the board on the Model to start a new Game
 	 */
 	public void initModel() {
 		this.boardModel.initModel();
 	}
 
 	/**
-	 * TODO
+	 * 
 	 * @param boardModel
 	 */
 	public void addBoardModel(BoardModel boardModel) {
 		this.boardModel = boardModel;
 	}
-	
+
 	/**
-	 * TODO
+	 * 
 	 * @param boardView
 	 */
 	public void addBoardView(BoardView boardView) {
@@ -44,7 +45,8 @@ public class BoardController implements EventHandler<Event> {
 	}
 
 	/**
-	 * TODO
+	 * this methode is used to handle the arrow keys and the buttons from the
+	 * view. It connects the View with the Modle
 	 */
 	@Override
 	public void handle(Event event) {
@@ -66,7 +68,7 @@ public class BoardController implements EventHandler<Event> {
 				break;
 			}
 		}
-		
+
 		if (event.getEventType() == ActionEvent.ACTION) {
 			String target = event.getTarget().toString();
 			if (target.contains("UP")) {

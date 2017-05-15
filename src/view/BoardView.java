@@ -24,7 +24,7 @@ public class BoardView extends Stage implements Observer {
 	private static final int FONT_SIZE_SMALL = 33;
 	private static final int FONT_SIZE_NORMAL = 40;
 	private static final String FONT_STYLE = "Arial";
-	
+
 	private Parent root;
 	private GridPane board;
 	private Button up, down, left, right, start;
@@ -34,6 +34,7 @@ public class BoardView extends Stage implements Observer {
 
 	/**
 	 * TODO
+	 * 
 	 * @param root
 	 */
 	public BoardView(Parent root, BoardModel boardModel) {
@@ -45,12 +46,13 @@ public class BoardView extends Stage implements Observer {
 				.getResource("/view/stylesheet.css").toExternalForm());
 		this.setTitle("2048");
 		this.setScene(scene);
-		this.show();	
-		
+		this.show();
+
 	}
 
 	/**
 	 * TODO
+	 * 
 	 * @param board
 	 */
 	private void initBoard(GridPane board) {
@@ -71,6 +73,7 @@ public class BoardView extends Stage implements Observer {
 
 	/**
 	 * TODO
+	 * 
 	 * @param root
 	 */
 	private void loadComponents(Parent root) {
@@ -87,6 +90,7 @@ public class BoardView extends Stage implements Observer {
 
 	/**
 	 * TODO
+	 * 
 	 * @param controller
 	 */
 	public void addCotroller(BoardController controller) {
@@ -116,37 +120,37 @@ public class BoardView extends Stage implements Observer {
 	}
 
 	private void performGameWinView(BoardModel boardModel) {
-			Integer[][] board = boardModel.getBoardModel();
-			for (int i = 0; i < board.length; i++) {
-				for (int j = 0; j < board.length; j++) {
-					for (Node node : this.board.getChildren()) {
-						if (node instanceof HBox && GridPane.getRowIndex(node) == i
-								&& GridPane.getColumnIndex(node) == j) {
-							if (i == 1 && j == 0) {
-								((NumberBox) node).setLabelText("Y");
-							}
-							if (i == 1 && j == 1) {
-								((NumberBox) node).setLabelText("O");
-							}
-							if (i == 1 && j == 2) {
-								((NumberBox) node).setLabelText("U");
-							}
-							if (i == 2 && j == 1) {
-								((NumberBox) node).setLabelText("W");
-							}
-							if (i == 2 && j == 2) {
-								((NumberBox) node).setLabelText("O");
-							}
-							if (i == 2 && j == 3) {
-								((NumberBox) node).setLabelText("N");
-							}
+		Integer[][] board = boardModel.getBoardModel();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				for (Node node : this.board.getChildren()) {
+					if (node instanceof HBox && GridPane.getRowIndex(node) == i
+							&& GridPane.getColumnIndex(node) == j) {
+						if (i == 1 && j == 0) {
+							((NumberBox) node).setLabelText("Y");
+						}
+						if (i == 1 && j == 1) {
+							((NumberBox) node).setLabelText("O");
+						}
+						if (i == 1 && j == 2) {
+							((NumberBox) node).setLabelText("U");
+						}
+						if (i == 2 && j == 1) {
+							((NumberBox) node).setLabelText("W");
+						}
+						if (i == 2 && j == 2) {
+							((NumberBox) node).setLabelText("O");
+						}
+						if (i == 2 && j == 3) {
+							((NumberBox) node).setLabelText("N");
 						}
 					}
 				}
 			}
-			this.start.setText("RESTART");
-			this.start.setDisable(false);
-		}		
+		}
+		this.start.setText("RESTART");
+		this.start.setDisable(false);
+	}
 
 	private void performGameOverView(BoardModel boardModel) {
 		Integer[][] board = boardModel.getBoardModel();
@@ -210,17 +214,15 @@ public class BoardView extends Stage implements Observer {
 				}
 			}
 		}
-		
+
 	}
 
 	private void updateScore(BoardModel boardModel) {
 		Integer score = boardModel.getScore();
 		if (score < 10) {
-			this.lbl_score_value
-					.setText("000" + Integer.toString(score));
+			this.lbl_score_value.setText("000" + Integer.toString(score));
 		} else if (score < 100) {
-			this.lbl_score_value
-					.setText("00" + Integer.toString(score));
+			this.lbl_score_value.setText("00" + Integer.toString(score));
 		} else if (score < 1000) {
 			this.lbl_score_value.setText("0" + Integer.toString(score));
 		} else {
