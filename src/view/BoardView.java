@@ -38,7 +38,6 @@ public class BoardView extends Stage implements Observer {
 	 */
 	public BoardView(Parent root, BoardModel boardModel) {
 		this.root = root;
-		this.boardModel = boardModel;
 		loadComponents(this.root);
 		initBoard(this.board);
 		Scene scene = new Scene(this.root);
