@@ -45,7 +45,7 @@ public final class BoardModel extends Observable {
 
 		setResetFlag(true);
 		setChanged();
-		notifyObservers(this.boardModel);
+		notifyObservers(this);
 	}
 
 	/**
@@ -55,13 +55,13 @@ public final class BoardModel extends Observable {
 		this.boardModel = boardModel;
 
 		setChanged();
-		notifyObservers(this.boardModel);
+		notifyObservers(this);
 	}
 
 	/**
 	 * Returns a random integer (default <= 0 && >= ROW). Used to determine the
 	 * next row to place a new number.
-	 * 
+	 *  
 	 * @return random integer between 0 and ROW
 	 */
 	public int getRandomRow() {
@@ -113,7 +113,7 @@ public final class BoardModel extends Observable {
 
 		}
 		setChanged();
-		notifyObservers(this.boardModel);
+		notifyObservers(this);
 	}
 
 	public int performMergeRight() {
@@ -310,7 +310,7 @@ public final class BoardModel extends Observable {
 			win();
 		}
 		setChanged();
-		notifyObservers(this.boardModel);
+		notifyObservers(this);
 
 	}
 
@@ -334,7 +334,7 @@ public final class BoardModel extends Observable {
 		board[row_to][col_to] = board[row_from][col_from];
 		board[row_from][col_from] = INIT_FIELD_VALUE;
 		setChanged();
-		notifyObservers(this.boardModel);
+		notifyObservers(this);
 	}
 	
 	private void performAdd(int move, int merge) {
@@ -387,7 +387,7 @@ public final class BoardModel extends Observable {
 		this.score = INIT_SCORE_VALUE;
 		addValue(INIT_FIELD_AMOUNT);
 		setChanged();
-		notifyObservers(this.boardModel);
+		notifyObservers(this);
 	}
 
 	public void moveRight() {
@@ -420,5 +420,9 @@ public final class BoardModel extends Observable {
 
 	public void setResetFlag(Boolean reset_Flag) {
 		this.reset_Flag = reset_Flag;
+	}
+	
+	public Integer[][] getBoardModel() {
+		return boardModel;
 	}
 }

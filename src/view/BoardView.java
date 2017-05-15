@@ -31,7 +31,6 @@ public class BoardView extends Stage implements Observer {
 	private VBox container;
 	private Label lbl_score;
 	private Label lbl_score_value;
-	private BoardModel boardModel;
 
 	/**
 	 * TODO
@@ -102,21 +101,22 @@ public class BoardView extends Stage implements Observer {
 	 * TODO
 	 */
 	public void update(Observable obs, Object obj) {
-		Integer[][] boardModel = (Integer[][]) obj;
-		for (int i = 0; i < boardModel.length; i++) {
-			for (int j = 0; j < boardModel.length; j++) {
-				for (Node node : board.getChildren()) {
+		BoardModel boardModel = (BoardModel) obj;
+		Integer[][] board = boardModel.getBoardModel();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				for (Node node : this.board.getChildren()) {
 					if (node instanceof HBox && GridPane.getRowIndex(node) == i
 							&& GridPane.getColumnIndex(node) == j) {
-						if (boardModel[i][j] != 0) {
-							if (boardModel[i][j] > 1000) {
+						if (board[i][j] != 0) {
+							if (board[i][j] > 1000) {
 								((NumberBox) node)
 										.setLabelFontSize(FONT_SIZE_SMALL);
 								((NumberBox) node).setLabelText(
-										Integer.toString(boardModel[i][j]));
+										Integer.toString(board[i][j]));
 							}
 							((NumberBox) node).setLabelText(
-									Integer.toString(boardModel[i][j]));
+									Integer.toString(board[i][j]));
 						} else {
 							((NumberBox) node).setLabelText("");
 						}
@@ -124,11 +124,11 @@ public class BoardView extends Stage implements Observer {
 				}
 			}
 		}
-		updateScore();
+		updateScore(boardModel);
 	}
 
-	private void updateScore() {
-		Integer score = this.boardModel.getScore();
+	private void updateScore(BoardModel boardModel) {
+		Integer score = boardModel.getScore();
 		if (score < 10) {
 			this.lbl_score_value
 					.setText("000" + Integer.toString(score));
