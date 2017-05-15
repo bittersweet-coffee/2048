@@ -101,6 +101,14 @@
 						<Font name="System Bold" size="13.0" />
 					</font>
 				</Button>
+				<Button id="btn_start" alignment="CENTER" contentDisplay="CENTER"
+					maxHeight="120" maxWidth="220"
+					mnemonicParsing="false" text="START" GridPane.columnIndex="1"
+					GridPane.rowIndex="1">
+					<font>
+						<Font name="System Bold" size="13.0" />
+					</font>
+				</Button>
 			</children>
 			<VBox.margin>
 				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

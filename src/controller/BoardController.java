@@ -77,6 +77,8 @@ public class BoardController implements EventHandler<Event> {
 				this.boardModel.moveLeft();
 			} else if (target.contains("RIGHT")) {
 				this.boardModel.moveRight();
+			} else if (target.contains("START")) {
+				this.initModel();
 			}
 		}
 	}

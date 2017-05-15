@@ -18,11 +18,14 @@ public final class BoardModel extends Observable {
 	public static final int WIN_VALUE = 2048;
 
 	private static final int RAND_RATIO_MAX = 50;
-	private Boolean reset_Flag = false;
+	private static final int BIG_FIELD_VALUE = 4;
+	private static final int SMALL_FIELS_VALUE = 2;
+	private Boolean gameOver = false;
 	private Integer score;
-	
+
 	private Integer[][] boardModel = new Integer[ROW][COL];
 	private Random random;
+	private boolean gameWin;
 
 	/**
 	 * Initialize the initial Data object and state.
@@ -35,15 +38,11 @@ public final class BoardModel extends Observable {
 	 * TODO
 	 */
 	public void resetBoardModel() {
-		System.out.println("Game Over");
-
 		for (int i = 0; i < ROW; i++) {
 			for (int j = 0; j < COL; j++) {
 				this.boardModel[i][j] = INIT_FIELD_VALUE;
 			}
 		}
-
-		setResetFlag(true);
 		setChanged();
 		notifyObservers(this);
 	}
@@ -61,7 +60,7 @@ public final class BoardModel extends Observable {
 	/**
 	 * Returns a random integer (default <= 0 && >= ROW). Used to determine the
 	 * next row to place a new number.
-	 *  
+	 * 
 	 * @return random integer between 0 and ROW
 	 */
 	public int getRandomRow() {
@@ -83,9 +82,9 @@ public final class BoardModel extends Observable {
 	 */
 	public int getRandomValue() {
 		if (this.random.nextInt(RAND_RATIO_MAX) <= 10) {
-			return 4;
+			return BIG_FIELD_VALUE;
 		} else {
-			return 2;
+			return SMALL_FIELS_VALUE;
 		}
 	}
 
@@ -135,7 +134,7 @@ public final class BoardModel extends Observable {
 
 	public int performMoveRight() {
 		if (!checkMovePossibility()) {
-			resetBoardModel();
+			lose();
 		}
 		int move = 0;
 		for (int row = this.boardModel.length - 1; row >= 0; row--) {
@@ -164,6 +163,11 @@ public final class BoardModel extends Observable {
 		return move;
 	}
 
+	private void lose() {
+		setGameOver(true);
+		resetBoardModel();
+	}
+
 	public int performMergeLeft() {
 		int merge = 0;
 		for (int row = 0; row < this.boardModel.length; row++) {
@@ -183,7 +187,7 @@ public final class BoardModel extends Observable {
 
 	public int performMoveLeft() {
 		if (!checkMovePossibility()) {
-			resetBoardModel();
+			lose();
 		}
 		int move = 0;
 		for (int row = 0; row < this.boardModel.length; row++) {
@@ -227,7 +231,7 @@ public final class BoardModel extends Observable {
 
 	public int performMoveTop() {
 		if (!checkMovePossibility()) {
-			resetBoardModel();
+			lose();
 		}
 		int move = 0;
 		for (int col = this.boardModel.length - 1; col >= 0; col--) {
@@ -271,7 +275,7 @@ public final class BoardModel extends Observable {
 
 	public int performMoveDown() {
 		if (!checkMovePossibility()) {
-			resetBoardModel();
+			lose();
 		}
 		int move = 0;
 		for (int col = 0; col < this.boardModel.length; col++) {
@@ -325,6 +329,7 @@ public final class BoardModel extends Observable {
 	}
 
 	private void win() {
+		setGameWin(true);
 		resetBoardModel();
 
 	}
@@ -336,13 +341,10 @@ public final class BoardModel extends Observable {
 		setChanged();
 		notifyObservers(this);
 	}
-	
+
 	private void performAdd(int move, int merge) {
-		if ((move != 0 || merge != 0) && !getResetFlag()) {
+		if ((move != 0 || merge != 0) && !getOameOver() && !getGameWin()) {
 			addValue(BoardModel.UPDATE_FIELD_AMOUNT);
-		} else if ((move != 0 || merge != 0) && getResetFlag()) {
-			addValue(BoardModel.INIT_FIELD_AMOUNT);
-			setResetFlag(false);
 		}
 	}
 
@@ -386,6 +388,8 @@ public final class BoardModel extends Observable {
 		}
 		this.score = INIT_SCORE_VALUE;
 		addValue(INIT_FIELD_AMOUNT);
+		setGameOver(false);
+		setGameWin(false);
 		setChanged();
 		notifyObservers(this);
 	}
@@ -413,16 +417,25 @@ public final class BoardModel extends Observable {
 		int merge = performMergeDown();
 		performAdd(move, merge);
 	}
-	
-	public Boolean getResetFlag() {
-		return reset_Flag;
+
+	public Boolean getOameOver() {
+		return this.gameOver;
 	}
 
-	public void setResetFlag(Boolean reset_Flag) {
-		this.reset_Flag = reset_Flag;
+	public void setGameOver(Boolean gameOver) {
+		this.gameOver = gameOver;
 	}
-	
+
 	public Integer[][] getBoardModel() {
 		return boardModel;
+	}
+
+	public void setGameWin(boolean gameWin) {
+		this.gameWin = gameWin;
+
+	}
+
+	public Boolean getGameWin() {
+		return this.gameWin;
 	}
 }
