@@ -122,8 +122,6 @@ public final class BoardModel extends Observable {
 			}
 
 		}
-		setChanged();
-		notifyObservers(this);
 	}
 
 	/**
@@ -345,9 +343,6 @@ public final class BoardModel extends Observable {
 		if (value == WIN_VALUE) {
 			win();
 		}
-		setChanged();
-		notifyObservers(this);
-
 	}
 
 	private void setScore(int value) {
@@ -378,8 +373,6 @@ public final class BoardModel extends Observable {
 			int col_to) {
 		board[row_to][col_to] = board[row_from][col_from];
 		board[row_from][col_from] = INIT_FIELD_VALUE;
-		setChanged();
-		notifyObservers(this);
 	}
 
 	private void performAdd(int move, int merge) {
@@ -441,24 +434,32 @@ public final class BoardModel extends Observable {
 		int move = performMoveRight();
 		int merge = performMergeRight();
 		performAdd(move, merge);
+		setChanged();
+		notifyObservers(this);
 	}
 
 	public void moveLeft() {
 		int move = performMoveLeft();
 		int merge = performMergeLeft();
 		performAdd(move, merge);
+		setChanged();
+		notifyObservers(this);
 	}
 
 	public void moveTop() {
 		int move = performMoveTop();
 		int merge = performMergeTop();
 		performAdd(move, merge);
+		setChanged();
+		notifyObservers(this);
 	}
 
 	public void moveDown() {
 		int move = performMoveDown();
 		int merge = performMergeDown();
 		performAdd(move, merge);
+		setChanged();
+		notifyObservers(this);
 	}
 
 	public Boolean getOameOver() {

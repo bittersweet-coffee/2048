@@ -23,6 +23,10 @@ public class Game extends Application {
 	private StatsModel statsModel;
 	private StatsController statsController;
 
+
+	private FXMLLoader loader2;
+	private BoardView boardView2;
+	
 	/**
 	 * Initialize the Game object and glue the models, controllers and views
 	 * together.
@@ -41,17 +45,28 @@ public class Game extends Application {
 		Parent root = this.loader.load();
 
 		this.boardModel = new BoardModel();
-		this.boardView = new BoardView(root, boardModel);
-
+		this.boardView = new BoardView(root);
 		this.statsModel = new StatsModel();
 
 		this.boardController = new BoardController();
-		this.statsController = new StatsController();
+		//this.statsController = new StatsController();
 
 		this.boardModel.addObserver(boardView);
 		this.boardController.addBoardModel(boardModel);
 		this.boardController.addBoardView(boardView);
 		this.boardView.addCotroller(boardController);
+		
+		/**
+		 * 
+		// ADD A SECOND VIEW
+		this.loader2= new FXMLLoader(
+				getClass().getResource("/view/GameView.fxml"));
+		Parent root2 = this.loader2.load();
+		this.boardView2 = new BoardView(root2);
+		this.boardModel.addObserver(boardView2);
+		this.boardView2.addCotroller(boardController);
+		**/
+		
 		this.boardController.initModel();
 	}
 
