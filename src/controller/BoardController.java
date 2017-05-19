@@ -10,8 +10,7 @@ import model.ScoreModel;
 import view.BoardView;
 
 /**
- * 
- * @author Henzi & Hofer This controller handels all stuff from the 2048 Game
+ * TODO
  */
 public class BoardController implements EventHandler<Event> {
 	private BoardModel boardModel;
@@ -54,20 +53,24 @@ public class BoardController implements EventHandler<Event> {
 	 */
 	@Override
 	public void handle(Event event) {
-		Integer[][] board = this.boardModel.getBoardModel();
+		Integer[][] board = this.boardModel.getModel();
 		if (event.getEventType() == KeyEvent.KEY_PRESSED) {
 			switch (((KeyEvent) event).getCode()) {
 			case UP:
-				this.boardModel.moveTop();
+				this.boardModel
+						.setModel(GameLogic.moveUp(this.boardModel.getModel()));
 				break;
 			case DOWN:
-				this.boardModel.moveDown();
+				this.boardModel.setModel(
+						GameLogic.moveDown(this.boardModel.getModel()));
 				break;
 			case LEFT:
-				this.boardModel.moveLeft();
+				this.boardModel.setModel(
+						GameLogic.moveLeft(this.boardModel.getModel()));
 				break;
 			case RIGHT:
-				this.boardModel.moveRight();
+				this.boardModel.setModel(
+						GameLogic.moveRight(this.boardModel.getModel()));
 				break;
 			default:
 				break;
@@ -77,13 +80,17 @@ public class BoardController implements EventHandler<Event> {
 		if (event.getEventType() == ActionEvent.ACTION) {
 			String target = event.getTarget().toString();
 			if (target.contains("UP")) {
-				this.boardModel.moveTop();
+				this.boardModel
+						.setModel(GameLogic.moveUp(this.boardModel.getModel()));
 			} else if (target.contains("DOWN")) {
-				this.boardModel.moveDown();
+				this.boardModel.setModel(
+						GameLogic.moveDown(this.boardModel.getModel()));
 			} else if (target.contains("LEFT")) {
-				this.boardModel.moveLeft();
+				this.boardModel.setModel(
+						GameLogic.moveLeft(this.boardModel.getModel()));
 			} else if (target.contains("RIGHT")) {
-				this.boardModel.moveRight();
+				this.boardModel.setModel(
+						GameLogic.moveRight(this.boardModel.getModel()));
 			} else if (target.contains("START")) {
 				this.init();
 			}
