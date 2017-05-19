@@ -1,10 +1,12 @@
 package controller;
 
+import generic.GameLogic;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import model.BoardModel;
+import model.ScoreModel;
 import view.BoardView;
 
 /**
@@ -14,6 +16,7 @@ import view.BoardView;
 public class BoardController implements EventHandler<Event> {
 	private BoardModel boardModel;
 	private BoardView boardView;
+	private ScoreModel scoreModel;
 
 	/**
 	 * TODO
@@ -24,8 +27,9 @@ public class BoardController implements EventHandler<Event> {
 	/**
 	 * Initializes the board on the Model to start a new Game
 	 */
-	public void initModel() {
+	public void init() {
 		this.boardModel.initModel();
+		this.scoreModel.initScore();
 	}
 
 	/**
@@ -50,6 +54,7 @@ public class BoardController implements EventHandler<Event> {
 	 */
 	@Override
 	public void handle(Event event) {
+		Integer[][] board = this.boardModel.getBoardModel();
 		if (event.getEventType() == KeyEvent.KEY_PRESSED) {
 			switch (((KeyEvent) event).getCode()) {
 			case UP:
@@ -80,8 +85,13 @@ public class BoardController implements EventHandler<Event> {
 			} else if (target.contains("RIGHT")) {
 				this.boardModel.moveRight();
 			} else if (target.contains("START")) {
-				this.initModel();
+				this.init();
 			}
 		}
+	}
+
+	public void addScoreModel(ScoreModel scoreModel) {
+		this.scoreModel = scoreModel;
+		
 	}
 }

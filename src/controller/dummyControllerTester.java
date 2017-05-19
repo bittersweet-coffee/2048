@@ -26,5 +26,4 @@ public class dummyControllerTester {
 		}
 		dummyController.generateXML();
 	}
-
 }
