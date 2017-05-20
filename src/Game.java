@@ -62,7 +62,6 @@ public class Game extends Application {
 		this.scoreModel.addObserver(scoreView);
 		this.boardController.addBoardModel(boardModel);
 		this.boardController.addScoreModel(scoreModel);
-		this.boardController.addBoardView(boardView);
 		this.boardView.addCotroller(boardController);
 		
 		/**

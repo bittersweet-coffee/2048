@@ -14,7 +14,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import model.BoardModel;
 
 /**
  * TODO
@@ -108,19 +107,11 @@ public class BoardView extends Stage implements Observer {
 	public void update(Observable obs, Object obj) {
 		this.start.setDisable(true);
 		this.start.setText("START");
-		BoardModel boardModel = (BoardModel) obj;
+		Integer[][] boardModel = (Integer[][]) obj;
 		updateBoard(boardModel);
-		updateScore(boardModel);
-		if (boardModel.getOameOver()) {
-			performGameOverView(boardModel);
-		}
-		if (boardModel.getGameWin()) {
-			performGameWinView(boardModel);
-		}
 	}
 
-	private void performGameWinView(BoardModel boardModel) {
-		Integer[][] board = boardModel.getBoardModel();
+	private void performGameWinView(Integer[][] board) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
 				for (Node node : this.board.getChildren()) {
@@ -152,8 +143,7 @@ public class BoardView extends Stage implements Observer {
 		this.start.setDisable(false);
 	}
 
-	private void performGameOverView(BoardModel boardModel) {
-		Integer[][] board = boardModel.getBoardModel();
+	private void performGameOverView(Integer[][] board) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
 				for (Node node : this.board.getChildren()) {
@@ -191,8 +181,7 @@ public class BoardView extends Stage implements Observer {
 		this.start.setDisable(false);
 	}
 
-	private void updateBoard(BoardModel boardModel) {
-		Integer[][] board = boardModel.getBoardModel();
+	private void updateBoard(Integer[][] board) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
 				for (Node node : this.board.getChildren()) {
@@ -216,18 +205,4 @@ public class BoardView extends Stage implements Observer {
 		}
 
 	}
-
-	private void updateScore(BoardModel boardModel) {
-		Integer score = boardModel.getScore();
-		if (score < 10) {
-			this.lbl_score_value.setText("000" + Integer.toString(score));
-		} else if (score < 100) {
-			this.lbl_score_value.setText("00" + Integer.toString(score));
-		} else if (score < 1000) {
-			this.lbl_score_value.setText("0" + Integer.toString(score));
-		} else {
-			this.lbl_score_value.setText(Integer.toString(score));
-		}
-	}
-
 }

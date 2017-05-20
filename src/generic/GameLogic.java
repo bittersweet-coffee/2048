@@ -19,7 +19,9 @@ public class GameLogic {
 	private static final int BIG_FIELD_VALUE = 4;
 	private static final int SMALL_FIELS_VALUE = 2;
 
-	private static Integer score;
+	private static Integer scoreValue = 0;
+	private static Integer score = 0;
+	private static Integer[][] board;
 	private static boolean gameOver;
 	private static boolean gameWin;
 
@@ -31,46 +33,91 @@ public class GameLogic {
 
 	/**
 	 * TODO
+	 * 
+	 * @param score
 	 */
-	public static Integer[][] moveRight(Integer[][] board) {
-		Integer[][] newBoard;
-		newBoard = performMoveRight(board);
-		newBoard = performMergeRight(newBoard);
-		return performAdd(newBoard, board);
-	}
-
-	/**
-	 * TODO
-	 */
-	public static Integer[][] moveLeft(Integer[][] board) {
-		Integer[][] newBoard;
-		newBoard = performMoveLeft(board);
-		newBoard = performMergeLeft(newBoard);
-		return performAdd(newBoard, board);
+	public static Integer[][] moveRight(Integer[][] board, int score) {
+		GameLogic.setScoreValue(0);
+		GameLogic.setScore(score);
+		Integer[][] oldBoard = new Integer[ROW][COL];
+		for (int i = 0; i < oldBoard.length; i++) {
+			for (int j = 0; j < oldBoard.length; j++) {
+				oldBoard[i][j] = board[i][j];
+			}
+		}
+		board = performMoveRight(board);
+		board = performMergeRight(board);
+		Integer newScore = GameLogic.getScore() + GameLogic.getScoreValue();
+		GameLogic.setScore(newScore);
+		return performAdd(oldBoard, board);
 	}
 
 	/**
 	 * TODO
 	 * 
-	 * @return
+	 * @param score
 	 */
-	public static Integer[][] moveUp(Integer[][] board) {
-		Integer[][] newBoard;
-		newBoard = performMoveUp(board);
-		newBoard = performMergeUp(newBoard);
-		return performAdd(newBoard, board);
+	public static Integer[][] moveLeft(Integer[][] board, int score) {
+		GameLogic.setScoreValue(0);
+		GameLogic.setScore(score);
+		Integer[][] oldBoard = new Integer[ROW][COL];
+		for (int i = 0; i < oldBoard.length; i++) {
+			for (int j = 0; j < oldBoard.length; j++) {
+				oldBoard[i][j] = board[i][j];
+			}
+		}
+		board = performMoveLeft(board);
+		board = performMergeLeft(board);
+		Integer newScore = GameLogic.getScore() + GameLogic.getScoreValue();
+		GameLogic.setScore(newScore);
+		return performAdd(oldBoard, board);
 	}
 
 	/**
 	 * TODO
 	 * 
+	 * @param score
+	 * @param integers
+	 * 
 	 * @return
 	 */
-	public static Integer[][] moveDown(Integer[][] board) {
-		Integer[][] newBoard;
-		newBoard = performMoveDown(board);
-		newBoard = performMergeDown(newBoard);
-		return performAdd(newBoard, board);
+	public static Integer[][] moveUp(Integer[][] board, int score) {
+		GameLogic.setScoreValue(0);
+		GameLogic.setScore(score);
+		Integer[][] oldBoard = new Integer[ROW][COL];
+		for (int i = 0; i < oldBoard.length; i++) {
+			for (int j = 0; j < oldBoard.length; j++) {
+				oldBoard[i][j] = board[i][j];
+			}
+		}
+		board = performMoveUp(board);
+		board = performMergeUp(board);
+		Integer newScore = GameLogic.getScore() + GameLogic.getScoreValue();
+		GameLogic.setScore(newScore);
+		return performAdd(oldBoard, board);
+	}
+
+	/**
+	 * TODO
+	 * 
+	 * @param score
+	 * 
+	 * @return
+	 */
+	public static Integer[][] moveDown(Integer[][] board, int score) {
+		GameLogic.setScoreValue(0);
+		GameLogic.setScore(score);
+		Integer[][] oldBoard = new Integer[ROW][COL];
+		for (int i = 0; i < oldBoard.length; i++) {
+			for (int j = 0; j < oldBoard.length; j++) {
+				oldBoard[i][j] = board[i][j];
+			}
+		}
+		board = performMoveDown(board);
+		board = performMergeDown(board);
+		Integer newScore = GameLogic.getScore() + GameLogic.getScoreValue();
+		GameLogic.setScore(newScore);
+		return performAdd(oldBoard, board);
 	}
 
 	/**
@@ -201,6 +248,8 @@ public class GameLogic {
 	/**
 	 * TODO
 	 * 
+	 * @param score
+	 * 
 	 * @return
 	 */
 	private static Integer[][] performMergeLeft(Integer[][] board) {
@@ -250,6 +299,8 @@ public class GameLogic {
 
 	/**
 	 * TODO
+	 * 
+	 * @param score
 	 * 
 	 * @return
 	 */
@@ -301,6 +352,8 @@ public class GameLogic {
 
 	/**
 	 * TODO
+	 * 
+	 * @param score
 	 * 
 	 * @return
 	 */
@@ -365,8 +418,8 @@ public class GameLogic {
 			int col_from, int row_to, int col_to) {
 		int value = board[row_to][col_to] + board[row_from][col_from];
 		board[row_to][col_to] = value;
+		setScoreValue(value);
 		board[row_from][col_from] = INIT_FIELD_VALUE;
-
 		return board;
 		/**
 		 * this.setScore(value); if (value == WIN_VALUE) { win(); }
@@ -463,4 +516,26 @@ public class GameLogic {
 	 * 
 	 * }
 	 */
+
+	private static void setScoreValue(Integer score) {
+		if (score == 0) {
+			GameLogic.scoreValue = 0;
+		} else {
+			GameLogic.scoreValue = GameLogic.scoreValue + score;
+		}
+
+	}
+
+	public static Integer getScore() {
+		return GameLogic.score;
+	}
+	
+	public static Integer getScoreValue() {
+		return GameLogic.scoreValue;
+	}
+
+	private static void setScore(Integer score) {
+		GameLogic.score = score;
+	}
+
 }

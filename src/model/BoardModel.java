@@ -31,7 +31,7 @@ public final class BoardModel extends Observable {
 		this.boardModel = GameLogic.addValue(this.boardModel,
 				GameLogic.INIT_FIELD_AMOUNT);
 		setChanged();
-		notifyObservers(this);
+		notifyObservers(this.boardModel);
 	}
 
 	/**
@@ -44,7 +44,7 @@ public final class BoardModel extends Observable {
 			}
 		}
 		setChanged();
-		notifyObservers(this);
+		notifyObservers(this.boardModel);
 	}
 
 	/**
@@ -62,6 +62,6 @@ public final class BoardModel extends Observable {
 		this.boardModel = boardModel;
 
 		setChanged();
-		notifyObservers(this);
+		notifyObservers(this.boardModel);
 	}
 }
