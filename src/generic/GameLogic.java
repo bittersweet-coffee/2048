@@ -16,8 +16,8 @@ public class GameLogic {
 	public static final int WIN_VALUE = 2048;
 
 	private static final int RAND_RATIO_MAX = 50;
-	private static final int BIG_FIELD_VALUE = 512;
-	private static final int SMALL_FIELS_VALUE = 512;
+	private static final int BIG_FIELD_VALUE = 4;
+	private static final int SMALL_FIELS_VALUE = 2;
 
 	private static Integer scoreValue = 0;
 	private static Integer score = 0;
