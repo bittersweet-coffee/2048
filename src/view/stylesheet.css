@@ -1,3 +1,154 @@
-#board {
-	-fx-border-style: solid inside;
+/*
+ * Color Theme "Flat UI" provided by color.adobe.com
+ * https://color.adobe.com/Flat-UI-color-theme-2469224/?showPublished=true
+ * Dark Blue:  #2C3E50
+ * Light Red:  #E74C3C
+ * Red:        #B53C2F
+ * White:      #ECF0F1
+ * Light Blue: #3498DB
+ * Blue:       #2980B9
+ */
+ 
+.root { 
+	-fx-background: #ECF0F1;
+}
+
+Label {
+	-fx-text-fill: #2C3E50;
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
+}
+
+.score {
+	-fx-text-fill: #2C3E50;
+	-fx-font-size: 30px;
+	-fx-font-weight: bold;
+}
+
+/*
+ * Insights and code partially taken from StackOverflow, modified to our liking 
+ * Copyright by Razielwar
+ * http://stackoverflow.com/questions/35911675/javafx-dropshadow-grows-event-area-cause-problems-with-3d-button-style
+ */
+.controls {
+	-fx-text-fill: #ECF0F1;
+	-fx-font-weight: bold;
+	-fx-background-color: #2980B9, #3498DB;
+    -fx-background-insets: 0.0 0.0 0.0 0.0, 0.0 1.0 5.0 0.0;
+    -fx-background-radius: 5.0, 5.0;
+	-fx-effect: dropshadow(three-pass-box,
+		rgba(0.0, 0.0, 0.0,0.5),
+		10.0, 0.4, 3.0, 3.0
+	);
+    -fx-padding: 5;
+}
+
+/*
+ * Insights and code partially taken from StackOverflow, modified to our liking
+ * Copyright by Razielwar
+ * http://stackoverflow.com/questions/35911675/javafx-dropshadow-grows-event-area-cause-problems-with-3d-button-style
+ */
+.controls:pressed {
+	-fx-background-color: #2980B9, #3498DB;
+    -fx-background-insets: 2 1 0 1, 2 0 2 1;
+    -fx-background-radius: 5.0, 5.0;
+	-fx-effect: dropshadow(three-pass-box,
+		rgba(0.0, 0.0, 0.0,0.5),
+		5.0, 0.5, 0.0, 1.0
+	);
+    -fx-padding: 5 4 2 6;
+}
+
+/*
+ * Insights and code partially taken from StackOverflow, modified to our liking 
+ * Copyright by Razielwar
+ * http://stackoverflow.com/questions/35911675/javafx-dropshadow-grows-event-area-cause-problems-with-3d-button-style
+ */
+.restart {
+	-fx-text-fill: #ECF0F1;
+	-fx-font-weight: bold;
+	-fx-background-color: #B53C2F, #E74C3C;
+    -fx-background-insets: 0.0 0.0 0.0 0.0, 0.0 1.0 5.0 0.0;
+    -fx-background-radius: 5.0, 5.0;
+	-fx-effect: dropshadow(three-pass-box,
+		rgba(0.0, 0.0, 0.0,0.5),
+		10.0, 0.4, 3.0, 3.0
+	);
+    -fx-padding: 5;
+}
+
+/*
+ * Insights and code partially taken from StackOverflow, modified to our liking
+ * Copyright by Razielwar
+ * http://stackoverflow.com/questions/35911675/javafx-dropshadow-grows-event-area-cause-problems-with-3d-button-style
+ */
+.restart:pressed {
+	-fx-background-color: #B53C2F, #E74C3C;
+    -fx-background-insets: 2 1 0 1, 2 0 2 1;
+    -fx-background-radius: 5.0, 5.0;
+	-fx-effect: dropshadow(three-pass-box,
+		rgba(0.0, 0.0, 0.0,0.5),
+		5.0, 0.5, 0.0, 1.0
+	);
+    -fx-padding: 5 4 2 6;
+}
+
+/*
+ * Color Theme "Franky Demon" provided by color.adobe.com
+ * https://color.adobe.com/Franky-Demon-color-theme-3891391/?showPublished=true
+ * 
+ */
+.value-2 {
+	-fx-border-color: #5F7A8C;
+	-fx-background-color: #F0E7B9;
+}
+
+.value-4 {
+	-fx-border-color: #5F7A8C;
+	-fx-background-color: #F0C2A6;
+}
+
+.value-8 {
+	-fx-border-color: #5F7A8C;
+	-fx-background-color: #7FC2A6;
+}
+
+.value-16 {
+	-fx-border-color: #5F7A8C;
+	-fx-background-color: #F0E77F;
+}
+
+.value-32 {
+	-fx-border-color: #5F7A8C;
+	-fx-background-color: #F09CA6;
+}
+
+.value-64 {
+	-fx-border-color: #5F7A8C;
+	-fx-background-color: #588774;
+}
+
+.value-128 {
+	-fx-border-color: #5F7A8C;
+	-fx-background-color: #F0E74D;
+}
+
+.value-256 {
+	-fx-border-color: #5F7A8C;
+	-fx-background-color: #CF6B8F;
+}
+
+.value-512 {
+	-fx-border-color: #5F7A8C;
+	-fx-background-color: #2AAD2F;
+}
+
+.value-1024 {
+	-fx-border-color: #5F7A8C;
+	-fx-background-color: #F0E70E;
+}
+
+.value-2048 {
+	-fx-border-color: #5F7A8C;
+	-fx-background-color: #FF4C2E;
 }

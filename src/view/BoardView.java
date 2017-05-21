@@ -12,17 +12,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
  * TODO
  */
 public class BoardView extends Stage implements Observer {
-
-	private static final int FONT_SIZE_SMALL = 33;
-	private static final int FONT_SIZE_NORMAL = 40;
-	private static final String FONT_STYLE = "Arial";
 
 	private Parent root;
 	private GridPane board;
@@ -64,9 +59,6 @@ public class BoardView extends Stage implements Observer {
 				board.add(nb, j, i);
 			}
 		}
-
-		this.labelScore.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
-		this.labelScoreView.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
 	}
 
 	/**
@@ -117,15 +109,12 @@ public class BoardView extends Stage implements Observer {
 					if (node instanceof HBox && GridPane.getRowIndex(node) == i
 							&& GridPane.getColumnIndex(node) == j) {
 						if (board[i][j] != 0) {
-							if (board[i][j] > 1000) {
-								((NumberBox) node)
-										.setLabelFontSize(FONT_SIZE_SMALL);
-								((NumberBox) node).setLabelText(
-										Integer.toString(board[i][j]));
-							}
+							((NumberBox) node).setStyle(board[i][j]);
 							((NumberBox) node).setLabelText(
 									Integer.toString(board[i][j]));
+
 						} else {
+							((NumberBox) node).setStyle(0);
 							((NumberBox) node).setLabelText("");
 						}
 					}
