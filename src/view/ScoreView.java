@@ -57,6 +57,7 @@ public class ScoreView extends Stage implements Observer {
 	/**
 	 * TODO
 	 */
+	@Override
 	public void update(Observable obs, Object obj) {
 		int score = (int) obj;
 		if (score < 10) {

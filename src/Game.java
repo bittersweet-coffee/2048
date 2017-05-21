@@ -6,9 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import model.BoardModel;
+import model.GameScreenModel;
 import model.ScoreModel;
 import model.StatsModel;
 import view.BoardView;
+import view.GameScreenView;
 import view.ScoreView;
 
 /**
@@ -22,8 +24,10 @@ public class Game extends Application {
 	private BoardController boardController;
 	private BoardModel boardModel;
 	private ScoreModel scoreModel;
+	private GameScreenModel gameScreenModel;
 	private BoardView boardView;
 	private ScoreView scoreView;
+	private GameScreenView gameScreenView;
 	private StatsModel statsModel;
 	private StatsController statsController;
 
@@ -50,9 +54,10 @@ public class Game extends Application {
 
 		this.boardModel = new BoardModel();
 		this.scoreModel = new ScoreModel();
+		this.gameScreenModel = new GameScreenModel();
 		this.boardView = new BoardView(root);
 		this.scoreView = new ScoreView(root);
-		
+		this.gameScreenView = new GameScreenView(root);
 		this.statsModel = new StatsModel();
 
 		this.boardController = new BoardController();
@@ -60,8 +65,10 @@ public class Game extends Application {
 
 		this.boardModel.addObserver(boardView);
 		this.scoreModel.addObserver(scoreView);
+		this.gameScreenModel.addObserver(gameScreenView);
 		this.boardController.addBoardModel(boardModel);
 		this.boardController.addScoreModel(scoreModel);
+		this.boardController.addGameScreenModel(gameScreenModel);
 		this.boardView.addCotroller(boardController);
 		
 		/**

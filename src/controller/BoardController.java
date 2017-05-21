@@ -6,8 +6,8 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import model.BoardModel;
+import model.GameScreenModel;
 import model.ScoreModel;
-import view.BoardView;
 
 /**
  * TODO
@@ -15,6 +15,7 @@ import view.BoardView;
 public class BoardController implements EventHandler<Event> {
 	private BoardModel boardModel;
 	private ScoreModel scoreModel;
+	private GameScreenModel gameScreenModel;
 
 	/**
 	 * TODO
@@ -26,8 +27,11 @@ public class BoardController implements EventHandler<Event> {
 	 * Initializes the board on the Model to start a new Game
 	 */
 	public void init() {
+		GameLogic.setGameOver(false);
+		GameLogic.setGameWin(false);
 		this.boardModel.initModel();
 		this.scoreModel.initScore();
+		this.gameScreenModel.initGameScreen();
 	}
 
 	/**
@@ -36,6 +40,24 @@ public class BoardController implements EventHandler<Event> {
 	 */
 	public void addBoardModel(BoardModel boardModel) {
 		this.boardModel = boardModel;
+	}
+
+	/**
+	 * 
+	 * @param scoreModel
+	 */
+	public void addScoreModel(ScoreModel scoreModel) {
+		this.scoreModel = scoreModel;
+
+	}
+
+	/**
+	 * 
+	 * @param gameScreenModel
+	 */
+	public void addGameScreenModel(GameScreenModel gameScreenModel) {
+		this.gameScreenModel = gameScreenModel;
+
 	}
 
 	/**
@@ -69,9 +91,7 @@ public class BoardController implements EventHandler<Event> {
 			}
 		}
 
-		if (event.getEventType() == ActionEvent.ACTION)
-
-		{
+		if (event.getEventType() == ActionEvent.ACTION) {
 			String target = event.getTarget().toString();
 			if (target.contains("UP")) {
 				this.boardModel.setModel(GameLogic.moveUp(board, score));
@@ -93,14 +113,17 @@ public class BoardController implements EventHandler<Event> {
 				if (GameLogic.getScore() != 0) {
 					this.scoreModel.setScore(GameLogic.getScore());
 				}
-			} else if (target.contains("START")) {
+			} else if (target.contains("START") || target.contains("RESTART")) {
 				this.init();
 			}
 		}
-	}
-
-	public void addScoreModel(ScoreModel scoreModel) {
-		this.scoreModel = scoreModel;
-
+		if (GameLogic.getGameOver()) {
+			this.boardModel.resetModel();
+			this.gameScreenModel.setGameOver(true);
+			if (GameLogic.getGameWin()) {
+				this.gameScreenModel.setGameWin(true);
+			}
+			this.gameScreenModel.state();
+		}
 	}
 }

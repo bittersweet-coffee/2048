@@ -2,13 +2,14 @@ package model;
 
 import java.util.Observable;
 
-
 public class ScoreModel extends Observable {
 
 	private int score; 
 	
 	public void initScore() {
-		setScore(0);
+		this.score = 0;
+		setChanged();
+		notifyObservers(this.score);
 	}
 	
 	public void setScore(int score) {
