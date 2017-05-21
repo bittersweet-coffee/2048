@@ -35,7 +35,7 @@ public class BoardController implements EventHandler<Event> {
 	}
 
 	/**
-	 * 
+	 * TODO
 	 * @param boardModel
 	 */
 	public void addBoardModel(BoardModel boardModel) {
@@ -52,7 +52,7 @@ public class BoardController implements EventHandler<Event> {
 	}
 
 	/**
-	 * 
+	 * TODO
 	 * @param gameScreenModel
 	 */
 	public void addGameScreenModel(GameScreenModel gameScreenModel) {
@@ -61,8 +61,8 @@ public class BoardController implements EventHandler<Event> {
 	}
 
 	/**
-	 * this methode is used to handle the arrow keys and the buttons from the
-	 * view. It connects the View with the Modle
+	 * Handle the arrow keys and the buttons of the View. It connects the View 
+	 * with the Model.
 	 */
 	@Override
 	public void handle(Event event) {
@@ -117,6 +117,7 @@ public class BoardController implements EventHandler<Event> {
 				this.init();
 			}
 		}
+
 		if (GameLogic.getGameOver()) {
 			this.boardModel.resetModel();
 			this.gameScreenModel.setGameOver(true);

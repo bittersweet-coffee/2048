@@ -19,8 +19,8 @@ public class ScoreView extends Stage implements Observer {
 
 	private Parent root;
 	private GridPane board;
-	private Label lbl_score;
-	private Label lbl_score_value;
+	private Label labelScore;
+	private Label labelScoreValue;
 
 	/**
 	 * TODO
@@ -39,8 +39,8 @@ public class ScoreView extends Stage implements Observer {
 	 * @param board
 	 */
 	private void initScore(GridPane board) {
-		this.lbl_score.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
-		this.lbl_score_value.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
+		this.labelScore.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
+		this.labelScoreValue.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
 	}
 
 	/**
@@ -50,8 +50,8 @@ public class ScoreView extends Stage implements Observer {
 	 */
 	private void loadComponents(Parent root) {
 		this.board = (GridPane) root.lookup("#board");
-		this.lbl_score = (Label) root.lookup("#score");
-		this.lbl_score_value = (Label) root.lookup("#score_value");
+		this.labelScore = (Label) root.lookup("#score");
+		this.labelScoreValue = (Label) root.lookup("#score_value");
 	}
 
 	/**
@@ -61,13 +61,13 @@ public class ScoreView extends Stage implements Observer {
 	public void update(Observable obs, Object obj) {
 		int score = (int) obj;
 		if (score < 10) {
-			this.lbl_score_value.setText("000" + Integer.toString(score));
+			this.labelScoreValue.setText("000" + Integer.toString(score));
 		} else if (score < 100) {
-			this.lbl_score_value.setText("00" + Integer.toString(score));
+			this.labelScoreValue.setText("00" + Integer.toString(score));
 		} else if (score < 1000) {
-			this.lbl_score_value.setText("0" + Integer.toString(score));
+			this.labelScoreValue.setText("0" + Integer.toString(score));
 		} else {
-			this.lbl_score_value.setText(Integer.toString(score));
+			this.labelScoreValue.setText(Integer.toString(score));
 		}
-	}		
+	}
 }

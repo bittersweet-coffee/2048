@@ -28,8 +28,8 @@ public class BoardView extends Stage implements Observer {
 	private GridPane board;
 	private Button up, down, left, right, start;
 	private VBox container;
-	private Label lbl_score;
-	private Label lbl_score_value;
+	private Label labelScore;
+	private Label labelScoreView;
 
 	/**
 	 * TODO
@@ -46,7 +46,6 @@ public class BoardView extends Stage implements Observer {
 		this.setTitle("2048");
 		this.setScene(scene);
 		this.show();
-
 	}
 
 	/**
@@ -66,8 +65,8 @@ public class BoardView extends Stage implements Observer {
 			}
 		}
 
-		this.lbl_score.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
-		this.lbl_score_value.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
+		this.labelScore.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
+		this.labelScoreView.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
 	}
 
 	/**
@@ -83,8 +82,8 @@ public class BoardView extends Stage implements Observer {
 		this.left = (Button) root.lookup("#btn_left");
 		this.right = (Button) root.lookup("#btn_right");
 		this.start = (Button) root.lookup("#btn_start");
-		this.lbl_score = (Label) root.lookup("#score");
-		this.lbl_score_value = (Label) root.lookup("#score_value");
+		this.labelScore = (Label) root.lookup("#score");
+		this.labelScoreView = (Label) root.lookup("#score_value");
 	}
 
 	/**
@@ -133,6 +132,5 @@ public class BoardView extends Stage implements Observer {
 				}
 			}
 		}
-
 	}
 }

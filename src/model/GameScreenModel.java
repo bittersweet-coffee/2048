@@ -2,25 +2,26 @@ package model;
 
 import java.util.Observable;
 
-public class GameScreenModel extends Observable{
+/**
+ * TODO
+ */
+public class GameScreenModel extends Observable {
 
 	private boolean gameOver;
 	private boolean gameWin;
-	
 
 	/**
 	 * TODO
 	 */
 	public GameScreenModel() {
 	}
-	
+
 	/**
 	 * TODO
 	 */
 	public void initGameScreen() {
 		this.gameOver = false;
 		this.gameWin = false;
-		
 	}
 
 	/**
@@ -28,7 +29,6 @@ public class GameScreenModel extends Observable{
 	 */
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
-		
 	}
 
 	/**
@@ -36,7 +36,6 @@ public class GameScreenModel extends Observable{
 	 */
 	public void setGameWin(boolean gameWin) {
 		this.gameWin = gameWin;
-		
 	}
 
 	public void state() {
@@ -48,9 +47,5 @@ public class GameScreenModel extends Observable{
 		}
 		setChanged();
 		notifyObservers(state);
-		
 	}
-
-	
-
 }

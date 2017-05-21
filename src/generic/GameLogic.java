@@ -143,7 +143,7 @@ public class GameLogic {
 
 		return board;
 	}
-	
+
 	/**
 	 * 
 	 * @param board
@@ -346,7 +346,8 @@ public class GameLogic {
 	private static Integer[][] performMoveUp(Integer[][] board) {
 		if (!checkMovePossibility(board)) {
 			setGameOver(true);
-		}for (int col = board.length - 1; col >= 0; col--) {
+		}
+		for (int col = board.length - 1; col >= 0; col--) {
 			for (int row = 0; row < board.length; row++) {
 				if (isOccupied(board, row, col)) {
 					for (int row_move = row - 1; row_move >= 0; row_move--) {
@@ -473,7 +474,6 @@ public class GameLogic {
 				}
 			}
 		}
-
 		return oldBoard;
 	}
 
@@ -505,9 +505,40 @@ public class GameLogic {
 			}
 		}
 		return false;
-
 	}
 
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
+	public static Integer getScore() {
+		return GameLogic.score;
+	}
+
+	/**
+	 * TODO
+	 * 
+	 * @param score
+	 */
+	private static void setScore(Integer score) {
+		GameLogic.score = score;
+	}
+
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
+	public static Integer getScoreValue() {
+		return GameLogic.scoreValue;
+	}
+
+	/**
+	 * TODO
+	 * 
+	 * @param score
+	 */
 	private static void setScoreValue(Integer score) {
 		if (score == 0) {
 			GameLogic.scoreValue = 0;
@@ -516,35 +547,40 @@ public class GameLogic {
 		}
 
 	}
-	
 
-
-	public static Integer getScore() {
-		return GameLogic.score;
-	}
-	
-	public static Integer getScoreValue() {
-		return GameLogic.scoreValue;
-	}
-
-	private static void setScore(Integer score) {
-		GameLogic.score = score;
-	}
-	
+	/**
+	 * TODO
+	 * 
+	 * @param gameOver
+	 */
 	public static void setGameOver(Boolean gameOver) {
 		GameLogic.gameOver = gameOver;
 	}
-	
+
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
 	public static boolean getGameOver() {
 		return GameLogic.gameOver;
 	}
-	
+
+	/**
+	 * TODO
+	 * 
+	 * @param gameWin
+	 */
 	public static void setGameWin(Boolean gameWin) {
 		GameLogic.gameWin = gameWin;
 	}
-	
+
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
 	public static boolean getGameWin() {
 		return GameLogic.gameWin;
 	}
-
 }

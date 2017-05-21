@@ -10,21 +10,26 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+/**
+ * TODO
+ */
 public class GameScreenView implements Observer {
 
 	private Parent root;
 	private GridPane board;
 	private Button start;
 	
+	/**
+	 * TODO
+	 * @param root
+	 */
 	public GameScreenView(Parent root) {
 		this.root = root;
 		loadComponents(this.root);
-
 	}
 
 	/**
 	 * TODO
-	 * 
 	 * @param root
 	 */
 	private void loadComponents(Parent root) {
@@ -32,6 +37,9 @@ public class GameScreenView implements Observer {
 		this.start = (Button) root.lookup("#btn_start");
 	}
 
+	/**
+	 * TODO
+	 */
 	private void performGameWinView() {
 		for (int i = 0; i < GameLogic.ROW; i++) {
 			for (int j = 0; j < GameLogic.COL; j++) {
@@ -64,6 +72,9 @@ public class GameScreenView implements Observer {
 		this.start.setDisable(false);
 	}
 
+	/**
+	 * TODO
+	 */
 	private void performGameOverView() {
 		for (int i = 0; i < GameLogic.ROW; i++) {
 			for (int j = 0; j < GameLogic.COL; j++) {
@@ -102,14 +113,16 @@ public class GameScreenView implements Observer {
 		this.start.setDisable(false);
 	}
 
+	/**
+	 * TODO
+	 */
 	@Override
 	public void update(Observable obs, Object obj) {
-		boolean state = (boolean)  obj;
+		boolean state = (boolean) obj;
 		if (state) {
 			performGameWinView();
 		} else {
 			performGameOverView();
 		}
 	}
-
 }

@@ -14,6 +14,9 @@ public class NumberBox extends HBox{
 	private static final int FONT_SIZE = 40;
 	private static final String FONT_STYLE = "Arial";
 	
+	/**
+	 * TODO
+	 */
 	public NumberBox() {
 		this.setAlignment(Pos.CENTER);
 		this.lbl = new Label("");
@@ -21,10 +24,18 @@ public class NumberBox extends HBox{
 		this.getChildren().add(this.lbl);
 	}
 	
+	/**
+	 * TODO
+	 * @param str
+	 */
 	public void setLabelText(String str) {
 		this.lbl.setText(str);
 	}
 
+	/**
+	 * TODO
+	 * @param fontSizeSmall
+	 */
 	public void setLabelFontSize(int fontSizeSmall) {
 		this.lbl.setFont(new Font(FONT_STYLE, fontSizeSmall));
 	}
