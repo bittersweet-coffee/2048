@@ -8,7 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -23,9 +22,6 @@ public class BoardView extends Stage implements Observer {
 	private GridPane board;
 	private Button up, down, left, right, start;
 	private VBox container;
-	private Label labelScore;
-	private Label labelScoreView;
-
 	/**
 	 * TODO
 	 * 
@@ -74,8 +70,6 @@ public class BoardView extends Stage implements Observer {
 		this.left = (Button) root.lookup("#btn_left");
 		this.right = (Button) root.lookup("#btn_right");
 		this.start = (Button) root.lookup("#btn_start");
-		this.labelScore = (Label) root.lookup("#score");
-		this.labelScoreView = (Label) root.lookup("#score_value");
 	}
 
 	/**

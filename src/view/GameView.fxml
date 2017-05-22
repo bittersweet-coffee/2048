@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 <VBox id="container" fx:id="container" alignment="CENTER"
-	prefHeight="500.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.121"
+	prefHeight="600.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.121"
 	xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
@@ -20,9 +20,19 @@
 				<Label id="score_value" text="0000" styleClass="score" />
 			</children>
 			<VBox.margin>
+				<Insets bottom="0.0" left="10.0" right="10.0" top="10.0" />
+			</VBox.margin>
+		</HBox>
+		<HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
+			<children>
+				<Label id="highscore" text="HIGHSCORE: " styleClass="score" />
+				<Label id="high_score_value" text="0000" styleClass="score" />
+			</children>
+			<VBox.margin>
 				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 			</VBox.margin>
 		</HBox>
+
 		<GridPane id="board" alignment="CENTER" disable="true"
 			gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity"
 			minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"

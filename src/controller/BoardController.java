@@ -1,5 +1,7 @@
 package controller;
 
+import javax.xml.bind.JAXBException;
+
 import generic.GameLogic;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -8,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import model.BoardModel;
 import model.GameScreenModel;
 import model.ScoreModel;
+import model.StatsModel;
 
 /**
  * TODO
@@ -16,6 +19,7 @@ public class BoardController implements EventHandler<Event> {
 	private BoardModel boardModel;
 	private ScoreModel scoreModel;
 	private GameScreenModel gameScreenModel;
+	private StatsController statsController;
 
 	/**
 	 * TODO
@@ -32,6 +36,7 @@ public class BoardController implements EventHandler<Event> {
 		this.boardModel.initModel();
 		this.scoreModel.initScore();
 		this.gameScreenModel.initGameScreen();
+		this.statsController.init();
 	}
 
 	/**
@@ -59,7 +64,18 @@ public class BoardController implements EventHandler<Event> {
 		this.gameScreenModel = gameScreenModel;
 
 	}
+	
+	/**
+	 * TODO
+	 * @param gameScreenModel
+	 */
+	public void addStatsController(StatsController statsController) {
+		this.statsController = statsController;
 
+	}
+	
+	
+	
 	/**
 	 * Handle the arrow keys and the buttons of the View. It connects the View 
 	 * with the Model.
@@ -73,18 +89,22 @@ public class BoardController implements EventHandler<Event> {
 			case UP:
 				this.boardModel.setModel(GameLogic.moveUp(board, score));
 				this.scoreModel.setScore(GameLogic.getScore());
+				this.statsController.setHighScore(GameLogic.getScore());
 				break;
 			case DOWN:
 				this.boardModel.setModel(GameLogic.moveDown(board, score));
 				this.scoreModel.setScore(GameLogic.getScore());
+				this.statsController.setHighScore(GameLogic.getScore());
 				break;
 			case LEFT:
 				this.boardModel.setModel(GameLogic.moveLeft(board, score));
 				this.scoreModel.setScore(GameLogic.getScore());
+				this.statsController.setHighScore(GameLogic.getScore());
 				break;
 			case RIGHT:
 				this.boardModel.setModel(GameLogic.moveRight(board, score));
 				this.scoreModel.setScore(GameLogic.getScore());
+				this.statsController.setHighScore(GameLogic.getScore());
 				break;
 			default:
 				break;
@@ -97,21 +117,25 @@ public class BoardController implements EventHandler<Event> {
 				this.boardModel.setModel(GameLogic.moveUp(board, score));
 				if (GameLogic.getScore() != 0) {
 					this.scoreModel.setScore(GameLogic.getScore());
+					this.statsController.setHighScore(GameLogic.getScore());
 				}
 			} else if (target.contains("DOWN")) {
 				this.boardModel.setModel(GameLogic.moveDown(board, score));
 				if (GameLogic.getScore() != 0) {
 					this.scoreModel.setScore(GameLogic.getScore());
+					this.statsController.setHighScore(GameLogic.getScore());
 				}
 			} else if (target.contains("LEFT")) {
 				this.boardModel.setModel(GameLogic.moveLeft(board, score));
 				if (GameLogic.getScore() != 0) {
 					this.scoreModel.setScore(GameLogic.getScore());
+					this.statsController.setHighScore(GameLogic.getScore());
 				}
 			} else if (target.contains("RIGHT")) {
 				this.boardModel.setModel(GameLogic.moveRight(board, score));
 				if (GameLogic.getScore() != 0) {
 					this.scoreModel.setScore(GameLogic.getScore());
+					this.statsController.setHighScore(GameLogic.getScore());
 				}
 			} else if (target.contains("START") || target.contains("RESTART")) {
 				this.init();
@@ -125,6 +149,12 @@ public class BoardController implements EventHandler<Event> {
 				this.gameScreenModel.setGameWin(true);
 			}
 			this.gameScreenModel.state();
+			try {
+				this.statsController.generateXML();
+			} catch (JAXBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }
