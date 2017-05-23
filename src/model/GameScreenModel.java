@@ -1,11 +1,9 @@
 package model;
 
-import java.util.Observable;
-
 /**
  * TODO
  */
-public class GameScreenModel extends Observable {
+public class GameScreenModel extends GameModel {
 
 	private boolean gameOver;
 	private boolean gameWin;
@@ -19,7 +17,8 @@ public class GameScreenModel extends Observable {
 	/**
 	 * TODO
 	 */
-	public void initGameScreen() {
+	@Override
+	public void init() {
 		this.gameOver = false;
 		this.gameWin = false;
 	}
@@ -27,14 +26,8 @@ public class GameScreenModel extends Observable {
 	/**
 	 * TODO
 	 */
-	public void setGameOver(boolean gameOver) {
+	public void set(boolean gameWin, boolean gameOver) {
 		this.gameOver = gameOver;
-	}
-
-	/**
-	 * TODO
-	 */
-	public void setGameWin(boolean gameWin) {
 		this.gameWin = gameWin;
 	}
 
@@ -47,5 +40,17 @@ public class GameScreenModel extends Observable {
 		}
 		setChanged();
 		notifyObservers(state);
+	}
+
+	@Override
+	public void set(Integer[][] board) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void set(int score) {
+		// TODO Auto-generated method stub
+		
 	}
 }

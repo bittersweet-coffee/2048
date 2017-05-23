@@ -1,18 +1,17 @@
 package model;
 
-import java.util.Observable;
-
 /**
  * TODO
  */
-public class ScoreModel extends Observable {
+public class ScoreModel extends GameModel {
 
 	private int score; 
 	
 	/**
 	 * TODO
 	 */
-	public void initScore() {
+	@Override
+	public void init() {
 		this.score = 0;
 		setChanged();
 		notifyObservers(this.score);
@@ -22,7 +21,7 @@ public class ScoreModel extends Observable {
 	 * TODO
 	 * @param score
 	 */
-	public void setScore(int score) {
+	public void set(int score) {
 		if (score != 0) {
 			this.score = score;
 		}
@@ -36,5 +35,17 @@ public class ScoreModel extends Observable {
 	 */
 	public int getScore() {
 		return score;
+	}
+
+	@Override
+	public void set(Integer[][] board) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void set(boolean gameWin, boolean gameOver) {
+		// TODO Auto-generated method stub
+		
 	}
 }

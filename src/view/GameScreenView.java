@@ -1,7 +1,6 @@
 package view;
 
 import java.util.Observable;
-import java.util.Observer;
 
 import generic.GameLogic;
 import javafx.scene.Node;
@@ -13,9 +12,8 @@ import javafx.scene.layout.HBox;
 /**
  * TODO
  */
-public class GameScreenView implements Observer {
+public class GameScreenView extends GameView {
 
-	private Parent root;
 	private GridPane board;
 	private Button start;
 	
@@ -24,17 +22,21 @@ public class GameScreenView implements Observer {
 	 * @param root
 	 */
 	public GameScreenView(Parent root) {
-		this.root = root;
-		loadComponents(this.root);
+		super(root);
 	}
 
 	/**
 	 * TODO
 	 * @param root
 	 */
-	private void loadComponents(Parent root) {
+	@Override
+	public void loadComponents(Parent root) {
 		this.board = (GridPane) root.lookup("#board");
 		this.start = (Button) root.lookup("#btn_start");
+	}
+	
+	@Override
+	void init() {
 	}
 
 	/**

@@ -1,24 +1,19 @@
 package view;
 
 import java.util.Observable;
-import java.util.Observer;
 
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
 /**
  * TODO
  */
-public class ScoreView extends Stage implements Observer {
+public class ScoreView extends GameView {
 
 	private static final int FONT_SIZE_NORMAL = 40;
 	private static final String FONT_STYLE = "Arial";
 
-	private Parent root;
-	private GridPane board;
 	private Label labelScore;
 	private Label labelScoreValue;
 
@@ -28,9 +23,7 @@ public class ScoreView extends Stage implements Observer {
 	 * @param root
 	 */
 	public ScoreView(Parent root) {
-		this.root = root;
-		loadComponents(this.root);
-		initScore(this.board);
+		super(root);
 	}
 
 	/**
@@ -38,7 +31,8 @@ public class ScoreView extends Stage implements Observer {
 	 * 
 	 * @param board
 	 */
-	private void initScore(GridPane board) {
+	@Override
+	public void init() {
 		this.labelScore.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
 		this.labelScoreValue.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
 	}
@@ -48,8 +42,8 @@ public class ScoreView extends Stage implements Observer {
 	 * 
 	 * @param root
 	 */
-	private void loadComponents(Parent root) {
-		this.board = (GridPane) root.lookup("#board");
+	@Override
+	public void loadComponents(Parent root) {
 		this.labelScore = (Label) root.lookup("#score");
 		this.labelScoreValue = (Label) root.lookup("#score_value");
 	}

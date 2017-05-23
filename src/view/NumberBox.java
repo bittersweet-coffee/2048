@@ -3,7 +3,6 @@ package view;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 
 /**
  * This class is used to display the values on the View.

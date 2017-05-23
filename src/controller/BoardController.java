@@ -1,6 +1,11 @@
 package controller;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 import generic.GameLogic;
 import javafx.event.ActionEvent;
@@ -8,6 +13,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import model.BoardModel;
+import model.GameModel;
 import model.GameScreenModel;
 import model.ScoreModel;
 import model.StatsModel;
@@ -16,10 +22,7 @@ import model.StatsModel;
  * TODO
  */
 public class BoardController implements EventHandler<Event> {
-	private BoardModel boardModel;
-	private ScoreModel scoreModel;
-	private GameScreenModel gameScreenModel;
-	private StatsController statsController;
+	private ArrayList<GameModel> modelList = new ArrayList<GameModel>();
 
 	/**
 	 * TODO
@@ -33,78 +36,50 @@ public class BoardController implements EventHandler<Event> {
 	public void init() {
 		GameLogic.setGameOver(false);
 		GameLogic.setGameWin(false);
-		this.boardModel.initModel();
-		this.scoreModel.initScore();
-		this.gameScreenModel.initGameScreen();
-		this.statsController.init();
+		for (GameModel gameModel : modelList) {
+			gameModel.initializeModel();
+		}
 	}
 
 	/**
 	 * TODO
+	 * 
 	 * @param boardModel
 	 */
-	public void addBoardModel(BoardModel boardModel) {
-		this.boardModel = boardModel;
+	public void addModel(GameModel model) {
+		this.modelList.add(model);
 	}
 
-	/**
-	 * 
-	 * @param scoreModel
-	 */
-	public void addScoreModel(ScoreModel scoreModel) {
-		this.scoreModel = scoreModel;
-
-	}
 
 	/**
-	 * TODO
-	 * @param gameScreenModel
-	 */
-	public void addGameScreenModel(GameScreenModel gameScreenModel) {
-		this.gameScreenModel = gameScreenModel;
-
-	}
-	
-	/**
-	 * TODO
-	 * @param gameScreenModel
-	 */
-	public void addStatsController(StatsController statsController) {
-		this.statsController = statsController;
-
-	}
-	
-	
-	
-	/**
-	 * Handle the arrow keys and the buttons of the View. It connects the View 
+	 * Handle the arrow keys and the buttons of the View. It connects the View
 	 * with the Model.
 	 */
 	@Override
 	public void handle(Event event) {
-		Integer[][] board = this.boardModel.getModel();
-		int score = this.scoreModel.getScore();
+		Integer[][] board = null;
+		int score = 0;
+		for (GameModel gameModel : modelList) {
+			if (gameModel instanceof BoardModel) {
+				board = ((BoardModel) gameModel).getModel();
+			}
+			if (gameModel instanceof ScoreModel) {
+				score = ((ScoreModel) gameModel).getScore();
+			}
+		}
 		if (event.getEventType() == KeyEvent.KEY_PRESSED) {
 			switch (((KeyEvent) event).getCode()) {
 			case UP:
-				this.boardModel.setModel(GameLogic.moveUp(board, score));
-				this.scoreModel.setScore(GameLogic.getScore());
-				this.statsController.setHighScore(GameLogic.getScore());
+				performMoveUp(board, score);
 				break;
 			case DOWN:
-				this.boardModel.setModel(GameLogic.moveDown(board, score));
-				this.scoreModel.setScore(GameLogic.getScore());
-				this.statsController.setHighScore(GameLogic.getScore());
+				performMoveDown(board, score);
 				break;
 			case LEFT:
-				this.boardModel.setModel(GameLogic.moveLeft(board, score));
-				this.scoreModel.setScore(GameLogic.getScore());
-				this.statsController.setHighScore(GameLogic.getScore());
+				performMoveLeft(board, score);
 				break;
 			case RIGHT:
-				this.boardModel.setModel(GameLogic.moveRight(board, score));
-				this.scoreModel.setScore(GameLogic.getScore());
-				this.statsController.setHighScore(GameLogic.getScore());
+				performMoveRight(board, score);
 				break;
 			default:
 				break;
@@ -114,46 +89,85 @@ public class BoardController implements EventHandler<Event> {
 		if (event.getEventType() == ActionEvent.ACTION) {
 			String target = event.getTarget().toString();
 			if (target.contains("UP")) {
-				this.boardModel.setModel(GameLogic.moveUp(board, score));
-				if (GameLogic.getScore() != 0) {
-					this.scoreModel.setScore(GameLogic.getScore());
-					this.statsController.setHighScore(GameLogic.getScore());
-				}
+				performMoveUp(board, score);
 			} else if (target.contains("DOWN")) {
-				this.boardModel.setModel(GameLogic.moveDown(board, score));
-				if (GameLogic.getScore() != 0) {
-					this.scoreModel.setScore(GameLogic.getScore());
-					this.statsController.setHighScore(GameLogic.getScore());
-				}
+				performMoveDown(board, score);
 			} else if (target.contains("LEFT")) {
-				this.boardModel.setModel(GameLogic.moveLeft(board, score));
-				if (GameLogic.getScore() != 0) {
-					this.scoreModel.setScore(GameLogic.getScore());
-					this.statsController.setHighScore(GameLogic.getScore());
-				}
+				performMoveLeft(board, score);
 			} else if (target.contains("RIGHT")) {
-				this.boardModel.setModel(GameLogic.moveRight(board, score));
-				if (GameLogic.getScore() != 0) {
-					this.scoreModel.setScore(GameLogic.getScore());
-					this.statsController.setHighScore(GameLogic.getScore());
-				}
+				performMoveRight(board, score);
 			} else if (target.contains("START") || target.contains("RESTART")) {
 				this.init();
 			}
 		}
 
 		if (GameLogic.getGameOver()) {
-			this.boardModel.resetModel();
-			this.gameScreenModel.setGameOver(true);
-			if (GameLogic.getGameWin()) {
-				this.gameScreenModel.setGameWin(true);
+			for (GameModel gameModel : modelList) {
+				if (gameModel instanceof BoardModel) {
+					((BoardModel) gameModel).resetModel();
+				}
+				gameModel.set(false, true);
 			}
-			this.gameScreenModel.state();
+			if (GameLogic.getGameWin()) {
+				for (GameModel gameModel : modelList) {
+					gameModel.set(false, true);
+				}
+			}
+			for (GameModel gameModel : modelList) {
+				if (gameModel instanceof GameScreenModel) {
+					((GameScreenModel) gameModel).state();
+				}
+			}
 			try {
-				this.statsController.generateXML();
+				generateXML();
 			} catch (JAXBException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+		}
+	}
+
+	private void performMoveUp(Integer[][] board, int score) {
+		board = GameLogic.moveUp(board, score);
+		for (GameModel gameModel : modelList) {
+			gameModel.set(board);
+			gameModel.set(GameLogic.getScore());
+		}
+	}
+
+	private void performMoveDown(Integer[][] board, int score) {
+		board = GameLogic.moveDown(board, score);
+		for (GameModel gameModel : modelList) {
+			gameModel.set(board);
+			gameModel.set(GameLogic.getScore());
+		}
+	}
+
+	private void performMoveLeft(Integer[][] board, int score) {
+		board = GameLogic.moveLeft(board, score);
+		for (GameModel gameModel : modelList) {
+			gameModel.set(board);
+			gameModel.set(GameLogic.getScore());
+		}
+	}
+
+	private void performMoveRight(Integer[][] board, int score) {
+		board = GameLogic.moveRight(board, score);
+		for (GameModel gameModel : modelList) {
+			gameModel.set(board);
+			gameModel.set(GameLogic.getScore());
+		}
+	}
+
+	private void generateXML() throws JAXBException {
+		JAXBContext context = JAXBContext.newInstance(StatsModel.class);
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+		for (GameModel gameModel : modelList) {
+			if (gameModel instanceof StatsModel) {
+				marshaller.marshal((StatsModel) gameModel,
+						new File(((StatsModel) gameModel).getPath(),
+								((StatsModel) gameModel).getFile()));
 			}
 		}
 	}

@@ -11,14 +11,12 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * TODO
  */
-public class BoardView extends Stage implements Observer {
+public class BoardView extends GameView implements Observer {
 
-	private Parent root;
 	private GridPane board;
 	private Button up, down, left, right, start;
 	private VBox container;
@@ -28,10 +26,27 @@ public class BoardView extends Stage implements Observer {
 	 * @param root
 	 */
 	public BoardView(Parent root) {
-		this.root = root;
-		loadComponents(this.root);
-		initBoard(this.board);
-		Scene scene = new Scene(this.root);
+		super(root);
+	}
+
+	/**
+	 * TODO
+	 * 
+	 * @param board
+	 */
+	@Override
+	public void init() {
+		int rows = this.board.getRowConstraints().size();
+		int cols = this.board.getColumnConstraints().size();
+
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				NumberBox nb = new NumberBox();
+				nb.setLabelText("");
+				this.board.add(nb, j, i);
+			}
+		}
+		Scene scene = new Scene(super.getRoot());
 		scene.getStylesheets().add(getClass()
 				.getResource("/view/stylesheet.css").toExternalForm());
 		this.setTitle("2048");
@@ -42,27 +57,10 @@ public class BoardView extends Stage implements Observer {
 	/**
 	 * TODO
 	 * 
-	 * @param board
-	 */
-	private void initBoard(GridPane board) {
-		int rows = board.getRowConstraints().size();
-		int cols = board.getColumnConstraints().size();
-
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				NumberBox nb = new NumberBox();
-				nb.setLabelText("");
-				board.add(nb, j, i);
-			}
-		}
-	}
-
-	/**
-	 * TODO
-	 * 
 	 * @param root
 	 */
-	private void loadComponents(Parent root) {
+	@Override
+	public void loadComponents(Parent root) {
 		this.container = (VBox) root.lookup("#container");
 		this.board = (GridPane) root.lookup("#board");
 		this.up = (Button) root.lookup("#btn_up");
