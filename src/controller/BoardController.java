@@ -50,7 +50,6 @@ public class BoardController implements EventHandler<Event> {
 		this.modelList.add(model);
 	}
 
-
 	/**
 	 * Handle the arrow keys and the buttons of the View. It connects the View
 	 * with the Model.
@@ -100,7 +99,7 @@ public class BoardController implements EventHandler<Event> {
 				this.init();
 			} else if (target.contains("KI")) {
 				for (GameModel gameModel : this.modelList) {
-					gameModel.set();
+					gameModel.set(true);
 				}
 			} else if (target.contains("RANDOM")) {
 				performRandomKiGame();
@@ -131,41 +130,48 @@ public class BoardController implements EventHandler<Event> {
 			try {
 				generateXML();
 			} catch (JAXBException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 
 	private void performMoveUp(Integer[][] board, int score) {
-		board = GameLogic.moveUp(board, score);
-		for (GameModel gameModel : this.modelList) {
-			gameModel.set(board);
-			gameModel.set(GameLogic.getScore());
+		if (boardIsSet(board)) {
+			board = GameLogic.moveUp(board, score);
+			for (GameModel gameModel : this.modelList) {
+				gameModel.set(board);
+				gameModel.set(GameLogic.getScore());
+			}
 		}
 	}
 
 	private void performMoveDown(Integer[][] board, int score) {
-		board = GameLogic.moveDown(board, score);
-		for (GameModel gameModel : this.modelList) {
-			gameModel.set(board);
-			gameModel.set(GameLogic.getScore());
+		if (boardIsSet(board)) {
+			board = GameLogic.moveDown(board, score);
+			for (GameModel gameModel : this.modelList) {
+				gameModel.set(board);
+				gameModel.set(GameLogic.getScore());
+			}
 		}
 	}
 
 	private void performMoveLeft(Integer[][] board, int score) {
-		board = GameLogic.moveLeft(board, score);
-		for (GameModel gameModel : this.modelList) {
-			gameModel.set(board);
-			gameModel.set(GameLogic.getScore());
+		if (boardIsSet(board)) {
+			board = GameLogic.moveLeft(board, score);
+			for (GameModel gameModel : this.modelList) {
+				gameModel.set(board);
+				gameModel.set(GameLogic.getScore());
+			}
 		}
 	}
 
 	private void performMoveRight(Integer[][] board, int score) {
-		board = GameLogic.moveRight(board, score);
-		for (GameModel gameModel : modelList) {
-			gameModel.set(board);
-			gameModel.set(GameLogic.getScore());
+		if (boardIsSet(board)) {
+			board = GameLogic.moveRight(board, score);
+			for (GameModel gameModel : modelList) {
+				gameModel.set(board);
+				gameModel.set(GameLogic.getScore());
+			}
 		}
 	}
 
@@ -181,26 +187,36 @@ public class BoardController implements EventHandler<Event> {
 			}
 		}
 	}
-	
-	private void performRandomKiGame() {
-		System.out.println("RANDOM");
-		for (GameModel gameModel : this.modelList) {
-			gameModel.set();
+
+	private boolean boardIsSet(Integer[][] board) {
+		for (Integer[] integers : board) {
+			for (Integer integer : integers) {
+				if (integer == null) {
+					return false;
+				}
+			}
 		}
-		
+		return true;
 	}
-	
+
+	private void performRandomKiGame() {
+		for (GameModel gameModel : this.modelList) {
+			gameModel.set(false);
+		}
+
+	}
+
 	private void performTrumpKiGame() {
 		System.out.println("TRUMP");
 		for (GameModel gameModel : this.modelList) {
-			gameModel.set();
+			gameModel.set(false);
 		}
 	}
 
 	private void performGreedyKiGame() {
 		System.out.println("GREEDY");
 		for (GameModel gameModel : this.modelList) {
-			gameModel.set();
+			gameModel.set(false);
 		}
 	}
 }

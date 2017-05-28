@@ -55,7 +55,7 @@ public class GameScreenModel extends GameModel {
 	}
 
 	@Override
-	public void set() {
+	public void set(boolean window) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -23,7 +23,13 @@ public class KiView extends GameView {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		this.show();
+		boolean window = (boolean) arg;
+		if (window) {
+			this.show();
+		}
+		if (!window) {
+			this.close();
+		}
 		
 		
 	}

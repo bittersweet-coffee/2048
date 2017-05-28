@@ -9,9 +9,9 @@ public class KiModel extends GameModel {
 	}
 
 	@Override
-	public void set() {
+	public void set(boolean window) {
 		setChanged();
-		notifyObservers();
+		notifyObservers(window);
 
 	}
 
