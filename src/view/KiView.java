@@ -24,6 +24,8 @@ public class KiView extends GameView {
 	@Override
 	public void update(Observable o, Object arg) {
 		this.show();
+		
+		
 	}
 
 	@Override

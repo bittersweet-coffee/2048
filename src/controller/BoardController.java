@@ -100,9 +100,6 @@ public class BoardController implements EventHandler<Event> {
 				this.init();
 			} else if (target.contains("KI")) {
 				for (GameModel gameModel : this.modelList) {
-					if (gameModel instanceof BoardModel) {
-						((BoardModel) gameModel).resetModel();
-					}
 					gameModel.set();
 				}
 			} else if (target.contains("RANDOM")) {
@@ -187,14 +184,23 @@ public class BoardController implements EventHandler<Event> {
 	
 	private void performRandomKiGame() {
 		System.out.println("RANDOM");
+		for (GameModel gameModel : this.modelList) {
+			gameModel.set();
+		}
 		
 	}
 	
 	private void performTrumpKiGame() {
-		System.out.println("TRUMP");		
+		System.out.println("TRUMP");
+		for (GameModel gameModel : this.modelList) {
+			gameModel.set();
+		}
 	}
 
 	private void performGreedyKiGame() {
 		System.out.println("GREEDY");
+		for (GameModel gameModel : this.modelList) {
+			gameModel.set();
+		}
 	}
 }
