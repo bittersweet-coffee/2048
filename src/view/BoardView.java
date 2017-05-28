@@ -20,6 +20,7 @@ public class BoardView extends GameView implements Observer {
 	private GridPane board;
 	private Button up, down, left, right, start, ki;
 	private VBox container;
+
 	/**
 	 * TODO
 	 * 

@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -102,7 +103,7 @@ public class BoardController implements EventHandler<Event> {
 					gameModel.set(true);
 				}
 			} else if (target.contains("RANDOM")) {
-				performRandomKiGame();
+				performRandomKiGame(board, score);
 			} else if (target.contains("GREEDY")) {
 				performGreedyKiGame();
 			} else if (target.contains("TRUMP")) {
@@ -110,29 +111,7 @@ public class BoardController implements EventHandler<Event> {
 			}
 		}
 
-		if (GameLogic.getGameOver()) {
-			for (GameModel gameModel : this.modelList) {
-				if (gameModel instanceof BoardModel) {
-					((BoardModel) gameModel).resetModel();
-				}
-				gameModel.set(false, true);
-			}
-			if (GameLogic.getGameWin()) {
-				for (GameModel gameModel : this.modelList) {
-					gameModel.set(false, true);
-				}
-			}
-			for (GameModel gameModel : this.modelList) {
-				if (gameModel instanceof GameScreenModel) {
-					((GameScreenModel) gameModel).state();
-				}
-			}
-			try {
-				generateXML();
-			} catch (JAXBException e) {
-				e.printStackTrace();
-			}
-		}
+		performGameOver(GameLogic.getGameOver());
 	}
 
 	private void performMoveUp(Integer[][] board, int score) {
@@ -199,9 +178,59 @@ public class BoardController implements EventHandler<Event> {
 		return true;
 	}
 
-	private void performRandomKiGame() {
+	private void performGameOver(boolean gameOver) {
+		if (GameLogic.getGameOver()) {
+			for (GameModel gameModel : this.modelList) {
+				if (gameModel instanceof BoardModel) {
+					((BoardModel) gameModel).resetModel();
+				}
+				gameModel.set(false, true);
+			}
+			if (GameLogic.getGameWin()) {
+				for (GameModel gameModel : this.modelList) {
+					gameModel.set(false, true);
+				}
+			}
+			for (GameModel gameModel : this.modelList) {
+				if (gameModel instanceof GameScreenModel) {
+					((GameScreenModel) gameModel).state();
+				}
+			}
+			try {
+				generateXML();
+			} catch (JAXBException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	private void performRandomKiGame(Integer[][] board, int score) {
 		for (GameModel gameModel : this.modelList) {
 			gameModel.set(false);
+		}
+		Random random = new Random();
+		if (boardIsSet(board)) {
+			while (!GameLogic.getGameOver()) {
+				for (GameModel gameModel : modelList) {
+					if (gameModel instanceof BoardModel) {
+						board = ((BoardModel) gameModel).getModel();
+					}
+					if (gameModel instanceof ScoreModel) {
+						score = ((ScoreModel) gameModel).getScore();
+					}
+				}
+				int value = random.nextInt(4);
+				if (value == 0) {
+					performMoveUp(board, score);
+				} else if (value == 1) {
+					performMoveDown(board, score);
+				} else if (value == 2) {
+					performMoveLeft(board, score);
+				} else if (value == 3) {
+					performMoveRight(board, score);
+				}
+			}
 		}
 
 	}
