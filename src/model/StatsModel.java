@@ -145,4 +145,10 @@ public class StatsModel extends GameModel {
 
 	}
 
+	@Override
+	public void set() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

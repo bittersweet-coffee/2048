@@ -98,22 +98,35 @@ public class BoardController implements EventHandler<Event> {
 				performMoveRight(board, score);
 			} else if (target.contains("START") || target.contains("RESTART")) {
 				this.init();
+			} else if (target.contains("KI")) {
+				for (GameModel gameModel : this.modelList) {
+					if (gameModel instanceof BoardModel) {
+						((BoardModel) gameModel).resetModel();
+					}
+					gameModel.set();
+				}
+			} else if (target.contains("RANDOM")) {
+				performRandomKiGame();
+			} else if (target.contains("GREEDY")) {
+				performGreedyKiGame();
+			} else if (target.contains("TRUMP")) {
+				performTrumpKiGame();
 			}
 		}
 
 		if (GameLogic.getGameOver()) {
-			for (GameModel gameModel : modelList) {
+			for (GameModel gameModel : this.modelList) {
 				if (gameModel instanceof BoardModel) {
 					((BoardModel) gameModel).resetModel();
 				}
 				gameModel.set(false, true);
 			}
 			if (GameLogic.getGameWin()) {
-				for (GameModel gameModel : modelList) {
+				for (GameModel gameModel : this.modelList) {
 					gameModel.set(false, true);
 				}
 			}
-			for (GameModel gameModel : modelList) {
+			for (GameModel gameModel : this.modelList) {
 				if (gameModel instanceof GameScreenModel) {
 					((GameScreenModel) gameModel).state();
 				}
@@ -129,7 +142,7 @@ public class BoardController implements EventHandler<Event> {
 
 	private void performMoveUp(Integer[][] board, int score) {
 		board = GameLogic.moveUp(board, score);
-		for (GameModel gameModel : modelList) {
+		for (GameModel gameModel : this.modelList) {
 			gameModel.set(board);
 			gameModel.set(GameLogic.getScore());
 		}
@@ -137,7 +150,7 @@ public class BoardController implements EventHandler<Event> {
 
 	private void performMoveDown(Integer[][] board, int score) {
 		board = GameLogic.moveDown(board, score);
-		for (GameModel gameModel : modelList) {
+		for (GameModel gameModel : this.modelList) {
 			gameModel.set(board);
 			gameModel.set(GameLogic.getScore());
 		}
@@ -145,7 +158,7 @@ public class BoardController implements EventHandler<Event> {
 
 	private void performMoveLeft(Integer[][] board, int score) {
 		board = GameLogic.moveLeft(board, score);
-		for (GameModel gameModel : modelList) {
+		for (GameModel gameModel : this.modelList) {
 			gameModel.set(board);
 			gameModel.set(GameLogic.getScore());
 		}
@@ -163,12 +176,25 @@ public class BoardController implements EventHandler<Event> {
 		JAXBContext context = JAXBContext.newInstance(StatsModel.class);
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-		for (GameModel gameModel : modelList) {
+		for (GameModel gameModel : this.modelList) {
 			if (gameModel instanceof StatsModel) {
 				marshaller.marshal((StatsModel) gameModel,
 						new File(((StatsModel) gameModel).getPath(),
 								((StatsModel) gameModel).getFile()));
 			}
 		}
+	}
+	
+	private void performRandomKiGame() {
+		System.out.println("RANDOM");
+		
+	}
+	
+	private void performTrumpKiGame() {
+		System.out.println("TRUMP");		
+	}
+
+	private void performGreedyKiGame() {
+		System.out.println("GREEDY");
 	}
 }

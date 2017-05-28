@@ -15,12 +15,14 @@ import javafx.stage.Stage;
 import model.BoardModel;
 import model.GameModel;
 import model.GameScreenModel;
+import model.KiModel;
 import model.ScoreModel;
 import model.StatsModel;
 import view.GameView;
 import view.BoardView;
 import view.GameScreenView;
 import view.HighScoreView;
+import view.KiView;
 import view.ScoreView;
 
 /**
@@ -36,19 +38,21 @@ public class Game extends Application {
 	private GameModel scoreModel;
 	private GameModel gameScreenModel;
 	private GameModel statsModel;
+	private GameModel kiModel;
 	private GameView boardView;
 	private GameView scoreView;
 	private GameView highScoreView;
 	private GameView gameScreenView;
+	private GameView kiView;
 	private String path;
 	private String file;
-/**
-	private FXMLLoader loader2;
+
+	/**private FXMLLoader loader2;
 	private GameView boardView2;
 	private GameView scoreView2;
 	private GameView highScoreView2;
-	private GameView gameScreenView2;
-**/
+	private GameView gameScreenView2;**/
+
 	/**
 	 * Initialize the Game object and glue the models, controllers and views
 	 * together.
@@ -72,21 +76,25 @@ public class Game extends Application {
 		this.scoreView = new ScoreView(root);
 		this.highScoreView = new HighScoreView(root);
 		this.gameScreenView = new GameScreenView(root);
+		this.kiView = new KiView(root);
 
 		this.boardModel = new BoardModel();
 		this.scoreModel = new ScoreModel();
 		this.statsModel = setStatsModel(path, file);
 		this.gameScreenModel = new GameScreenModel();
+		this.kiModel = new KiModel();
 
 		this.boardModel.addObserver(boardView);
 		this.scoreModel.addObserver(scoreView);
 		this.statsModel.addObserver(highScoreView);
 		this.gameScreenModel.addObserver(gameScreenView);
+		this.kiModel.addObserver(kiView);
 
 		this.scoreView.initializeView();
 		this.gameScreenView.initializeView();
 		this.highScoreView.initializeView();
 		this.boardView.initializeView();
+		this.kiView.initializeView();
 
 		this.boardController = new BoardController();
 
@@ -94,7 +102,9 @@ public class Game extends Application {
 		this.boardController.addModel(scoreModel);
 		this.boardController.addModel(gameScreenModel);
 		this.boardController.addModel(statsModel);
+		this.boardController.addModel(kiModel);
 		((BoardView) this.boardView).addCotroller(boardController);
+		((KiView) this.kiView).addController(boardController);
 
 		
 		/**
@@ -115,9 +125,8 @@ public class Game extends Application {
 		this.scoreModel.addObserver(scoreView2);
 		 this.statsModel.addObserver(highScoreView2);
 		 this.gameScreenModel.addObserver(gameScreenView2); ((BoardView)
-		 this.boardView2).addCotroller(boardController);
+		 this.boardView2).addCotroller(boardController);**/
 		
-**/
 		// this.boardController.init();
 	}
 
