@@ -2,6 +2,7 @@ package model;
 
 public class KiModel extends GameModel {
 
+
 	@Override
 	protected void init() {
 		// TODO Auto-generated method stub
@@ -30,7 +31,7 @@ public class KiModel extends GameModel {
 	@Override
 	public void set(Integer[][] board) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

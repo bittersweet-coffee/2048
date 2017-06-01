@@ -11,9 +11,7 @@ import javafx.scene.layout.VBox;
 
 public class KiView extends GameView {
 	
-	private Button random;
-	private Button greedy;
-	private Button trump;
+	private Button random, greedy, trump, ki;
 	private VBox kIContainer;
 	private Scene scene;
 
@@ -36,7 +34,7 @@ public class KiView extends GameView {
 
 	@Override
 	void loadComponents(Parent root) {
-		
+		this.ki = (Button) root.lookup("#btn_ki");
 
 	}
 
@@ -82,6 +80,7 @@ public class KiView extends GameView {
 		this.random.setOnAction(event -> controller.handle(event));
 		this.greedy.setOnAction(event -> controller.handle(event));
 		this.trump.setOnAction(event -> controller.handle(event));
+		this.ki.setOnAction(event -> controller.handle(event));
 	}
 
 }

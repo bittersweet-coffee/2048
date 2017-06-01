@@ -243,9 +243,102 @@ public class BoardController implements EventHandler<Event> {
 	}
 
 	private void performGreedyKiGame() {
-		System.out.println("GREEDY");
 		for (GameModel gameModel : this.modelList) {
 			gameModel.set(false);
+
 		}
+		ScoreModel scoreModel = null;
+		Integer[][] tmpBoard = null;
+		int tmpScore = 0;
+		for (GameModel gameModel : modelList) {
+			if (gameModel instanceof BoardModel) {
+				tmpBoard = createBoradCopy(
+						((BoardModel) gameModel).getModel());
+			}
+			if (gameModel instanceof ScoreModel) {
+				scoreModel = (ScoreModel) gameModel;
+				tmpScore = ((ScoreModel) gameModel).getScore();
+			}
+		}
+		while (!GameLogic.getGameOver()) {
+			performMove(tmpBoard, tmpScore, GameLogic.getGameOver(), scoreModel);
+			
+			
+		}
+
+	}
+	
+	private Integer[][] performMove(Integer[][] board, int score, boolean gameOver, ScoreModel scoreModel) {
+		if (gameOver) {
+			GameLogic.setGameOver(gameOver);
+			scoreModel.set(score);
+			return board;
+		}
+		Integer[][] tmpBoardUp = createBoradCopy(board);
+		Integer[][] tmpBoardLeft = createBoradCopy(board);
+		Integer[][] tmpBoardRight = createBoradCopy(board);
+		Integer[][] tmpBoardDown = createBoradCopy(board);
+		int tmpScoreUp = score;
+		int tmpScoreLeft = score;
+		int tmpScoreRight = score;
+		int tmpScoreDown = score;
+		boolean tmpGameOverUp = gameOver;
+		boolean tmpGameOverLeft = gameOver;
+		boolean tmpGameOverRight = gameOver;
+		boolean tmpGameOverDown = gameOver;
+		
+		tmpBoardUp = GameLogic.moveUp(tmpBoardUp, tmpScoreUp);
+		tmpScoreUp = GameLogic.getScore();
+		tmpGameOverUp = GameLogic.getGameOver();
+		
+		if (tmpScoreUp > score) {
+			return performMove(tmpBoardUp, tmpScoreUp, tmpGameOverUp, scoreModel);
+		}
+		
+		tmpBoardLeft = GameLogic.moveLeft(tmpBoardLeft, tmpScoreLeft);
+		tmpScoreLeft = GameLogic.getScore();
+		tmpGameOverLeft = GameLogic.getGameOver();
+		
+		if (tmpScoreLeft > score) {
+			return performMove(tmpBoardLeft, tmpScoreLeft, tmpGameOverLeft, scoreModel);
+		}
+		
+		tmpBoardRight = GameLogic.moveRight(tmpBoardRight, tmpScoreRight);
+		tmpScoreRight = GameLogic.getScore();
+		tmpGameOverRight = GameLogic.getGameOver();
+		
+		if (tmpScoreRight > score) {
+			return performMove(tmpBoardRight, tmpScoreRight, tmpGameOverRight, scoreModel);
+		}
+		tmpBoardDown = GameLogic.moveDown(tmpBoardDown, tmpScoreDown);
+		tmpScoreDown = GameLogic.getScore();
+		tmpGameOverDown = GameLogic.getGameOver();
+		if (tmpScoreDown > score) {
+			return performMove(tmpBoardDown, tmpScoreDown, tmpGameOverDown, scoreModel);
+		}
+		Random random = new Random();
+		int value = random.nextInt(40);
+		if (value <= 17) {
+			return performMove(tmpBoardUp, score, tmpGameOverUp, scoreModel);
+		} else if (value > 17 && value <= 27) {
+			return performMove(tmpBoardLeft, score, tmpGameOverLeft, scoreModel);
+		} else if (value > 27 && value <= 37) {
+			return performMove(tmpBoardRight, score, tmpGameOverRight, scoreModel);
+		} else if (value == 40 || value == 39 || value == 38) {
+			return performMove(tmpBoardDown, score, tmpGameOverDown, scoreModel);
+		}
+		return null;
+		
+		
+	}
+
+	private Integer[][] createBoradCopy(Integer[][] board) {
+		Integer[][] boardCopy = new Integer[GameLogic.ROW][GameLogic.COL];
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				boardCopy[i][j] = board[i][j];
+			}
+		}
+		return boardCopy;
 	}
 }
