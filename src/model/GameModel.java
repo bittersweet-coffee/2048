@@ -13,10 +13,18 @@ public abstract class GameModel extends Observable {
 	}	
 	
 	protected abstract void init();
-	public abstract void set(Integer[][] board);
-	public abstract void set(boolean gameWin, boolean gameOver);
-	public abstract void set(int score);
-	public abstract void set(boolean window);
+	public void set(Integer[][] board){
+		
+	}
+	public void set(boolean gameWin, boolean gameOver){
+		
+	}
+	public void set(int score){
+		
+	}
+	public void set(boolean window){
+		
+	}
 	
 	
 	

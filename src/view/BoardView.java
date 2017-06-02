@@ -36,7 +36,7 @@ public class BoardView extends GameView implements Observer {
 	 * @param board
 	 */
 	@Override
-	public void init() {
+	protected void init() {
 		int rows = this.board.getRowConstraints().size();
 		int cols = this.board.getColumnConstraints().size();
 
@@ -61,7 +61,7 @@ public class BoardView extends GameView implements Observer {
 	 * @param root
 	 */
 	@Override
-	public void loadComponents(Parent root) {
+	protected void loadComponents(Parent root) {
 		this.container = (VBox) root.lookup("#container");
 		this.board = (GridPane) root.lookup("#board");
 		this.up = (Button) root.lookup("#btn_up");

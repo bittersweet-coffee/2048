@@ -33,13 +33,13 @@ public class KiView extends GameView {
 	}
 
 	@Override
-	void loadComponents(Parent root) {
+	protected void loadComponents(Parent root) {
 		this.ki = (Button) root.lookup("#btn_ki");
 
 	}
 
 	@Override
-	void init() {
+	protected void init() {
 		this.kIContainer = new VBox();
 		
 		this.random = new Button("RANDOM");

@@ -19,8 +19,8 @@ public abstract class GameView extends Stage implements Observer {
 		init();
 	}
 	
-	abstract void loadComponents(Parent root);
-	abstract void init();
+	protected abstract void loadComponents(Parent root);
+	protected abstract void init();
 	
 	public Parent getRoot() {
 		return root;

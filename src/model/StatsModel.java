@@ -133,22 +133,4 @@ public class StatsModel extends GameModel {
 		notifyObservers(getCurrentHighscore());
 	}
 
-	@Override
-	public void set(Integer[][] board) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void set(boolean gameWin, boolean gameOver) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void set(boolean window) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

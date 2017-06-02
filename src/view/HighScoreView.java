@@ -32,7 +32,7 @@ public class HighScoreView extends GameView {
 	 * @param board
 	 */
 	@Override
-	public void init() {
+	protected void init() {
 		this.labelHighScore.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
 		this.labelHighScoreValue.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
 	}
@@ -43,7 +43,7 @@ public class HighScoreView extends GameView {
 	 * @param root
 	 */
 	@Override
-	public void loadComponents(Parent root) {
+	protected void loadComponents(Parent root) {
 		this.labelHighScore = (Label) root.lookup("#highscore");
 		this.labelHighScoreValue = (Label) root.lookup("#high_score_value");
 	}

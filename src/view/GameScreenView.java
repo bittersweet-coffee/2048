@@ -30,13 +30,13 @@ public class GameScreenView extends GameView {
 	 * @param root
 	 */
 	@Override
-	public void loadComponents(Parent root) {
+	protected void loadComponents(Parent root) {
 		this.board = (GridPane) root.lookup("#board");
 		this.start = (Button) root.lookup("#btn_start");
 	}
 	
 	@Override
-	void init() {
+	protected void init() {
 	}
 
 	/**

@@ -62,22 +62,4 @@ public final class BoardModel extends GameModel {
 		setChanged();
 		notifyObservers(this.boardModel);
 	}
-
-	@Override
-	public void set(boolean gameWin, boolean gameOver) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void set(int score) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void set(boolean window) {
-		// TODO Auto-generated method stub
-
-	}
 }
