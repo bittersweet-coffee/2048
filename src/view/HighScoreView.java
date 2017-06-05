@@ -32,7 +32,7 @@ public class HighScoreView extends GameView {
 	 * @param board
 	 */
 	@Override
-	public void init() {
+	protected void init() {
 		this.labelHighScore.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
 		this.labelHighScoreValue.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
 	}
@@ -43,7 +43,7 @@ public class HighScoreView extends GameView {
 	 * @param root
 	 */
 	@Override
-	public void loadComponents(Parent root) {
+	protected void loadComponents(Parent root) {
 		this.labelHighScore = (Label) root.lookup("#highscore");
 		this.labelHighScoreValue = (Label) root.lookup("#high_score_value");
 	}
@@ -53,15 +53,19 @@ public class HighScoreView extends GameView {
 	 */
 	@Override
 	public void update(Observable obs, Object obj) {
-		int score = (int) obj;
-		if (score < 10) {
-			this.labelHighScoreValue.setText("000" + Integer.toString(score));
-		} else if (score < 100) {
-			this.labelHighScoreValue.setText("00" + Integer.toString(score));
-		} else if (score < 1000) {
-			this.labelHighScoreValue.setText("0" + Integer.toString(score));
-		} else {
-			this.labelHighScoreValue.setText(Integer.toString(score));
+		if (!obj.equals(null)) {
+			if (obj instanceof Integer) {
+				int score = (Integer) obj;
+				if (score < 10) {
+					this.labelHighScoreValue.setText("000" + Integer.toString(score));
+				} else if (score < 100) {
+					this.labelHighScoreValue.setText("00" + Integer.toString(score));
+				} else if (score < 1000) {
+					this.labelHighScoreValue.setText("0" + Integer.toString(score));
+				} else {
+					this.labelHighScoreValue.setText(Integer.toString(score));
+				}
+			}
 		}
 	}
 }

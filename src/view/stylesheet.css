@@ -15,13 +15,13 @@
 
 Label {
 	-fx-text-fill: #2C3E50;
-	-fx-font-size: 20px;
+	-fx-font-size: 20.0px;
 	-fx-font-weight: bold;
 }
 
 .score {
 	-fx-text-fill: #2C3E50;
-	-fx-font-size: 30px;
+	-fx-font-size: 30.0px;
 	-fx-font-weight: bold;
 }
 
@@ -40,7 +40,7 @@ Label {
 		rgba(0.0, 0.0, 0.0,0.5),
 		10.0, 0.4, 3.0, 3.0
 	);
-    -fx-padding: 5;
+    -fx-padding: 5.0;
 }
 
 /*
@@ -50,13 +50,13 @@ Label {
  */
 .controls:pressed {
 	-fx-background-color: #2980B9, #3498DB;
-    -fx-background-insets: 2 1 0 1, 2 0 2 1;
+    -fx-background-insets: 2.0 1.0 0.0 1.0, 2.0 0.0 2.0 1.0;
     -fx-background-radius: 5.0, 5.0;
 	-fx-effect: dropshadow(three-pass-box,
 		rgba(0.0, 0.0, 0.0,0.5),
 		5.0, 0.5, 0.0, 1.0
 	);
-    -fx-padding: 5 4 2 6;
+    -fx-padding: 5.0 4.0 2.0 6.0;
 }
 
 /*
@@ -74,7 +74,7 @@ Label {
 		rgba(0.0, 0.0, 0.0,0.5),
 		10.0, 0.4, 3.0, 3.0
 	);
-    -fx-padding: 5;
+    -fx-padding: 5.0;
 }
 
 /*
@@ -84,13 +84,47 @@ Label {
  */
 .restart:pressed {
 	-fx-background-color: #B53C2F, #E74C3C;
-    -fx-background-insets: 2 1 0 1, 2 0 2 1;
+    -fx-background-insets: 2.0 1.0 0.0 1.0, 2.0 0.0 2.0 1.0;
     -fx-background-radius: 5.0, 5.0;
 	-fx-effect: dropshadow(three-pass-box,
 		rgba(0.0, 0.0, 0.0,0.5),
 		5.0, 0.5, 0.0, 1.0
 	);
-    -fx-padding: 5 4 2 6;
+    -fx-padding: 5.0 4.0 2.0 6.0;
+}
+
+/*
+ * Insights and code partially taken from StackOverflow, modified to our liking 
+ * Copyright by Razielwar
+ * http://stackoverflow.com/questions/35911675/javafx-dropshadow-grows-event-area-cause-problems-with-3d-button-style
+ */
+.ki {
+	-fx-text-fill: #ECF0F1;
+	-fx-font-weight: bold;
+	-fx-background-color: #39b830, #3deb4e;
+    -fx-background-insets: 0.0 0.0 0.0 0.0, 0.0 1.0 5.0 0.0;
+    -fx-background-radius: 5.0, 5.0;
+	-fx-effect: dropshadow(three-pass-box,
+		rgba(0.0, 0.0, 0.0,0.5),
+		10.0, 0.4, 3.0, 3.0
+	);
+    -fx-padding: 5.0;
+}
+
+/*
+ * Insights and code partially taken from StackOverflow, modified to our liking
+ * Copyright by Razielwar
+ * http://stackoverflow.com/questions/35911675/javafx-dropshadow-grows-event-area-cause-problems-with-3d-button-style
+ */
+.ki:pressed {
+	-fx-background-color: #4bb830, #3deb3d;
+    -fx-background-insets: 2.0 1.0 0.0 1.0, 2.0 0.0 2.0 1.0;
+    -fx-background-radius: 5.0, 5.0;
+	-fx-effect: dropshadow(three-pass-box,
+		rgba(0.0, 0.0, 0.0,0.5),
+		5.0, 0.5, 0.0, 1.0
+	);
+    -fx-padding: 5.0 4.0 2.0 6.0;
 }
 
 /*

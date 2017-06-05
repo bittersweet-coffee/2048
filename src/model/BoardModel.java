@@ -47,6 +47,7 @@ public final class BoardModel extends GameModel {
 
 	/**
 	 * TODO
+	 * 
 	 * @return
 	 */
 	public Integer[][] getModel() {
@@ -58,20 +59,7 @@ public final class BoardModel extends GameModel {
 	 */
 	public void set(Integer[][] boardModel) {
 		this.boardModel = boardModel;
-
 		setChanged();
 		notifyObservers(this.boardModel);
-	}
-
-	@Override
-	public void set(boolean gameWin, boolean gameOver) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void set(int score) {
-		// TODO Auto-generated method stub
-		
 	}
 }

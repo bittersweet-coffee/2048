@@ -41,16 +41,4 @@ public class GameScreenModel extends GameModel {
 		setChanged();
 		notifyObservers(state);
 	}
-
-	@Override
-	public void set(Integer[][] board) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void set(int score) {
-		// TODO Auto-generated method stub
-		
-	}
 }

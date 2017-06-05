@@ -18,8 +18,9 @@ import javafx.scene.layout.VBox;
 public class BoardView extends GameView implements Observer {
 
 	private GridPane board;
-	private Button up, down, left, right, start;
+	private Button up, down, left, right, start, restart;
 	private VBox container;
+
 	/**
 	 * TODO
 	 * 
@@ -35,7 +36,7 @@ public class BoardView extends GameView implements Observer {
 	 * @param board
 	 */
 	@Override
-	public void init() {
+	protected void init() {
 		int rows = this.board.getRowConstraints().size();
 		int cols = this.board.getColumnConstraints().size();
 
@@ -60,7 +61,7 @@ public class BoardView extends GameView implements Observer {
 	 * @param root
 	 */
 	@Override
-	public void loadComponents(Parent root) {
+	protected void loadComponents(Parent root) {
 		this.container = (VBox) root.lookup("#container");
 		this.board = (GridPane) root.lookup("#board");
 		this.up = (Button) root.lookup("#btn_up");
@@ -68,6 +69,7 @@ public class BoardView extends GameView implements Observer {
 		this.left = (Button) root.lookup("#btn_left");
 		this.right = (Button) root.lookup("#btn_right");
 		this.start = (Button) root.lookup("#btn_start");
+		this.restart = (Button) root.lookup("#btn_restart");
 	}
 
 	/**
@@ -82,6 +84,7 @@ public class BoardView extends GameView implements Observer {
 		this.down.setOnAction(event -> controller.handle(event));
 		this.right.setOnAction(event -> controller.handle(event));
 		this.start.setOnAction(event -> controller.handle(event));
+		this.restart.setOnAction(event -> controller.handle(event));
 	}
 
 	/**

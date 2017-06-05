@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Stats>
-    <highscore name="Jan">2560</highscore>
+    <highscoreList>
+        <highscore name="NoName">1000</highscore>
+        <highscore name="Jan">788</highscore>
+        <highscore name="RANDOM-KI">2900</highscore>
+        <highscore name="GREEDY-KI">2656</highscore>
+        <highscore name="Gugus">0</highscore>
+    </highscoreList>
 </Stats>
