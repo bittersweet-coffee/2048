@@ -19,7 +19,7 @@ public abstract class GameModel extends Observable {
 	public void set(boolean gameWin, boolean gameOver){
 		
 	}
-	public void set(int score){
+	public void set(Integer score){
 		
 	}
 	public void set(boolean window){

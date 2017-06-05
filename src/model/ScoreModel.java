@@ -5,7 +5,7 @@ package model;
  */
 public class ScoreModel extends GameModel {
 
-	private int score; 
+	private Integer score; 
 	
 	/**
 	 * TODO
@@ -21,7 +21,8 @@ public class ScoreModel extends GameModel {
 	 * TODO
 	 * @param score
 	 */
-	public void set(int score) {
+	@Override
+	public void set(Integer score) {
 		if (score != 0) {
 			this.score = score;
 		}
@@ -33,7 +34,7 @@ public class ScoreModel extends GameModel {
 	 * TODO
 	 * @return
 	 */
-	public int getScore() {
+	public Integer getScore() {
 		return score;
 	}
 }

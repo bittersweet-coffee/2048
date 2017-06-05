@@ -53,7 +53,7 @@ public class ScoreView extends GameView {
 	 */
 	@Override
 	public void update(Observable obs, Object obj) {
-		int score = (int) obj;
+		Integer score = (Integer) obj;
 		if (score < 10) {
 			this.labelScoreValue.setText("000" + Integer.toString(score));
 		} else if (score < 100) {

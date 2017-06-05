@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Stats>
-    <highscore name="Jan">13576</highscore>
+    <highscoreList>
+        <highscore name="NoName">1000</highscore>
+        <highscore name="Jan">788</highscore>
+    </highscoreList>
 </Stats>

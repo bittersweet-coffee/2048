@@ -58,7 +58,7 @@ public class BoardController implements EventHandler<Event> {
 	@Override
 	public void handle(Event event) {
 		Integer[][] board = null;
-		int score = 0;
+		Integer score = 0;
 		for (GameModel gameModel : modelList) {
 			if (gameModel instanceof BoardModel) {
 				board = ((BoardModel) gameModel).getModel();
@@ -108,6 +108,26 @@ public class BoardController implements EventHandler<Event> {
 				performGreedyKiGame();
 			} else if (target.contains("TRUMP")) {
 				performTrumpKiGame();
+			} else if (target.contains("PLAYER")) {
+				for (GameModel gameModel : this.modelList) {
+					if (gameModel instanceof StatsModel) {
+						gameModel.set(true);
+					}
+				}
+			} else if (target.contains("ABORT")) {
+				for (GameModel gameModel : this.modelList) {
+					if (gameModel instanceof StatsModel) {
+						gameModel.set(true, false);
+						gameModel.set(false);
+					}
+				}
+			} else if (target.contains("SAVE")) {
+				for (GameModel gameModel : this.modelList) {
+					if (gameModel instanceof StatsModel) {
+						gameModel.set(false, true);
+						gameModel.set(false);
+					}
+				}
 			}
 		}
 
@@ -252,8 +272,7 @@ public class BoardController implements EventHandler<Event> {
 		int tmpScore = 0;
 		for (GameModel gameModel : modelList) {
 			if (gameModel instanceof BoardModel) {
-				tmpBoard = createBoradCopy(
-						((BoardModel) gameModel).getModel());
+				tmpBoard = createBoradCopy(((BoardModel) gameModel).getModel());
 			}
 			if (gameModel instanceof ScoreModel) {
 				scoreModel = (ScoreModel) gameModel;
@@ -261,14 +280,15 @@ public class BoardController implements EventHandler<Event> {
 			}
 		}
 		while (!GameLogic.getGameOver()) {
-			performMove(tmpBoard, tmpScore, GameLogic.getGameOver(), scoreModel);
-			
-			
+			performMove(tmpBoard, tmpScore, GameLogic.getGameOver(),
+					scoreModel);
+
 		}
 
 	}
-	
-	private Integer[][] performMove(Integer[][] board, int score, boolean gameOver, ScoreModel scoreModel) {
+
+	private Integer[][] performMove(Integer[][] board, int score,
+			boolean gameOver, ScoreModel scoreModel) {
 		if (gameOver) {
 			GameLogic.setGameOver(gameOver);
 			scoreModel.set(score);
@@ -286,50 +306,56 @@ public class BoardController implements EventHandler<Event> {
 		boolean tmpGameOverLeft = gameOver;
 		boolean tmpGameOverRight = gameOver;
 		boolean tmpGameOverDown = gameOver;
-		
+
 		tmpBoardUp = GameLogic.moveUp(tmpBoardUp, tmpScoreUp);
 		tmpScoreUp = GameLogic.getScore();
 		tmpGameOverUp = GameLogic.getGameOver();
-		
+
 		if (tmpScoreUp > score) {
-			return performMove(tmpBoardUp, tmpScoreUp, tmpGameOverUp, scoreModel);
+			return performMove(tmpBoardUp, tmpScoreUp, tmpGameOverUp,
+					scoreModel);
 		}
-		
+
 		tmpBoardLeft = GameLogic.moveLeft(tmpBoardLeft, tmpScoreLeft);
 		tmpScoreLeft = GameLogic.getScore();
 		tmpGameOverLeft = GameLogic.getGameOver();
-		
+
 		if (tmpScoreLeft > score) {
-			return performMove(tmpBoardLeft, tmpScoreLeft, tmpGameOverLeft, scoreModel);
+			return performMove(tmpBoardLeft, tmpScoreLeft, tmpGameOverLeft,
+					scoreModel);
 		}
-		
+
 		tmpBoardRight = GameLogic.moveRight(tmpBoardRight, tmpScoreRight);
 		tmpScoreRight = GameLogic.getScore();
 		tmpGameOverRight = GameLogic.getGameOver();
-		
+
 		if (tmpScoreRight > score) {
-			return performMove(tmpBoardRight, tmpScoreRight, tmpGameOverRight, scoreModel);
+			return performMove(tmpBoardRight, tmpScoreRight, tmpGameOverRight,
+					scoreModel);
 		}
 		tmpBoardDown = GameLogic.moveDown(tmpBoardDown, tmpScoreDown);
 		tmpScoreDown = GameLogic.getScore();
 		tmpGameOverDown = GameLogic.getGameOver();
 		if (tmpScoreDown > score) {
-			return performMove(tmpBoardDown, tmpScoreDown, tmpGameOverDown, scoreModel);
+			return performMove(tmpBoardDown, tmpScoreDown, tmpGameOverDown,
+					scoreModel);
 		}
 		Random random = new Random();
 		int value = random.nextInt(40);
 		if (value <= 17) {
 			return performMove(tmpBoardUp, score, tmpGameOverUp, scoreModel);
 		} else if (value > 17 && value <= 27) {
-			return performMove(tmpBoardLeft, score, tmpGameOverLeft, scoreModel);
+			return performMove(tmpBoardLeft, score, tmpGameOverLeft,
+					scoreModel);
 		} else if (value > 27 && value <= 37) {
-			return performMove(tmpBoardRight, score, tmpGameOverRight, scoreModel);
+			return performMove(tmpBoardRight, score, tmpGameOverRight,
+					scoreModel);
 		} else if (value == 40 || value == 39 || value == 38) {
-			return performMove(tmpBoardDown, score, tmpGameOverDown, scoreModel);
+			return performMove(tmpBoardDown, score, tmpGameOverDown,
+					scoreModel);
 		}
 		return null;
-		
-		
+
 	}
 
 	private Integer[][] createBoradCopy(Integer[][] board) {

@@ -23,6 +23,7 @@ import view.BoardView;
 import view.GameScreenView;
 import view.HighScoreView;
 import view.KiView;
+import view.PlayerView;
 import view.ScoreView;
 
 /**
@@ -43,15 +44,20 @@ public class Game extends Application {
 	private GameView scoreView;
 	private GameView highScoreView;
 	private GameView gameScreenView;
+	private GameView playerView;
 	private GameView kiView;
 	private String path;
 	private String file;
 
-	/**private FXMLLoader loader2;
+	/**
+	private FXMLLoader loader2;
 	private GameView boardView2;
 	private GameView scoreView2;
 	private GameView highScoreView2;
-	private GameView gameScreenView2;**/
+	private GameView gameScreenView2;
+	private GameView playerView2;
+	private GameView kiView2;
+	**/
 
 	/**
 	 * Initialize the Game object and glue the models, controllers and views
@@ -75,6 +81,7 @@ public class Game extends Application {
 		this.boardView = new BoardView(root);
 		this.scoreView = new ScoreView(root);
 		this.highScoreView = new HighScoreView(root);
+		this.playerView = new PlayerView(root);
 		this.gameScreenView = new GameScreenView(root);
 		this.kiView = new KiView(root);
 
@@ -87,6 +94,7 @@ public class Game extends Application {
 		this.boardModel.addObserver(boardView);
 		this.scoreModel.addObserver(scoreView);
 		this.statsModel.addObserver(highScoreView);
+		this.statsModel.addObserver(playerView);
 		this.gameScreenModel.addObserver(gameScreenView);
 		this.kiModel.addObserver(kiView);
 
@@ -95,6 +103,7 @@ public class Game extends Application {
 		this.highScoreView.initializeView();
 		this.boardView.initializeView();
 		this.kiView.initializeView();
+		this.playerView.initializeView();
 
 		this.boardController = new BoardController();
 
@@ -105,29 +114,44 @@ public class Game extends Application {
 		this.boardController.addModel(kiModel);
 		((BoardView) this.boardView).addCotroller(boardController);
 		((KiView) this.kiView).addController(boardController);
+		((PlayerView) this.playerView).addCoontroller(boardController);
 
 		
 		/**
-		 // ADD A SECOND VIEW 
+		// ADD A SECOND VIEW 
 		this.loader2 = new FXMLLoader(
 				getClass().getResource("/view/GameView.fxml")); Parent root2 =
-		 this.loader2.load(); this.boardView2 = new BoardView(root2);
-		 this.scoreView2 = new ScoreView(root2); this.highScoreView2 = new
-		 HighScoreView(root2); this.gameScreenView2 = new
-		 GameScreenView(root2);
+		this.loader2.load(); this.boardView2 = new BoardView(root2);
+		this.scoreView2 = new ScoreView(root2); this.highScoreView2 = new
+		HighScoreView(root2); this.gameScreenView2 = new
+		GameScreenView(root2);
 		 
-		 this.scoreView2.initializeView();
-		 this.gameScreenView2.initializeView();
-		 this.highScoreView2.initializeView();
-		 this.boardView2.initializeView();
-		 
-		 this.boardModel.addObserver(boardView2);
-		this.scoreModel.addObserver(scoreView2);
-		 this.statsModel.addObserver(highScoreView2);
-		 this.gameScreenModel.addObserver(gameScreenView2); ((BoardView)
-		 this.boardView2).addCotroller(boardController);**/
+		this.boardView2 = new BoardView(root2);
+		this.scoreView2 = new ScoreView(root2);
+		this.highScoreView2 = new HighScoreView(root2);
+		this.gameScreenView2 = new GameScreenView(root2);
+		this.playerView2 = new PlayerView(root2);
+		this.kiView2 = new KiView(root2);
 		
-		// this.boardController.init();
+		this.boardModel.addObserver(boardView2);
+		this.scoreModel.addObserver(scoreView2);
+		this.statsModel.addObserver(highScoreView2);
+		this.statsModel.addObserver(playerView2);
+		this.gameScreenModel.addObserver(gameScreenView2);
+		this.kiModel.addObserver(kiView2);
+		
+		this.scoreView2.initializeView();
+		this.gameScreenView2.initializeView();
+		this.highScoreView2.initializeView();
+		this.boardView2.initializeView();
+		this.kiView2.initializeView();
+		this.playerView2.initializeView();
+		
+		((BoardView) this.boardView2).addCotroller(boardController);
+		((KiView) this.kiView2).addController(boardController);
+		((PlayerView) this.playerView2).addCoontroller(boardController);
+		**/
+		
 	}
 
 	private StatsModel setStatsModel(String path, String file) {
@@ -140,11 +164,8 @@ public class Game extends Application {
 				Unmarshaller unMarshaller = context.createUnmarshaller();
 				statsModel = (StatsModel) unMarshaller
 						.unmarshal(new FileReader(path + file));
-				statsModel.set(statsModel.getCurrentHighscore());
 			} else {
 				statsModel = new StatsModel(path, file);
-				statsModel.set(0);
-				statsModel.setName("Jan");
 			}
 		} catch (JAXBException e) {
 			System.out.println("JAXBContext could not load Model.");
