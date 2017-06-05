@@ -16,6 +16,7 @@ import javafx.scene.input.KeyEvent;
 import model.BoardModel;
 import model.GameModel;
 import model.GameScreenModel;
+import model.KiModel;
 import model.ScoreModel;
 import model.StatsModel;
 
@@ -100,18 +101,18 @@ public class BoardController implements EventHandler<Event> {
 				this.init();
 			} else if (target.contains("KI")) {
 				for (GameModel gameModel : this.modelList) {
-					gameModel.set(true);
+					if (gameModel instanceof KiModel) {
+						((KiModel) gameModel).set(true);
+					}
 				}
 			} else if (target.contains("RANDOM")) {
 				performRandomKiGame(board, score);
 			} else if (target.contains("GREEDY")) {
 				performGreedyKiGame();
-			} else if (target.contains("TRUMP")) {
-				performTrumpKiGame();
 			} else if (target.contains("PLAYER")) {
 				for (GameModel gameModel : this.modelList) {
 					if (gameModel instanceof StatsModel) {
-						gameModel.set(true);
+						((StatsModel) gameModel).set(true);
 					}
 				}
 			} else if (target.contains("ABORT")) {
@@ -225,49 +226,48 @@ public class BoardController implements EventHandler<Event> {
 
 	}
 
-	private void performRandomKiGame(Integer[][] board, int score) {
-		for (GameModel gameModel : this.modelList) {
-			gameModel.set(false);
-		}
-		Random random = new Random();
+	private void performRandomKiGame(Integer[][] board, Integer score) {
 		if (boardIsSet(board)) {
-			while (!GameLogic.getGameOver()) {
-				for (GameModel gameModel : modelList) {
-					if (gameModel instanceof BoardModel) {
-						board = ((BoardModel) gameModel).getModel();
-					}
-					if (gameModel instanceof ScoreModel) {
-						score = ((ScoreModel) gameModel).getScore();
-					}
+			for (GameModel gameModel : this.modelList) {
+				if (gameModel instanceof StatsModel) {
+					((StatsModel) gameModel).setName("RANDOM-KI");
 				}
-				int value = random.nextInt(4);
-				if (value == 0) {
-					performMoveUp(board, score);
-				} else if (value == 1) {
-					performMoveDown(board, score);
-				} else if (value == 2) {
-					performMoveLeft(board, score);
-				} else if (value == 3) {
-					performMoveRight(board, score);
+				if (gameModel instanceof KiModel) {
+					((KiModel) gameModel).set(false);
 				}
 			}
-		}
-
-	}
-
-	private void performTrumpKiGame() {
-		System.out.println("TRUMP");
-		for (GameModel gameModel : this.modelList) {
-			gameModel.set(false);
+			Random random = new Random();
+			if (boardIsSet(board)) {
+				while (!GameLogic.getGameOver()) {
+					for (GameModel gameModel : modelList) {
+						if (gameModel instanceof BoardModel) {
+							board = ((BoardModel) gameModel).getModel();
+						}
+						if (gameModel instanceof ScoreModel) {
+							score = ((ScoreModel) gameModel).getScore();
+						}
+					}
+					int value = random.nextInt(4);
+					if (value == 0) {
+						performMoveUp(board, score);
+					} else if (value == 1) {
+						performMoveDown(board, score);
+					} else if (value == 2) {
+						performMoveLeft(board, score);
+					} else if (value == 3) {
+						performMoveRight(board, score);
+					}
+				}
+			}
 		}
 	}
 
 	private void performGreedyKiGame() {
 		for (GameModel gameModel : this.modelList) {
 			gameModel.set(false);
-
 		}
 		ScoreModel scoreModel = null;
+		StatsModel statsModel = null;
 		Integer[][] tmpBoard = null;
 		int tmpScore = 0;
 		for (GameModel gameModel : modelList) {
@@ -276,32 +276,44 @@ public class BoardController implements EventHandler<Event> {
 			}
 			if (gameModel instanceof ScoreModel) {
 				scoreModel = (ScoreModel) gameModel;
-				tmpScore = ((ScoreModel) gameModel).getScore();
+				if (scoreModel.getScore() == null) {
+					tmpScore = 0;
+				} else {
+					tmpScore = ((ScoreModel) gameModel).getScore();
+				}
+			}
+			if (gameModel instanceof StatsModel) {
+				((StatsModel) gameModel).setName("GREEDY-KI");
+				statsModel = (StatsModel) gameModel;
+			}
+			if (gameModel instanceof KiModel) {
+				((KiModel) gameModel).set(false);
 			}
 		}
-		while (!GameLogic.getGameOver()) {
-			performMove(tmpBoard, tmpScore, GameLogic.getGameOver(),
-					scoreModel);
-
+		if (boardIsSet(tmpBoard)) {
+			while (!GameLogic.getGameOver()) {
+				performKIMove(tmpBoard, tmpScore, GameLogic.getGameOver(),
+						scoreModel, statsModel);
+			}
 		}
-
 	}
 
-	private Integer[][] performMove(Integer[][] board, int score,
-			boolean gameOver, ScoreModel scoreModel) {
+	private Integer[][] performKIMove(Integer[][] board, Integer score,
+			boolean gameOver, ScoreModel scoreModel, StatsModel statsModel) {
 		if (gameOver) {
 			GameLogic.setGameOver(gameOver);
 			scoreModel.set(score);
+			statsModel.set(score);
 			return board;
 		}
 		Integer[][] tmpBoardUp = createBoradCopy(board);
 		Integer[][] tmpBoardLeft = createBoradCopy(board);
 		Integer[][] tmpBoardRight = createBoradCopy(board);
 		Integer[][] tmpBoardDown = createBoradCopy(board);
-		int tmpScoreUp = score;
-		int tmpScoreLeft = score;
-		int tmpScoreRight = score;
-		int tmpScoreDown = score;
+		Integer tmpScoreUp = score;
+		Integer tmpScoreLeft = score;
+		Integer tmpScoreRight = score;
+		Integer tmpScoreDown = score;
 		boolean tmpGameOverUp = gameOver;
 		boolean tmpGameOverLeft = gameOver;
 		boolean tmpGameOverRight = gameOver;
@@ -312,8 +324,8 @@ public class BoardController implements EventHandler<Event> {
 		tmpGameOverUp = GameLogic.getGameOver();
 
 		if (tmpScoreUp > score) {
-			return performMove(tmpBoardUp, tmpScoreUp, tmpGameOverUp,
-					scoreModel);
+			return performKIMove(tmpBoardUp, tmpScoreUp, tmpGameOverUp,
+					scoreModel, statsModel);
 		}
 
 		tmpBoardLeft = GameLogic.moveLeft(tmpBoardLeft, tmpScoreLeft);
@@ -321,8 +333,8 @@ public class BoardController implements EventHandler<Event> {
 		tmpGameOverLeft = GameLogic.getGameOver();
 
 		if (tmpScoreLeft > score) {
-			return performMove(tmpBoardLeft, tmpScoreLeft, tmpGameOverLeft,
-					scoreModel);
+			return performKIMove(tmpBoardLeft, tmpScoreLeft, tmpGameOverLeft,
+					scoreModel, statsModel);
 		}
 
 		tmpBoardRight = GameLogic.moveRight(tmpBoardRight, tmpScoreRight);
@@ -330,29 +342,30 @@ public class BoardController implements EventHandler<Event> {
 		tmpGameOverRight = GameLogic.getGameOver();
 
 		if (tmpScoreRight > score) {
-			return performMove(tmpBoardRight, tmpScoreRight, tmpGameOverRight,
-					scoreModel);
+			return performKIMove(tmpBoardRight, tmpScoreRight, tmpGameOverRight,
+					scoreModel, statsModel);
 		}
 		tmpBoardDown = GameLogic.moveDown(tmpBoardDown, tmpScoreDown);
 		tmpScoreDown = GameLogic.getScore();
 		tmpGameOverDown = GameLogic.getGameOver();
 		if (tmpScoreDown > score) {
-			return performMove(tmpBoardDown, tmpScoreDown, tmpGameOverDown,
-					scoreModel);
+			return performKIMove(tmpBoardDown, tmpScoreDown, tmpGameOverDown,
+					scoreModel, statsModel);
 		}
 		Random random = new Random();
 		int value = random.nextInt(40);
 		if (value <= 17) {
-			return performMove(tmpBoardUp, score, tmpGameOverUp, scoreModel);
+			return performKIMove(tmpBoardUp, score, tmpGameOverUp, scoreModel,
+					statsModel);
 		} else if (value > 17 && value <= 27) {
-			return performMove(tmpBoardLeft, score, tmpGameOverLeft,
-					scoreModel);
+			return performKIMove(tmpBoardLeft, score, tmpGameOverLeft,
+					scoreModel, statsModel);
 		} else if (value > 27 && value <= 37) {
-			return performMove(tmpBoardRight, score, tmpGameOverRight,
-					scoreModel);
+			return performKIMove(tmpBoardRight, score, tmpGameOverRight,
+					scoreModel, statsModel);
 		} else if (value == 40 || value == 39 || value == 38) {
-			return performMove(tmpBoardDown, score, tmpGameOverDown,
-					scoreModel);
+			return performKIMove(tmpBoardDown, score, tmpGameOverDown,
+					scoreModel, statsModel);
 		}
 		return null;
 

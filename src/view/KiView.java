@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 
 public class KiView extends GameView {
 	
-	private Button random, greedy, trump, ki;
+	private Button random, greedy, ki;
 	private VBox kIContainer;
 	private Scene scene;
 
@@ -44,26 +44,20 @@ public class KiView extends GameView {
 		
 		this.random = new Button("RANDOM");
 		this.greedy = new Button("GREEDY");
-		this.trump = new Button("TRUMP");
 		
 		this.kIContainer.getChildren().add(this.random);
 		this.kIContainer.getChildren().add(this.greedy);
-		this.kIContainer.getChildren().add(this.trump);
 		
 		this.kIContainer.setAlignment(Pos.CENTER);
 		this.random.setAlignment(Pos.CENTER);
 		this.greedy.setAlignment(Pos.CENTER);
-		this.trump.setAlignment(Pos.CENTER);
 
 		this.random.setMaxWidth(220);
 		this.greedy.setMaxWidth(220);
-		this.trump.setMaxWidth(220);
 		this.random.setMaxHeight(120);
 		this.greedy.setMaxHeight(120);
-		this.trump.setMaxHeight(120);
 		this.random.getStyleClass().add("ki");
 		this.greedy.getStyleClass().add("ki");
-		this.trump.getStyleClass().add("ki");
 		
 		
 		this.setWidth(260);
@@ -79,7 +73,6 @@ public class KiView extends GameView {
 	public void addController(BoardController controller) {
 		this.random.setOnAction(event -> controller.handle(event));
 		this.greedy.setOnAction(event -> controller.handle(event));
-		this.trump.setOnAction(event -> controller.handle(event));
 		this.ki.setOnAction(event -> controller.handle(event));
 	}
 
