@@ -135,7 +135,7 @@ public class BoardController implements EventHandler<Event> {
 		performGameOver(GameLogic.getGameOver());
 	}
 
-	private void performMoveUp(Integer[][] board, int score) {
+	private void performMoveUp(Integer[][] board, Integer score) {
 		if (boardIsSet(board)) {
 			board = GameLogic.moveUp(board, score);
 			for (GameModel gameModel : this.modelList) {
@@ -145,7 +145,7 @@ public class BoardController implements EventHandler<Event> {
 		}
 	}
 
-	private void performMoveDown(Integer[][] board, int score) {
+	private void performMoveDown(Integer[][] board, Integer score) {
 		if (boardIsSet(board)) {
 			board = GameLogic.moveDown(board, score);
 			for (GameModel gameModel : this.modelList) {
@@ -155,7 +155,7 @@ public class BoardController implements EventHandler<Event> {
 		}
 	}
 
-	private void performMoveLeft(Integer[][] board, int score) {
+	private void performMoveLeft(Integer[][] board, Integer score) {
 		if (boardIsSet(board)) {
 			board = GameLogic.moveLeft(board, score);
 			for (GameModel gameModel : this.modelList) {
@@ -165,7 +165,7 @@ public class BoardController implements EventHandler<Event> {
 		}
 	}
 
-	private void performMoveRight(Integer[][] board, int score) {
+	private void performMoveRight(Integer[][] board, Integer score) {
 		if (boardIsSet(board)) {
 			board = GameLogic.moveRight(board, score);
 			for (GameModel gameModel : modelList) {
