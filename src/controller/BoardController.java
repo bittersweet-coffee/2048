@@ -182,8 +182,7 @@ public class BoardController implements EventHandler<Event> {
 		for (GameModel gameModel : this.modelList) {
 			if (gameModel instanceof StatsModel) {
 				marshaller.marshal((StatsModel) gameModel,
-						new File(((StatsModel) gameModel).getPath(),
-								((StatsModel) gameModel).getFile()));
+						new File(((StatsModel) gameModel).getPath()));
 			}
 		}
 	}

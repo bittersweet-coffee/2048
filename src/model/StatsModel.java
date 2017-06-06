@@ -1,5 +1,6 @@
 package model;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,31 +19,25 @@ public class StatsModel extends GameModel {
 	@XmlElement(name = "highscore")
 	private List<Highscore> highscoreList;
 	private String path;
-	private String file;
 	private boolean abort;
 	private boolean save;
 
 	/**
 	 * TODO
 	 */
-	public StatsModel(String path, String file) {
-		this.highscoreList = new ArrayList<Highscore>();
-		this.path = path;
-		this.file = file;
-	}
-
 	public StatsModel() {
 		this.highscoreList = new ArrayList<Highscore>();
-		this.path = System.getProperty("user.dir") + "\\src\\model";
-		this.file = "\\stats.xml";
+		this.path = Paths.get(
+				System.getProperty("user.dir"),
+				"src",
+				"model",
+				"stats.xml"
+				).toString();
 	}
 
-	public String getFile() {
-		return file;
-	}
-
-	public String getPath() {
-		return path;
+	public StatsModel(String path) {
+		this.highscoreList = new ArrayList<Highscore>();
+		this.path = path;
 	}
 
 	/**
@@ -51,7 +46,7 @@ public class StatsModel extends GameModel {
 	 * @param name
 	 */
 	public void setName(String name) {
-		
+
 		if (listContainsName(name)) {
 			for (Highscore highscore : this.highscoreList) {
 				if (highscore.getName().equals(name)) {
@@ -67,6 +62,11 @@ public class StatsModel extends GameModel {
 		}
 	}
 
+	/**
+	 * TODO
+	 *
+	 * @param name
+	 */
 	private void addNewPlayer(String name) {
 		this.highscore = new Highscore();
 		this.highscore.setName(name);
@@ -94,12 +94,18 @@ public class StatsModel extends GameModel {
 
 	}
 
+	/**
+	 * TODO
+	 */
 	@Override
 	public void set(boolean window) {
 		this.setChanged();
 		this.notifyObservers(window);
 	}
 
+	/**
+	 * TODO
+	 */
 	public void set(boolean abort, boolean save) {
 		this.abort = abort;
 		this.save = save;
@@ -114,10 +120,20 @@ public class StatsModel extends GameModel {
 		return this.highscore.getHighScore();
 	}
 
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
 	public boolean getAbort() {
 		return this.abort;
 	}
 
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
 	public boolean getSave() {
 		return this.save;
 	}
@@ -129,6 +145,15 @@ public class StatsModel extends GameModel {
 	 */
 	public String getCurrentName() {
 		return this.highscore.getName();
+	}
+
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
+	public String getPath() {
+		return path;
 	}
 
 	/**
@@ -195,14 +220,12 @@ public class StatsModel extends GameModel {
 				} else {
 					addNewPlayer("NoName");
 				}
-				
+
 			}
 		} else {
 			setName(this.getCurrentName());
 			set(this.getCurrentHighscore());
 		}
-		
-		
 	}
 
 	private boolean listContainsName(String name) {
@@ -213,5 +236,4 @@ public class StatsModel extends GameModel {
 		}
 		return false;
 	}
-
 }

@@ -2,6 +2,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.nio.file.Paths;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -47,7 +48,6 @@ public class Game extends Application {
 	private GameView playerView;
 	private GameView kiView;
 	private String path;
-	private String file;
 
 	/**
 	private FXMLLoader loader2;
@@ -71,8 +71,12 @@ public class Game extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		this.path = System.getProperty("user.dir") + "\\src\\model";
-		this.file = "\\stats.xml";
+		this.path = Paths.get(
+				System.getProperty("user.dir"),
+				"src",
+				"model",
+				"stats.xml"
+				).toString();
 		this.loader = new FXMLLoader(
 				getClass().getResource("/view/GameView.fxml"));
 
@@ -87,7 +91,7 @@ public class Game extends Application {
 
 		this.boardModel = new BoardModel();
 		this.scoreModel = new ScoreModel();
-		this.statsModel = setStatsModel(path, file);
+		this.statsModel = setStatsModel(path);
 		this.gameScreenModel = new GameScreenModel();
 		this.kiModel = new KiModel();
 
@@ -154,18 +158,18 @@ public class Game extends Application {
 		
 	}
 
-	private StatsModel setStatsModel(String path, String file) {
+	private StatsModel setStatsModel(String path) {
 		StatsModel statsModel = null;
 		try {
-			File fileCheck = new File(path, file);
+			File fileCheck = new File(path);
 
 			if (fileCheck.exists()) {
 				JAXBContext context = JAXBContext.newInstance(StatsModel.class);
 				Unmarshaller unMarshaller = context.createUnmarshaller();
 				statsModel = (StatsModel) unMarshaller
-						.unmarshal(new FileReader(path + file));
+						.unmarshal(new FileReader(path));
 			} else {
-				statsModel = new StatsModel(path, file);
+				statsModel = new StatsModel(path);
 			}
 		} catch (JAXBException e) {
 			System.out.println("JAXBContext could not load Model.");
