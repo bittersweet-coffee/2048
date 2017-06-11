@@ -46,7 +46,6 @@ public class StatsModel extends GameModel {
 	 * @param name
 	 */
 	public void setName(String name) {
-
 		if (listContainsName(name)) {
 			for (Highscore highscore : this.highscoreList) {
 				if (highscore.getName().equals(name)) {

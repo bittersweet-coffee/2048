@@ -1,9 +1,6 @@
 package tests;
 
-import static org.junit.Assert.*;
-
 import java.nio.file.Paths;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +15,7 @@ public class StatsModelTest {
 	@Before
 	public void setUp() throws Exception {
 		this.statsModel = new StatsModel();
+
 		String path = Paths.get(
 				System.getProperty("user.dir"),
 				"src",
@@ -25,26 +23,32 @@ public class StatsModelTest {
 				"statsTest.xml"
 				).toString();
 		this.statsModel2 = new StatsModel(path);
+		this.statsModel2.setName("johndoe");
 	}
 
 	@Test
 	public void testInit() {
-		fail("Not yet implemented");
+		this.statsModel.init();
+		Assert.assertEquals("noName", this.statsModel.getCurrentName());
+		Assert.assertEquals(0, this.statsModel.getCurrentHighscore());
 	}
 
 	@Test
 	public void testSetBooleanBoolean() {
-		fail("Not yet implemented");
+		this.statsModel2.set(true, true);
+		Assert.assertTrue(this.statsModel2.getAbort());
+		Assert.assertTrue(this.statsModel2.getSave());
 	}
 
 	@Test
 	public void testSetInteger() {
-		fail("Not yet implemented");
+		this.statsModel2.set(10);
+		Assert.assertEquals(10, this.statsModel2.getCurrentHighscore());
 	}
 
 	@Test
 	public void testSetBoolean() {
-		fail("Not yet implemented");
+		// Cannot be tested that easily
 	}
 
 	@Test
@@ -62,37 +66,37 @@ public class StatsModelTest {
 				"statsTest.xml"
 				).toString();
 		StatsModel model = new StatsModel(path);
-		Assert.assertTrue(model.equals(statsModel2));
+		Assert.assertTrue(model.equals(this.statsModel2));
 	}
 
 	@Test
 	public void testSetName() {
-		fail("Not yet implemented");
+		this.statsModel2.setName("johnedoe2");
+		Assert.assertEquals("johnedoe2", this.statsModel2.getCurrentName());
 	}
 
 	@Test
 	public void testGetCurrentHighscore() {
-		fail("Not yet implemented");
+		Assert.assertEquals(0, this.statsModel2.getCurrentHighscore());
 	}
 
 	@Test
 	public void testGetAbort() {
-		Assert.assertTrue(!statsModel.getAbort());
+		Assert.assertTrue(!this.statsModel.getAbort());
 	}
 
 	@Test
 	public void testGetSave() {
-		Assert.assertTrue(!statsModel.getSave());
+		Assert.assertTrue(!this.statsModel.getSave());
 	}
 
 	@Test
 	public void testGetCurrentName() {
-		fail("Not yet implemented");
+		Assert.assertEquals("johndoe", this.statsModel2.getCurrentName());
 	}
 
 	@Test
 	public void testGetPath() {
 		Assert.assertTrue(this.statsModel.getPath().contains("stats.xml"));
 	}
-
 }
