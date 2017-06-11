@@ -236,4 +236,35 @@ public class StatsModel extends GameModel {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof StatsModel))
+			return false;
+		StatsModel other = (StatsModel) obj;
+		if (abort != other.abort)
+			return false;
+		if (highscore == null) {
+			if (other.highscore != null)
+				return false;
+		} else if (!highscore.equals(other.highscore))
+			return false;
+		if (highscoreList == null) {
+			if (other.highscoreList != null)
+				return false;
+		} else if (!highscoreList.equals(other.highscoreList))
+			return false;
+		if (path == null) {
+			if (other.path != null)
+				return false;
+		} else if (!path.equals(other.path))
+			return false;
+		if (save != other.save)
+			return false;
+		return true;
+	}
 }
