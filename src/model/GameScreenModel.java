@@ -30,6 +30,14 @@ public class GameScreenModel extends GameModel {
 		this.gameOver = gameOver;
 		this.gameWin = gameWin;
 	}
+	
+	public boolean getGameOver() {
+		return this.gameOver;
+	}
+
+	public boolean getGameWin() {
+		return this.gameWin;
+	}
 
 	public void state() {
 		boolean state = false;
