@@ -11,6 +11,7 @@ public class StatsModelTest {
 	
 	private StatsModel statsModel;
 	private StatsModel statsModel2;
+	private StatsModel statsModel3;
 
 	@Before
 	public void setUp() throws Exception {
@@ -24,12 +25,14 @@ public class StatsModelTest {
 				).toString();
 		this.statsModel2 = new StatsModel(path);
 		this.statsModel2.setName("johndoe");
+
+		this.statsModel3 = new StatsModel(path);
 	}
 
 	@Test
 	public void testInit() {
 		this.statsModel.init();
-		Assert.assertEquals("noName", this.statsModel.getCurrentName());
+		Assert.assertEquals("NoName", this.statsModel.getCurrentName());
 		Assert.assertEquals(0, this.statsModel.getCurrentHighscore());
 	}
 
@@ -43,6 +46,8 @@ public class StatsModelTest {
 	@Test
 	public void testSetInteger() {
 		this.statsModel2.set(10);
+		Assert.assertEquals(10, this.statsModel2.getCurrentHighscore());
+		this.statsModel2.set(5);
 		Assert.assertEquals(10, this.statsModel2.getCurrentHighscore());
 	}
 
@@ -66,7 +71,7 @@ public class StatsModelTest {
 				"statsTest.xml"
 				).toString();
 		StatsModel model = new StatsModel(path);
-		Assert.assertTrue(model.equals(this.statsModel2));
+		Assert.assertTrue(model.equals(this.statsModel3));
 	}
 
 	@Test
