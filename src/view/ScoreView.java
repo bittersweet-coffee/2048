@@ -1,13 +1,12 @@
 package view;
 
 import java.util.Observable;
-
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 
 /**
- * TODO
+ * Provides a ScoreView 
  */
 public class ScoreView extends GameView {
 
@@ -18,7 +17,7 @@ public class ScoreView extends GameView {
 	private Label labelScoreValue;
 
 	/**
-	 * TODO
+	 * Creates a new ScoreView
 	 * 
 	 * @param root
 	 */
@@ -27,7 +26,7 @@ public class ScoreView extends GameView {
 	}
 
 	/**
-	 * TODO
+	 * Initialize the ScoreView and set the labels
 	 * 
 	 * @param board
 	 */
@@ -38,7 +37,7 @@ public class ScoreView extends GameView {
 	}
 
 	/**
-	 * TODO
+	 * Load all components of the view.
 	 * 
 	 * @param root
 	 */
@@ -49,7 +48,7 @@ public class ScoreView extends GameView {
 	}
 
 	/**
-	 * TODO
+	 * Get the values from the Model
 	 */
 	@Override
 	public void update(Observable obs, Object obj) {

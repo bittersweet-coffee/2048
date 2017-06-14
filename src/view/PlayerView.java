@@ -1,7 +1,6 @@
 package view;
 
 import java.util.Observable;
-
 import controller.BoardController;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -14,6 +13,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import model.StatsModel;
 
+/**
+ * Provides a PlayerView
+ */
 public class PlayerView extends GameView {
 
 	private static final int FONT_SIZE_NORMAL = 40;
@@ -28,11 +30,18 @@ public class PlayerView extends GameView {
 	private TextField playerTextField;
 	private Scene scene;
 
+	/**
+	 * Create a new PlayerView
+	 * 
+	 * @param root
+	 */
 	public PlayerView(Parent root) {
 		super(root);
-		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Get the values from the model
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		if (!arg.equals(null)) {
@@ -57,6 +66,9 @@ public class PlayerView extends GameView {
 
 	}
 
+	/**
+	 * Load all the components for the View
+	 */
 	@Override
 	protected void loadComponents(Parent root) {
 		this.labelPlayer = (Label) root.lookup("#player");
@@ -65,6 +77,9 @@ public class PlayerView extends GameView {
 
 	}
 
+	/**
+	 * Initialize the View and load all components
+	 */
 	@Override
 	protected void init() {
 		this.labelPlayer.setFont(new Font(FONT_STYLE, FONT_SIZE_NORMAL));
@@ -105,10 +120,14 @@ public class PlayerView extends GameView {
 
 	}
 
+	/**
+	 * Add a controller to the View to be triggered by the action events
+	 * 
+	 * @param controller
+	 */
 	public void addCoontroller(BoardController controller) {
 		this.playerButton.setOnAction(event -> controller.handle(event));
 		this.save.setOnAction(event -> controller.handle(event));
 		this.abort.setOnAction(event -> controller.handle(event));
 	}
-
 }

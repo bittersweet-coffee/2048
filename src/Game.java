@@ -3,11 +3,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.nio.file.Paths;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-
 import controller.BoardController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -50,16 +48,6 @@ public class Game extends Application {
 	private String path;
 
 	/**
-	private FXMLLoader loader2;
-	private GameView boardView2;
-	private GameView scoreView2;
-	private GameView highScoreView2;
-	private GameView gameScreenView2;
-	private GameView playerView2;
-	private GameView kiView2;
-	**/
-
-	/**
 	 * Initialize the Game object and glue the models, controllers and views
 	 * together.
 	 */
@@ -67,16 +55,12 @@ public class Game extends Application {
 	}
 
 	/**
-	 * TODO
+	 * Start the actual application
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		this.path = Paths.get(
-				System.getProperty("user.dir"),
-				"src",
-				"model",
-				"stats.xml"
-				).toString();
+		this.path = Paths.get(System.getProperty("user.dir"), "src", "model",
+				"stats.xml").toString();
 		this.loader = new FXMLLoader(
 				getClass().getResource("/view/GameView.fxml"));
 
@@ -119,45 +103,15 @@ public class Game extends Application {
 		((BoardView) this.boardView).addCotroller(boardController);
 		((KiView) this.kiView).addController(boardController);
 		((PlayerView) this.playerView).addCoontroller(boardController);
-
-		
-		/**
-		// ADD A SECOND VIEW 
-		this.loader2 = new FXMLLoader(
-				getClass().getResource("/view/GameView.fxml")); Parent root2 =
-		this.loader2.load(); this.boardView2 = new BoardView(root2);
-		this.scoreView2 = new ScoreView(root2); this.highScoreView2 = new
-		HighScoreView(root2); this.gameScreenView2 = new
-		GameScreenView(root2);
-		 
-		this.boardView2 = new BoardView(root2);
-		this.scoreView2 = new ScoreView(root2);
-		this.highScoreView2 = new HighScoreView(root2);
-		this.gameScreenView2 = new GameScreenView(root2);
-		this.playerView2 = new PlayerView(root2);
-		this.kiView2 = new KiView(root2);
-		
-		this.boardModel.addObserver(boardView2);
-		this.scoreModel.addObserver(scoreView2);
-		this.statsModel.addObserver(highScoreView2);
-		this.statsModel.addObserver(playerView2);
-		this.gameScreenModel.addObserver(gameScreenView2);
-		this.kiModel.addObserver(kiView2);
-		
-		this.scoreView2.initializeView();
-		this.gameScreenView2.initializeView();
-		this.highScoreView2.initializeView();
-		this.boardView2.initializeView();
-		this.kiView2.initializeView();
-		this.playerView2.initializeView();
-		
-		((BoardView) this.boardView2).addCotroller(boardController);
-		((KiView) this.kiView2).addController(boardController);
-		((PlayerView) this.playerView2).addCoontroller(boardController);
-		**/
-		
 	}
 
+	/**
+	 * Set the statsModel, load the stats from the XML and initialize it
+	 * 
+	 * @param path
+	 *            (String) Path to the file
+	 * @return StatsModel
+	 */
 	private StatsModel setStatsModel(String path) {
 		StatsModel statsModel = null;
 		try {
