@@ -10,6 +10,12 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
+/**
+ * 
+ * An object that handels the in and output to a XML file. It sets handles
+ * highsocre and palyername in - and output.
+ *
+ */
 @XmlRootElement(name = "Stats")
 public class StatsModel extends GameModel {
 
@@ -27,12 +33,8 @@ public class StatsModel extends GameModel {
 	 */
 	public StatsModel() {
 		this.highscoreList = new ArrayList<Highscore>();
-		this.path = Paths.get(
-				System.getProperty("user.dir"),
-				"src",
-				"model",
-				"stats.xml"
-				).toString();
+		this.path = Paths.get(System.getProperty("user.dir"), "src", "model",
+				"stats.xml").toString();
 	}
 
 	public StatsModel(String path) {
@@ -41,9 +43,12 @@ public class StatsModel extends GameModel {
 	}
 
 	/**
-	 * TODO
+	 * 
+	 * Sets the name of the Player and sets it's highscore if the player is
+	 * known. If a player is not known a new PLayer will be set.
 	 * 
 	 * @param name
+	 *            (String)
 	 */
 	public void setName(String name) {
 		if (listContainsName(name)) {
@@ -61,11 +66,6 @@ public class StatsModel extends GameModel {
 		}
 	}
 
-	/**
-	 * TODO
-	 *
-	 * @param name
-	 */
 	private void addNewPlayer(String name) {
 		this.highscore = new Highscore();
 		this.highscore.setName(name);
@@ -79,9 +79,11 @@ public class StatsModel extends GameModel {
 	}
 
 	/**
-	 * TODO
 	 * 
-	 * @param highscore
+	 * The highscore only gets set when it is higher or equal than the highscore
+	 * which is already set.
+	 * 
+	 * @param highscore (Integer)
 	 */
 	@Override
 	public void set(Integer highscore) {
@@ -94,7 +96,8 @@ public class StatsModel extends GameModel {
 	}
 
 	/**
-	 * TODO
+	 * Handles window open/close for player-name input.
+	 * @param window (boolen)
 	 */
 	@Override
 	public void set(boolean window) {
@@ -103,7 +106,7 @@ public class StatsModel extends GameModel {
 	}
 
 	/**
-	 * TODO
+	 * Sets flags for save / abortion when a name was entered.
 	 */
 	public void set(boolean abort, boolean save) {
 		this.abort = abort;
@@ -111,52 +114,58 @@ public class StatsModel extends GameModel {
 	}
 
 	/**
-	 * TODO
 	 * 
-	 * @return
+	 * gets the current highscore stored in the inner highscore-class.
+	 * 
+	 * @return currentHightscore (int)
 	 */
 	public int getCurrentHighscore() {
 		return this.highscore.getHighScore();
 	}
 
 	/**
-	 * TODO
 	 * 
-	 * @return
+	 * abort flag for player name window
+	 * 
+	 * @return abort (boolean)
 	 */
 	public boolean getAbort() {
 		return this.abort;
 	}
 
 	/**
-	 * TODO
 	 * 
-	 * @return
+	 * save flag for player name window
+	 * 
+	 * @return save (boolean)
 	 */
 	public boolean getSave() {
 		return this.save;
 	}
 
 	/**
-	 * TODO
 	 * 
-	 * @return
+	 * gets the current player name stored in the inner highscore-class.
+	 * 
+	 * @return name (String)
 	 */
 	public String getCurrentName() {
 		return this.highscore.getName();
 	}
 
 	/**
-	 * TODO
 	 * 
-	 * @return
+	 * returns the path where the XML-Stats-File is located.
+	 * 
+	 * @return path (String)
 	 */
 	public String getPath() {
 		return path;
 	}
 
 	/**
-	 * TODO
+	 * An inner class used for storing a player name and a highscore in a
+	 * object. this object also handles XML formatting.
 	 */
 	static class Highscore {
 
@@ -164,27 +173,26 @@ public class StatsModel extends GameModel {
 		private String name;
 
 		/**
-		 * TODO
 		 * 
-		 * @param highScore
+		 * sets the highscore for a highscore-object.
+		 * @param highScore (int)
 		 */
 		public void setHighScore(int highScore) {
 			this.highScore = highScore;
 		}
 
 		/**
-		 * TODO
 		 * 
-		 * @param name
+		 * sets the name of a player for a highscore-object.
+		 * @param name (string)
 		 */
 		public void setName(String name) {
 			this.name = name;
 		}
 
 		/**
-		 * TODO
 		 * 
-		 * @return
+		 * @return highscore (int)
 		 */
 		@XmlValue
 		public int getHighScore() {
@@ -192,9 +200,8 @@ public class StatsModel extends GameModel {
 		}
 
 		/**
-		 * TODO
 		 * 
-		 * @return
+		 * @return name (String)
 		 */
 		@XmlAttribute
 		public String getName() {
@@ -202,6 +209,9 @@ public class StatsModel extends GameModel {
 		}
 	}
 
+	/**
+	 * Initializes the model adds a dummy player if no player is found.
+	 */
 	@Override
 	public void init() {
 		if (this.highscore == null) {
@@ -236,6 +246,7 @@ public class StatsModel extends GameModel {
 		return false;
 	}
 
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

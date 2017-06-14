@@ -7,7 +7,14 @@ import javafx.scene.layout.HBox;
 /**
  * This class is used to display the values on the View.
  */
-public class NumberBox extends HBox{
+
+/**
+ * 
+ * This is a formatting object for the board. It's a costumed and formatted HBox
+ * which gets placed on each board field of the view.
+ *
+ */
+public class NumberBox extends HBox {
 
 	Label lbl;
 	private static final String STYLE_VALUE_2 = "value-2";
@@ -21,26 +28,25 @@ public class NumberBox extends HBox{
 	private static final String STYLE_VALUE_512 = "value-512";
 	private static final String STYLE_VALUE_1024 = "value-1024";
 	private static final String STYLE_VALUE_2048 = "value-2048";
-	
-	/**
-	 * TODO
-	 */
+
 	public NumberBox() {
 		this.setAlignment(Pos.CENTER);
 		this.lbl = new Label("");
 		this.getChildren().add(this.lbl);
 	}
-	
+
 	/**
 	 * TODO
+	 * 
 	 * @param str
 	 */
 	public void setLabelText(String str) {
 		this.lbl.setText(str);
 	}
-	
+
 	/**
 	 * TODO
+	 * 
 	 * @param score
 	 */
 	public void setStyle(int score) {

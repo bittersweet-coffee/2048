@@ -8,7 +8,7 @@ import org.junit.Test;
 import model.StatsModel;
 
 public class StatsModelTest {
-	
+
 	private StatsModel statsModel;
 	private StatsModel statsModel2;
 	private StatsModel statsModel3;
@@ -17,12 +17,8 @@ public class StatsModelTest {
 	public void setUp() throws Exception {
 		this.statsModel = new StatsModel();
 
-		String path = Paths.get(
-				System.getProperty("user.dir"),
-				"src",
-				"tests",
-				"statsTest.xml"
-				).toString();
+		String path = Paths.get(System.getProperty("user.dir"), "src", "tests",
+				"statsTest.xml").toString();
 		this.statsModel2 = new StatsModel(path);
 		this.statsModel2.setName("johndoe");
 
@@ -64,12 +60,8 @@ public class StatsModelTest {
 
 	@Test
 	public void testStatsModelString() {
-		String path = Paths.get(
-				System.getProperty("user.dir"),
-				"src",
-				"tests",
-				"statsTest.xml"
-				).toString();
+		String path = Paths.get(System.getProperty("user.dir"), "src", "tests",
+				"statsTest.xml").toString();
 		StatsModel model = new StatsModel(path);
 		Assert.assertTrue(model.equals(this.statsModel3));
 	}
