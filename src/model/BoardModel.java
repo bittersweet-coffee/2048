@@ -33,7 +33,7 @@ public final class BoardModel extends GameModel {
 	}
 
 	/**
-	 * TODO
+	 * Resets the board to its inital values so that a new game is possible
 	 */
 	public void resetModel() {
 		for (int i = 0; i < GameLogic.ROW; i++) {
@@ -46,17 +46,19 @@ public final class BoardModel extends GameModel {
 	}
 
 	/**
-	 * TODO
 	 * 
-	 * @return
+	 * 
+	 * @return Integer[][] board
 	 */
 	public Integer[][] getModel() {
 		return boardModel;
 	}
 
 	/**
-	 * TODO
+	 * sets the board and notifies the models observers.
+	 * 
 	 */
+	@Override
 	public void set(Integer[][] boardModel) {
 		this.boardModel = boardModel;
 		setChanged();

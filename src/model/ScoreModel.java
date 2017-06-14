@@ -5,10 +5,10 @@ package model;
  */
 public class ScoreModel extends GameModel {
 
-	private Integer score; 
-	
+	private Integer score;
+
 	/**
-	 * TODO
+	 * sets the score to the default (0) value when a new game gets started.
 	 */
 	@Override
 	public void init() {
@@ -16,9 +16,11 @@ public class ScoreModel extends GameModel {
 		setChanged();
 		notifyObservers(this.score);
 	}
-	
+
 	/**
-	 * TODO
+	 * sets the score to the new calculated score and notifies its views that
+	 * the score now has changed.
+	 * 
 	 * @param score
 	 */
 	@Override
@@ -29,10 +31,10 @@ public class ScoreModel extends GameModel {
 		setChanged();
 		notifyObservers(this.score);
 	}
-	
+
 	/**
-	 * TODO
-	 * @return
+	 * 
+	 * @return score (Integer)
 	 */
 	public Integer getScore() {
 		return score;

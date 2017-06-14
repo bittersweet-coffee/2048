@@ -9,16 +9,15 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
-/**
- * TODO
- */
 public class GameScreenView extends GameView {
 
 	private GridPane board;
 	private Button start;
-	
+
 	/**
-	 * TODO
+	 * 
+	 * gets the root fxml file where all the view stuff is placed on.
+	 * 
 	 * @param root
 	 */
 	public GameScreenView(Parent root) {
@@ -26,7 +25,9 @@ public class GameScreenView extends GameView {
 	}
 
 	/**
-	 * TODO
+	 * loads the components form the fxml file which are important for this
+	 * view.
+	 * 
 	 * @param root
 	 */
 	@Override
@@ -34,13 +35,17 @@ public class GameScreenView extends GameView {
 		this.board = (GridPane) root.lookup("#board");
 		this.start = (Button) root.lookup("#btn_start");
 	}
-	
+
+	/**
+	 * this view has nothing to initialize. The method has to be overridden
+	 * because this view extends GameView class.
+	 */
 	@Override
 	protected void init() {
 	}
 
 	/**
-	 * TODO
+	 * Displays the winning text on the board when a game is won.
 	 */
 	private void performGameWinView() {
 		for (int i = 0; i < GameLogic.ROW; i++) {
@@ -75,7 +80,7 @@ public class GameScreenView extends GameView {
 	}
 
 	/**
-	 * TODO
+	 * Displays the loosing text on the board when a game is lost.
 	 */
 	private void performGameOverView() {
 		for (int i = 0; i < GameLogic.ROW; i++) {
@@ -116,7 +121,7 @@ public class GameScreenView extends GameView {
 	}
 
 	/**
-	 * TODO
+	 * Updates the board with a winning/loosing text when its over.
 	 */
 	@Override
 	public void update(Observable obs, Object obj) {

@@ -13,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- * TODO
+ * 
  */
 public class BoardView extends GameView implements Observer {
 
@@ -22,18 +22,16 @@ public class BoardView extends GameView implements Observer {
 	private VBox container;
 
 	/**
-	 * TODO
 	 * 
-	 * @param root
+	 * @param root (Parent)
 	 */
 	public BoardView(Parent root) {
 		super(root);
 	}
 
 	/**
-	 * TODO
 	 * 
-	 * @param board
+	 * Sets up the board for the view object and loads the main view.
 	 */
 	@Override
 	protected void init() {
@@ -56,7 +54,8 @@ public class BoardView extends GameView implements Observer {
 	}
 
 	/**
-	 * TODO
+	 * 
+	 * loads the components form the fxml file which are important for this view
 	 * 
 	 * @param root
 	 */
@@ -73,9 +72,10 @@ public class BoardView extends GameView implements Observer {
 	}
 
 	/**
-	 * TODO
+	 * adds the controller to the objects on the view which have to perform
+	 * events.
 	 * 
-	 * @param controller
+	 * @param controller (BoardController)
 	 */
 	public void addCotroller(BoardController controller) {
 		this.container.setOnKeyPressed(event -> controller.handle(event));
@@ -88,7 +88,7 @@ public class BoardView extends GameView implements Observer {
 	}
 
 	/**
-	 * TODO
+	 * Updates the board with its new values.
 	 */
 	public void update(Observable obs, Object obj) {
 		this.start.setDisable(true);
