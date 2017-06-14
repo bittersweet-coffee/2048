@@ -3,7 +3,7 @@ package generic;
 import java.util.Random;
 
 /**
- * TODO
+ * Provides the actual GameLogic of 2048
  */
 public class GameLogic {
 
@@ -31,9 +31,11 @@ public class GameLogic {
 	}
 
 	/**
-	 * TODO
+	 * Perform a move right
 	 * 
+	 * @param board
 	 * @param score
+	 * @return (Integer[][]) The newly calculated board
 	 */
 	public static Integer[][] moveRight(Integer[][] board, Integer score) {
 		GameLogic.setScoreValue(0);
@@ -53,9 +55,11 @@ public class GameLogic {
 	}
 
 	/**
-	 * TODO
+	 * Perform a move left
 	 * 
+	 * @param board
 	 * @param score
+	 * @return (Integer[][]) The newly calculated board
 	 */
 	public static Integer[][] moveLeft(Integer[][] board, Integer score) {
 		GameLogic.setScoreValue(0);
@@ -75,12 +79,11 @@ public class GameLogic {
 	}
 
 	/**
-	 * TODO
+	 * Perform a move up
 	 * 
+	 * @param board
 	 * @param score
-	 * @param integers
-	 * 
-	 * @return
+	 * @return (Integer[][]) The newly calculated board
 	 */
 	public static Integer[][] moveUp(Integer[][] board, Integer score) {
 		GameLogic.setScoreValue(0);
@@ -100,11 +103,11 @@ public class GameLogic {
 	}
 
 	/**
-	 * TODO
+	 * Perform a move down
 	 * 
+	 * @param board
 	 * @param score
-	 * 
-	 * @return
+	 * @return (Integer[][]) The newly calculated board
 	 */
 	public static Integer[][] moveDown(Integer[][] board, Integer score) {
 		GameLogic.setScoreValue(0);
@@ -126,8 +129,9 @@ public class GameLogic {
 	/**
 	 * Adds a certain amount of new fields to a possible place on the board.
 	 * 
+	 * @param board
 	 * @param amount
-	 * @return
+	 * @return (Integer[][]) The newly calculcated board
 	 */
 	public static Integer[][] addValue(Integer[][] board, int amount) {
 		int counter = 0;
@@ -140,14 +144,13 @@ public class GameLogic {
 				counter++;
 			}
 		}
-
 		return board;
 	}
 
 	/**
+	 * Check if the game is already won and perform an action if required
 	 * 
 	 * @param board
-	 * @return
 	 */
 	private static void checkWin(Integer[][] board) {
 		for (Integer[] integers : board) {
@@ -164,7 +167,7 @@ public class GameLogic {
 	 * Returns a random integer (default <= 0 && >= ROW). Used to determine the
 	 * next row to place a new number.
 	 * 
-	 * @return random integer between 0 and ROW
+	 * @return (int) random integer between 0 and ROW
 	 */
 	private static int getRandomRow() {
 		Random random = new Random();
@@ -175,7 +178,7 @@ public class GameLogic {
 	 * Returns a random integer (default <= 0 && >= COL). Used to determine the
 	 * next column to place a new number.
 	 * 
-	 * @return random integer between 0 and COL
+	 * @return (int) random integer between 0 and COL
 	 */
 	private static int getRandomCol() {
 		Random random = new Random();
@@ -185,6 +188,8 @@ public class GameLogic {
 	/**
 	 * Returns a random int (dafault 2 || 4). Used to set the values on the
 	 * Board when game starts and move is performed.
+	 * 
+	 * @return (int) random integer
 	 */
 	private static int getRandomValue() {
 		Random random = new Random();
@@ -199,9 +204,10 @@ public class GameLogic {
 	 * Determines if a certain field on the board is occupied (returns true is
 	 * it's occupied and false otherwise.
 	 * 
+	 * @param board
 	 * @param row
 	 * @param col
-	 * @return true if row - col is occupied
+	 * @return (boolean) true if row - col is occupied
 	 */
 	private static boolean isOccupied(Integer[][] board, int row, int col) {
 		if (board[row][col].equals(INIT_FIELD_VALUE)) {
@@ -215,7 +221,7 @@ public class GameLogic {
 	 * Checks if there are possible fields on the board which can be merged. If
 	 * a merge is possible a further move has to be done.
 	 * 
-	 * @return
+	 * @return (Integer[][]) The newly calculated board
 	 */
 	private static Integer[][] performMergeRight(Integer[][] board) {
 		for (int row = board.length - 1; row >= 0; row--) {
@@ -235,7 +241,7 @@ public class GameLogic {
 	/**
 	 * Checks if there are possible fields on the board which can be moved.
 	 * 
-	 * @return
+	 * @return (Integer[][]) The newly calculated board
 	 */
 	private static Integer[][] performMoveRight(Integer[][] board) {
 		if (!checkMovePossibility(board)) {
@@ -265,11 +271,10 @@ public class GameLogic {
 	}
 
 	/**
-	 * TODO
+	 * Checks if there are possible fields on the board which can be merged. If
+	 * a merge is possible a further move has to be done.
 	 * 
-	 * @param score
-	 * 
-	 * @return
+	 * @return (Integer[][]) The newly calculated board
 	 */
 	private static Integer[][] performMergeLeft(Integer[][] board) {
 		for (int row = 0; row < board.length; row++) {
@@ -287,9 +292,9 @@ public class GameLogic {
 	}
 
 	/**
-	 * TODO
+	 * Checks if there are possible fields on the board which can be moved.
 	 * 
-	 * @return
+	 * @return (Integer[][]) The newly calculated board
 	 */
 	private static Integer[][] performMoveLeft(Integer[][] board) {
 		if (!checkMovePossibility(board)) {
@@ -317,11 +322,10 @@ public class GameLogic {
 	}
 
 	/**
-	 * TODO
+	 * Checks if there are possible fields on the board which can be merged. If
+	 * a merge is possible a further move has to be done.
 	 * 
-	 * @param score
-	 * 
-	 * @return
+	 * @return (Integer[][]) The newly calculated board
 	 */
 	private static Integer[][] performMergeUp(Integer[][] board) {
 		for (int col = board.length - 1; col >= 0; col--) {
@@ -339,9 +343,9 @@ public class GameLogic {
 	}
 
 	/**
-	 * TODO
+	 * Checks if there are possible fields on the board which can be moved.
 	 * 
-	 * @return
+	 * @return (Integer[][]) The newly calculated board
 	 */
 	private static Integer[][] performMoveUp(Integer[][] board) {
 		if (!checkMovePossibility(board)) {
@@ -369,11 +373,10 @@ public class GameLogic {
 	}
 
 	/**
-	 * TODO
+	 * Checks if there are possible fields on the board which can be merged. If
+	 * a merge is possible a further move has to be done.
 	 * 
-	 * @param score
-	 * 
-	 * @return
+	 * @return (Integer[][]) The newly calculated board
 	 */
 	private static Integer[][] performMergeDown(Integer[][] board) {
 		for (int col = 0; col < board.length; col++) {
@@ -391,9 +394,9 @@ public class GameLogic {
 	}
 
 	/**
-	 * TODO
+	 * Checks if there are possible fields on the board which can be moved.
 	 * 
-	 * @return
+	 * @return (Integer[][]) The newly calculated board
 	 */
 	private static Integer[][] performMoveDown(Integer[][] board) {
 		if (!checkMovePossibility(board)) {
@@ -423,7 +426,7 @@ public class GameLogic {
 	}
 
 	/**
-	 * merges certain field on the board and checks whether the player has won
+	 * Merges certain field on the board and checks whether the player has won
 	 * the game.
 	 * 
 	 * @param board
@@ -431,6 +434,7 @@ public class GameLogic {
 	 * @param col_from
 	 * @param row_to
 	 * @param col_to
+	 * @return (Integer[][]) The newly calculcated board
 	 */
 	private static Integer[][] merge(Integer[][] board, int row_from,
 			int col_from, int row_to, int col_to) {
@@ -439,19 +443,17 @@ public class GameLogic {
 		setScoreValue(value);
 		board[row_from][col_from] = INIT_FIELD_VALUE;
 		return board;
-		/**
-		 * this.setScore(value); if (value == WIN_VALUE) { win(); }
-		 */
 	}
 
 	/**
-	 * moves certain field on the board.
+	 * Moves certain fields on the board.
 	 * 
 	 * @param board
 	 * @param row_from
 	 * @param col_from
 	 * @param row_to
 	 * @param col_to
+	 * @return (Integer[][]) The newly calculcated board
 	 */
 	private static Integer[][] move(Integer[][] board, int row_from,
 			int col_from, int row_to, int col_to) {
@@ -461,9 +463,9 @@ public class GameLogic {
 	}
 
 	/**
-	 * TODO
+	 * Add two different boards together and check if the game is lost
 	 * 
-	 * @return
+	 * @return (Integer[][]) The newly calculcated board
 	 */
 	private static Integer[][] performAdd(Integer[][] oldBoard,
 			Integer[][] newBoard) {
@@ -478,7 +480,10 @@ public class GameLogic {
 	}
 
 	/**
-	 * TODO
+	 * Check if it's even possible to move.
+	 * 
+	 * @param board
+	 * @return (boolean) true if move is possible
 	 */
 	private static boolean checkMovePossibility(Integer[][] board) {
 		for (int row = 0; row < board.length; row++) {
@@ -508,16 +513,16 @@ public class GameLogic {
 	}
 
 	/**
-	 * TODO
+	 * Returns the current score
 	 * 
-	 * @return
+	 * @return (Integer)
 	 */
 	public static Integer getScore() {
 		return GameLogic.score;
 	}
 
 	/**
-	 * TODO
+	 * Set the current score
 	 * 
 	 * @param score
 	 */
@@ -526,16 +531,16 @@ public class GameLogic {
 	}
 
 	/**
-	 * TODO
+	 * Returns the current scoreValue
 	 * 
-	 * @return
+	 * @return (Integer)
 	 */
 	public static Integer getScoreValue() {
 		return GameLogic.scoreValue;
 	}
 
 	/**
-	 * TODO
+	 * Set the current scoreValue
 	 * 
 	 * @param score
 	 */
@@ -545,11 +550,10 @@ public class GameLogic {
 		} else {
 			GameLogic.scoreValue = GameLogic.scoreValue + score;
 		}
-
 	}
 
 	/**
-	 * TODO
+	 * Set the gameOver flag
 	 * 
 	 * @param gameOver
 	 */
@@ -558,16 +562,16 @@ public class GameLogic {
 	}
 
 	/**
-	 * TODO
+	 * Get the gameOver flag
 	 * 
-	 * @return
+	 * @return (boolean)
 	 */
 	public static boolean getGameOver() {
 		return GameLogic.gameOver;
 	}
 
 	/**
-	 * TODO
+	 * Set the gameWin flag
 	 * 
 	 * @param gameWin
 	 */
@@ -576,9 +580,9 @@ public class GameLogic {
 	}
 
 	/**
-	 * TODO
+	 * Get the gameWin flag
 	 * 
-	 * @return
+	 * @return (boolean)
 	 */
 	public static boolean getGameWin() {
 		return GameLogic.gameWin;

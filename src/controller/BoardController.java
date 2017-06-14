@@ -3,11 +3,9 @@ package controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-
 import generic.GameLogic;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -21,13 +19,14 @@ import model.ScoreModel;
 import model.StatsModel;
 
 /**
- * TODO
+ * Provides a BoardController EventHandler which is the backbone of all events
+ * and triggers the required logic pieces.
  */
 public class BoardController implements EventHandler<Event> {
 	private ArrayList<GameModel> modelList = new ArrayList<GameModel>();
 
 	/**
-	 * TODO
+	 * Default constructor
 	 */
 	public BoardController() {
 	}
@@ -44,9 +43,10 @@ public class BoardController implements EventHandler<Event> {
 	}
 
 	/**
-	 * TODO
+	 * Add the GameModel to the modelList in order to interact with the
+	 * BoardController
 	 * 
-	 * @param boardModel
+	 * @param GameModel
 	 */
 	public void addModel(GameModel model) {
 		this.modelList.add(model);
@@ -55,6 +55,8 @@ public class BoardController implements EventHandler<Event> {
 	/**
 	 * Handle the arrow keys and the buttons of the View. It connects the View
 	 * with the Model.
+	 * 
+	 * @param Event
 	 */
 	@Override
 	public void handle(Event event) {
@@ -135,6 +137,14 @@ public class BoardController implements EventHandler<Event> {
 		performGameOver(GameLogic.getGameOver());
 	}
 
+	/**
+	 * Perform a move UP and calculate the resulting score.
+	 * 
+	 * @param board
+	 *            (Integer[][])
+	 * @param score
+	 *            (Integer)
+	 */
 	private void performMoveUp(Integer[][] board, Integer score) {
 		if (boardIsSet(board)) {
 			board = GameLogic.moveUp(board, score);
@@ -145,6 +155,14 @@ public class BoardController implements EventHandler<Event> {
 		}
 	}
 
+	/**
+	 * Perform a move DOWN and calculate the resulting score.
+	 * 
+	 * @param board
+	 *            (Integer[][])
+	 * @param score
+	 *            (Integer)
+	 */
 	private void performMoveDown(Integer[][] board, Integer score) {
 		if (boardIsSet(board)) {
 			board = GameLogic.moveDown(board, score);
@@ -155,6 +173,14 @@ public class BoardController implements EventHandler<Event> {
 		}
 	}
 
+	/**
+	 * Perform a move LEFT and calculate the resulting score.
+	 * 
+	 * @param board
+	 *            (Integer[][])
+	 * @param score
+	 *            (Integer)
+	 */
 	private void performMoveLeft(Integer[][] board, Integer score) {
 		if (boardIsSet(board)) {
 			board = GameLogic.moveLeft(board, score);
@@ -165,6 +191,14 @@ public class BoardController implements EventHandler<Event> {
 		}
 	}
 
+	/**
+	 * Perform a move RIGHT and calculate the resulting score.
+	 * 
+	 * @param board
+	 *            (Integer[][])
+	 * @param score
+	 *            (Integer)
+	 */
 	private void performMoveRight(Integer[][] board, Integer score) {
 		if (boardIsSet(board)) {
 			board = GameLogic.moveRight(board, score);
@@ -175,6 +209,11 @@ public class BoardController implements EventHandler<Event> {
 		}
 	}
 
+	/**
+	 * Generate the XML with all highscores and players.
+	 * 
+	 * @throws JAXBException
+	 */
 	private void generateXML() throws JAXBException {
 		JAXBContext context = JAXBContext.newInstance(StatsModel.class);
 		Marshaller marshaller = context.createMarshaller();
@@ -187,6 +226,12 @@ public class BoardController implements EventHandler<Event> {
 		}
 	}
 
+	/**
+	 * Check if all fields of the board are set
+	 * 
+	 * @param board
+	 * @return boolean, true if all fields are set
+	 */
 	private boolean boardIsSet(Integer[][] board) {
 		for (Integer[] integers : board) {
 			for (Integer integer : integers) {
@@ -198,6 +243,11 @@ public class BoardController implements EventHandler<Event> {
 		return true;
 	}
 
+	/**
+	 * End the game and display the game over screen
+	 * 
+	 * @param gameOver
+	 */
 	private void performGameOver(boolean gameOver) {
 		if (GameLogic.getGameOver()) {
 			for (GameModel gameModel : this.modelList) {
@@ -225,6 +275,12 @@ public class BoardController implements EventHandler<Event> {
 
 	}
 
+	/**
+	 * Play as the Random KI
+	 * 
+	 * @param board
+	 * @param score
+	 */
 	private void performRandomKiGame(Integer[][] board, Integer score) {
 		if (boardIsSet(board)) {
 			for (GameModel gameModel : this.modelList) {
@@ -261,6 +317,9 @@ public class BoardController implements EventHandler<Event> {
 		}
 	}
 
+	/**
+	 * Play as the Greedy KI
+	 */
 	private void performGreedyKiGame() {
 		for (GameModel gameModel : this.modelList) {
 			gameModel.set(false);
@@ -271,7 +330,7 @@ public class BoardController implements EventHandler<Event> {
 		int tmpScore = 0;
 		for (GameModel gameModel : modelList) {
 			if (gameModel instanceof BoardModel) {
-				tmpBoard = createBoradCopy(((BoardModel) gameModel).getModel());
+				tmpBoard = createBoardCopy(((BoardModel) gameModel).getModel());
 			}
 			if (gameModel instanceof ScoreModel) {
 				scoreModel = (ScoreModel) gameModel;
@@ -297,6 +356,16 @@ public class BoardController implements EventHandler<Event> {
 		}
 	}
 
+	/**
+	 * Perform a single move as a KI
+	 * 
+	 * @param board
+	 * @param score
+	 * @param gameOver
+	 * @param scoreModel
+	 * @param statsModel
+	 * @return (Integer[][]) the updated board
+	 */
 	private Integer[][] performKIMove(Integer[][] board, Integer score,
 			boolean gameOver, ScoreModel scoreModel, StatsModel statsModel) {
 		if (gameOver) {
@@ -305,10 +374,10 @@ public class BoardController implements EventHandler<Event> {
 			statsModel.set(score);
 			return board;
 		}
-		Integer[][] tmpBoardUp = createBoradCopy(board);
-		Integer[][] tmpBoardLeft = createBoradCopy(board);
-		Integer[][] tmpBoardRight = createBoradCopy(board);
-		Integer[][] tmpBoardDown = createBoradCopy(board);
+		Integer[][] tmpBoardUp = createBoardCopy(board);
+		Integer[][] tmpBoardLeft = createBoardCopy(board);
+		Integer[][] tmpBoardRight = createBoardCopy(board);
+		Integer[][] tmpBoardDown = createBoardCopy(board);
 		Integer tmpScoreUp = score;
 		Integer tmpScoreLeft = score;
 		Integer tmpScoreRight = score;
@@ -370,7 +439,12 @@ public class BoardController implements EventHandler<Event> {
 
 	}
 
-	private Integer[][] createBoradCopy(Integer[][] board) {
+	/**
+	 * Creates a copy of the given board
+	 * @param board
+	 * @return (Integer[][]) Copy of the board
+	 */
+	private Integer[][] createBoardCopy(Integer[][] board) {
 		Integer[][] boardCopy = new Integer[GameLogic.ROW][GameLogic.COL];
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
