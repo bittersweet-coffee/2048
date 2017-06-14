@@ -35,7 +35,7 @@ public class GameLogic {
 	 * 
 	 * @param score
 	 */
-	public static Integer[][] moveRight(Integer[][] board, int score) {
+	public static Integer[][] moveRight(Integer[][] board, Integer score) {
 		GameLogic.setScoreValue(0);
 		GameLogic.setScore(score);
 		Integer[][] oldBoard = new Integer[ROW][COL];
@@ -57,7 +57,7 @@ public class GameLogic {
 	 * 
 	 * @param score
 	 */
-	public static Integer[][] moveLeft(Integer[][] board, int score) {
+	public static Integer[][] moveLeft(Integer[][] board, Integer score) {
 		GameLogic.setScoreValue(0);
 		GameLogic.setScore(score);
 		Integer[][] oldBoard = new Integer[ROW][COL];
@@ -82,7 +82,7 @@ public class GameLogic {
 	 * 
 	 * @return
 	 */
-	public static Integer[][] moveUp(Integer[][] board, int score) {
+	public static Integer[][] moveUp(Integer[][] board, Integer score) {
 		GameLogic.setScoreValue(0);
 		GameLogic.setScore(score);
 		Integer[][] oldBoard = new Integer[ROW][COL];
@@ -106,7 +106,7 @@ public class GameLogic {
 	 * 
 	 * @return
 	 */
-	public static Integer[][] moveDown(Integer[][] board, int score) {
+	public static Integer[][] moveDown(Integer[][] board, Integer score) {
 		GameLogic.setScoreValue(0);
 		GameLogic.setScore(score);
 		Integer[][] oldBoard = new Integer[ROW][COL];
