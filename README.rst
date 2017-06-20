@@ -2,16 +2,25 @@
 2048
 ====
 
+|Travis| |License|
+
+.. |Travis| image:: https://img.shields.io/travis/bittersweet-coffee/2048.svg?style=flat-square
+   :target: https://travis-ci.org/bittersweet-coffee/2048
+.. |License| image:: https://img.shields.io/github/license/bittersweet-coffee/2048.svg?style=flat-square
+   :target: LICENSE
 
 Java implementation of the well-known one-player game 2048. 
 
 Features
 ========
-TODO
+* Play using either the buttons or arrow keys
+* Highscores stored in a local XML file
+* Simple AI
 
 Requirements
 ============
-TODO
+* OpenJDK
+* OpenJFX
 
 Installation
 ============
@@ -23,13 +32,13 @@ See the issues page for a list of upcoming and planned features.
 
 Contributions
 =============
-Contributions are more than welcome but are currently limited to issue requests
-only as this is an academical project.
+Contributions are more than welcome. Please note that this was an academical
+project, bugs and ugly code is to be expected.
 
 Development Guide
 -----------------
-This projects follows the coding guidelines listed below, please make sure to
-follow them:
+This projects tries to adhere the coding guidelines listed below, please make
+sure to follow them:
 
 * `Oracle Java Language Specification`_
 * `Google Java Style Guide`_
